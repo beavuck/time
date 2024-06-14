@@ -5,17 +5,18 @@ dotenv.config();
 
 const api = express();
 
+const TIME_API_KEY = 'time-api-key';
+
 const API_PORT = process.env.API_PORT || 3000;
-const API_KEY_KEY = process.env.API_KEY_KEY;
-const API_KEY_VALUE = process.env.API_KEY_VALUE;
+const API_KEY_SECRET = process.env.API_KEY;
 
 api.use((
   req,
   res,
   next,
 ) => {
-  const apiKey = req.header(API_KEY_KEY);
-  if (apiKey !== API_KEY_VALUE) {
+  const apiKey = req.header(TIME_API_KEY);
+  if (apiKey !== API_KEY_SECRET) {
     return res.status(403).send();
   }
   next();

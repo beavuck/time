@@ -33,3 +33,14 @@ To build the Docker image, run:
 ```shell
 docker build -t beavuck-time:latest .
 ```
+
+To run the service in a docker-compose environment, add onto the YAML:
+
+```yaml
+    time:
+        image: beavuck-time:latest
+        ports:
+            - "3000:3000"
+        environment:
+            - API_KEY=swordfish
+```
