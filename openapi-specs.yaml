@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Beavuck Time Microservice
+  title: Beavuck Time
   version: 1.0.0
   description: A simple microservice to get the current time in ISO format in UTC timezone.
 servers:
@@ -13,13 +13,13 @@ paths:
       description: Returns the current time in ISO format, in UTC timezone.
       responses:
         '200':
-          description: A JSON object containing the current time
+          description: A JSON object containing the current date and time
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  currentTime:
+                  now:
                     type: string
                     format: date-time
                     example: "2024-06-14T18:25:46.835Z"

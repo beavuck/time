@@ -1,16 +1,19 @@
-FROM node:20
+FROM node:22-slim
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --ignore-scripts
 
-COPY . .
+COPY ./index.js .
+
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+RUN chown -R appuser:appgroup /usr/src/app
+
+USER appuser
 
 EXPOSE 3000
-
-ENV API_PORT=3000
-ENV API_KEY_KEY=time-api-key
 
 CMD ["node", "index.js"]

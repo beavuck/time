@@ -73,3 +73,6 @@ lib/
 
 # Windows files
 Thumbs.db
+
+# Sonar
+.scannerwork/

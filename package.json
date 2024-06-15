@@ -6,9 +6,9 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "alexis@alexisdrai.Com",
+  "author": "Alexis Drai",
   "license": "ISC",
-  "description": "",
+  "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
