@@ -1,10 +1,23 @@
 stages:
+  - Test
   - Publish
   - Update dependencies
 
 variables:
-  MAIN_BRANCH: "main"
-  DOCKER_IMAGE_NAME: "beavuck/time"
+  MAIN_BRANCH: 'main'
+  DOCKER_IMAGE_NAME: 'beavuck/time'
+
+test:
+  image: node:22
+  stage: Test
+  script:
+    - npm ci
+    - npm test
+  allow_failure: false
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  when: always
 
 publish:
   image: docker:latest
@@ -21,16 +34,20 @@ publish:
     - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_TAG
   allow_failure: false
   rules:
-    - if: $CI_COMMIT_TAG
-  when: manual
+    - if: '$CI_COMMIT_TAG'
+      when: manual
+  needs:
+    - job: test
+      artifacts: true
 
 update_dependencies:
-  image: node:20
+  image: node:22
   stage: Update dependencies
   variables:
     BRANCH_NAME: chore/update-dependencies
-    COMMIT_MESSAGE: "⚙️ Update dependencies automatically"
+    COMMIT_MESSAGE: '⚙️ Update dependencies automatically'
   script:
+    - npm ci
     - npm update --latest
     - npm audit fix
     - git config --global user.email "alexis@alexisdrai.com"

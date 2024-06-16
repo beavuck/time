@@ -19,7 +19,7 @@ now?"
 Get the current time in ISO format, in UTC timezone.
 
 This lightweight service needs no persistence layer, is capable of handling multiple concurrent requests, and is
-protected by an API key for security and performance reasons.
+protected by a simple CORS config for security and performance reasons.
 
 Made available as a Docker image, for easy deployment and scaling.
 
@@ -32,26 +32,40 @@ Made available as a Docker image, for easy deployment and scaling.
 To run the service in a docker-compose environment, add this in your `docker-compose.yml`'s services section:
 
 ```yaml
-  time:
-    image: beavuck/time:latest
-    ports:
-      - "YOUR_CHOSEN_PORT_NUMBER_HERE:3000"
-      # HOST_PORT:CONTAINER_PORT (Container port is the API_PORT variable below, which defaults to 3000)
-    environment:
-      - API_KEY=swordfish # Choose a better key -- you'll use that key in the header of your requests to this service
-      - API_PORT=3000 # Optional, defaults to 3000
+time:
+  image: beavuck/time:latest
+  ports:
+    - 'SOME_PORT_NUMBER:3000'
+    # HOST_PORT:CONTAINER_PORT (Since we are in a container, CONTAINER_PORT corresponds to the API_PORT variable below)
+  environment:
+    - HOST_URL: https://time-api.example.com
+    # HOST_URL: That API's URL. Essential for CORS config.
+    - TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
+    # TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
+    - API_PORT: 3000
+    # API_PORT: Optional. Internal port when in a container. Defaults to 3000
+    - RATE_LIMIT: 100
+    # RATE_LIMIT: Optional. Number of requests per minute. If negative or 0, no limit. Defaults to no limit
+    - LOG_LEVEL: info
+    # LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
+    - MAX_LOG_FILES: 7d
+    # MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 7d
+    - MAX_SIZE_LOG_FILES: 1m
+    # MAX_SIZE_LOG_FILES: Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is null
 ```
 
-Here's the simple docker compose file I used to test this service:
+Here's the simple docker compose file I used to test this service locally:
 
 ```yaml
 services:
   time:
     image: beavuck/time:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
-      - API_KEY=swordfish
+      HOST_URL: http://127.0.0.1:3000
+      TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
+      LOG_LEVEL: debug
 ```
 
 When you're ready, just run your services with:
@@ -65,8 +79,8 @@ docker compose up -d
 Now, when you run:
 
 ```shell
-curl --location 'http://localhost:{{YOUR_CHOSEN_PORT_NUMBER_HERE}}/now' \
---header 'time-api-key: {{API_KEY}}'
+curl --location 'http://localhost:{{SOME_PORT_NUMBER}}/now' \
+--header 'Origin: {{SOME_TRUSTED_ORIGIN}}'
 ```
 
 you should expect an answer such as:
@@ -76,3 +90,22 @@ you should expect an answer such as:
   "now": "2024-06-15T12:35:48.022Z"
 }
 ```
+
+---
+
+## 🛡️ CORS
+
+This service is protected by a CORS policy, which you can configure by setting the `TRUSTED_ORIGINS` environment
+variable.
+
+When you use the API, keep in mind what these headers mean:
+
+| `"Origin:"`                                     | `"Referer:"`                   | Result |
+| ----------------------------------------------- | ------------------------------ | ------ |
+| Is defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
+| Is trusted                                      | Whatever                       | ✅     |
+| Is same as this API's host                      | Whatever                       | ✅     |
+| Not defined                                     | Same as this API's host        | ✅     |
+| Is defined and not trusted                      | Whatever                       | ❌     |
+| Not defined                                     | Not defined                    | ❌     |
+| Not defined or not trusted                      | Different from this API's host | ❌     |

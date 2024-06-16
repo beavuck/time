@@ -36,11 +36,8 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components/
 
-# lock files
-package-lock.json
-yarn.lock
-
 # Compiled source
+dist/
 lib/
 *.js
 *.d.ts

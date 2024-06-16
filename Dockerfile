@@ -6,7 +6,10 @@ COPY package*.json ./
 
 RUN npm install --ignore-scripts
 
-COPY ./index.js .
+COPY tsconfig.json ./
+COPY src ./src
+
+RUN npm run build
 
 RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
@@ -16,4 +19,4 @@ USER appuser
 
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+CMD ["node", "dist/server.js"]

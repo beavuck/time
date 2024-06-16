@@ -11,3 +11,4 @@ Dockerfile
 sonar_scan.sh
 .sonarlint
 .scannerwork
+src/__tests__

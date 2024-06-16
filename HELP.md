@@ -18,8 +18,8 @@ To use this service in local env (not in a container), start by preparing your .
 cp .env.example .env
 ```
 
-If you want to change the API Key from the current one (`swordfish`), do so in the `.env` file. More generally, you can
-change environment variables to suit your needs.
+You can change environment variables to suit your needs, specifically depending on what URLs you run this API and your
+other app(s) on.
 
 Then, install the dependencies, and run the service with:
 
@@ -33,9 +33,9 @@ npm start
 When you run:
 
 ```shell
-curl --location 'http://localhost:{{YOUR_CHOSEN_PORT_NUMBER_HERE}}/now' \
---header 'time-api-key: {{API_KEY}}'
-````
+curl --location 'http://localhost:{{SOME_PORT_NUMBER}}/now' \
+--header 'Origin: {{SOME_TRUSTED_ORIGIN}}'
+```
 
 you should expect an answer such as:
 
@@ -58,8 +58,12 @@ docker login
 ```
 
 Then
+
 ```shell
 docker build -t beavuck-time:latest .
+```
+
+```shell
 docker tag beavuck-time:latest beavuck/time:latest
 docker push beavuck/time:latest
 ```
