@@ -67,3 +67,17 @@ docker build -t beavuck-time:latest .
 docker tag beavuck-time:latest beavuck/time:latest
 docker push beavuck/time:latest
 ```
+
+## Integration API tests
+
+To run the integration tests, you need to have a running instance of the API. You also need newman installed.
+
+```bash
+npm install -g newman
+```
+
+Then, you can run the tests with:
+
+```bash
+newman run api-tests/collection.json -e api-tests/environment.json --bail
+```

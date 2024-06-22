@@ -6,7 +6,7 @@ stages:
 variables:
   DOCKER_IMAGE_NAME: 'beavuck/time'
 
-test:
+run_unit_tests:
   image: node:22
   stage: Test
   script:
@@ -16,7 +16,47 @@ test:
   rules:
     - if: $CI_COMMIT_TAG
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-  when: always
+
+run_integration_tests:
+  image: node:22
+  stage: Test
+  variables:
+    API_PORT: 9124
+    HOST_URL: http://localhost:9124
+    TRUSTED_ORIGINS: http://localhost:8477
+    MAX_ATTEMPTS_TO_START_SERVICE: 5
+  before_script:
+    - npm ci
+    - npm install -g newman
+    - npm run build
+    - npm start &
+    - |
+      attempt=1
+      sleep_duration=2
+      while [ $attempt -le $MAX_ATTEMPTS_TO_START_SERVICE ]; do
+        if curl --output /dev/null --silent --head --fail "$HOST_URL/now" --header "Origin: $TRUSTED_ORIGINS"; then
+          echo 'Service is ready!'
+          break
+        else
+          echo "Attempt $attempt: Service is not ready yet. Sleeping for $sleep_duration seconds..."
+          sleep $sleep_duration
+          attempt=$(( attempt + 1 ))
+          sleep_duration=$(( sleep_duration * 2 ))
+        fi
+      done
+      if [ $attempt -gt $MAX_ATTEMPTS_TO_START_SERVICE ]; then
+        echo "Service did not start within the expected time."
+        exit 1
+      fi
+  script:
+    - newman run api-tests/collection.json -e api-tests/environment.json --bail
+  allow_failure: false
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  needs:
+    - run_unit_tests
+  when: on_success
 
 publish:
   image: docker:latest
@@ -36,7 +76,7 @@ publish:
     - if: '$CI_COMMIT_TAG'
       when: manual
   needs:
-    - job: test
+    - job: run_integration_tests
       artifacts: true
 
 update_dependencies:

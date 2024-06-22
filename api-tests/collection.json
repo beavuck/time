@@ -1,0 +1,428 @@
+{
+  "info": {
+    "_postman_id": "4ede0f48-021a-4699-9a8f-8584fed898e8",
+    "name": "Time",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25824312"
+  },
+  "item": [
+    {
+      "name": "Get now - trusted origin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'now'\", function () {",
+              "  pm.expect(responseData.now).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Now attribute value is a valid datetime string\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "    pm.expect(responseData.now).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "{{TRUSTED_ORIGIN}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get now - same origin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'now'\", function () {",
+              "  pm.expect(responseData.now).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Now attribute value is a valid datetime string\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "    pm.expect(responseData.now).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "{{BASE_URL}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get now - same referer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'now'\", function () {",
+              "  pm.expect(responseData.now).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Now attribute value is a valid datetime string\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "    pm.expect(responseData.now).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Referer",
+            "value": "{{BASE_URL}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get now - non-trusted origin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 403\", function () {",
+              "    pm.response.to.have.status(403);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'message'\", function () {",
+              "  pm.expect(responseData.message).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Message attribute value contains the word 'CORS'\", function () {",
+              "  pm.expect(responseData).to.be.an('object');",
+              "  pm.expect(responseData.message).to.match(/cors/i);",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "{{NON_TRUSTED_ORIGIN}}"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get now - no origin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 403\", function () {",
+              "    pm.response.to.have.status(403);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'message'\", function () {",
+              "  pm.expect(responseData.message).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Message attribute value contains the word 'CORS'\", function () {",
+              "  pm.expect(responseData).to.be.an('object');",
+              "  pm.expect(responseData.message).to.match(/cors/i);",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get now - non-trusted origin and referer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 403\", function () {",
+              "    pm.response.to.have.status(403);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'message'\", function () {",
+              "  pm.expect(responseData.message).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Message attribute value contains the word 'CORS'\", function () {",
+              "  pm.expect(responseData).to.be.an('object');",
+              "  pm.expect(responseData.message).to.match(/cors/i);",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "{{NON_TRUSTED_ORIGIN}}"
+          },
+          {
+            "key": "Referer",
+            "value": "{{NON_RECOGNIZED_REFERER}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get now - non-recognized referer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response time is less than 200ms\", function () {",
+              "  pm.expect(pm.response.responseTime).to.be.below(200);",
+              "});",
+              "",
+              "pm.test(\"Response status code is 403\", function () {",
+              "    pm.response.to.have.status(403);",
+              "});",
+              "",
+              "const responseData = pm.response.json();",
+              "",
+              "pm.test(\"Response body is an object\", function () {",
+              "    pm.expect(responseData).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Response object has the attribute 'message'\", function () {",
+              "  pm.expect(responseData.message).to.exist;",
+              "});",
+              "",
+              "pm.test(\"Message attribute value contains the word 'CORS'\", function () {",
+              "  pm.expect(responseData).to.be.an('object');",
+              "  pm.expect(responseData.message).to.match(/cors/i);",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Referer",
+            "value": "{{NON_RECOGNIZED_REFERER}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{BASE_URL}}/now",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

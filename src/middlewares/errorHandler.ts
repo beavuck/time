@@ -15,14 +15,12 @@ export const errorHandler = (
 ) => {
   if (err instanceof BeavuckTimeClientError) {
     logger.warn(err)
-    res
-      .status(err.code)
-      .json({
-        message:
-          err instanceof CorsError
-            ? CorsError.baseMessage
-            : BeavuckTimeClientError.baseMessage,
-      })
+    res.status(err.code).json({
+      message:
+        err instanceof CorsError
+          ? CorsError.baseMessage
+          : BeavuckTimeClientError.baseMessage,
+    })
   } else if (err instanceof BeavuckTimeServerError) {
     logger.error(err)
     res.status(err.code).json({message: BeavuckTimeServerError.baseMessage})
