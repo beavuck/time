@@ -4,7 +4,6 @@ stages:
   - Update dependencies
 
 variables:
-  MAIN_BRANCH: 'main'
   DOCKER_IMAGE_NAME: 'beavuck/time'
 
 test:
@@ -46,40 +45,23 @@ update_dependencies:
   variables:
     BRANCH_NAME: chore/update-dependencies
     COMMIT_MESSAGE: '⚙️ Update dependencies automatically'
+    COMMAND: |
+      npm ci && \
+      ncu --format group && \
+      ncu -u && \
+      npm install && \
+      npm prune && \
+      npm audit fix && \
+      npm run up-patch
+    TMP_SCRIPTS_DIR: /tmp/scripts
+  before_script:
+    - apt-get update && apt-get install -y bash curl jq
   script:
-    - npm ci
-    - npm update --latest
-    - npm audit fix
-    - git config --global user.email "alexis@alexisdrai.com"
-    - git config --global user.name "CI Bot"
-    - |
-      if git rev-parse --verify $BRANCH_NAME; then
-        git branch -D $BRANCH_NAME
-      fi
-    - git checkout -b $BRANCH_NAME
-    - git add .
-    - |
-      if ! git diff-index --quiet HEAD --; then
-        git commit -m "$COMMIT_MESSAGE"
-      else
-        echo "No changes to commit."
-        exit 0
-      fi
-    - git push https://gitlab-ci-token:$GITLAB_TOKEN@gitlab.com/$CI_PROJECT_PATH.git $BRANCH_NAME
-    - >
-      curl 
-      --request POST 
-      --header "PRIVATE-TOKEN: $GITLAB_TOKEN"
-      --header "Content-Type: application/json"
-      --data "{
-        \"source_branch\": \"$BRANCH_NAME\",
-        \"target_branch\": \"$MAIN_BRANCH\",
-        \"title\": \"$COMMIT_MESSAGE\",
-        \"assignee_id\": $GITLAB_USER_ID,
-        \"remove_source_branch\": true,
-        \"squash\": true
-      }"
-      "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/merge_requests"
+    - mkdir -p $TMP_SCRIPTS_DIR
+    - git clone https://gitlab-ci-token:$GITLAB_TOKEN@$GITLAB_HOST/beavuck-services/scripts/command-runner-and-mr-creator.git $TMP_SCRIPTS_DIR
+    - cp $TMP_SCRIPTS_DIR/run_command_and_create_mr.sh .
+    - chmod +x run_command_and_create_mr.sh
+    - /bin/bash ./run_command_and_create_mr.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-  when: always
+      when: always
