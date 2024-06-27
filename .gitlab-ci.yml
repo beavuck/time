@@ -31,25 +31,7 @@ run_integration_tests:
     - npm ci
     - npm install -g newman
     - npm run build
-    - npm start &
-    - |
-      attempt=1
-      sleep_duration=2
-      while [ $attempt -le $MAX_ATTEMPTS_TO_START_SERVICE ]; do
-        if curl --output /dev/null --silent --head --fail "$HOST_URL/now" --header "Origin: $TRUSTED_ORIGINS"; then
-          echo 'Service is ready!'
-          break
-        else
-          echo "Attempt $attempt: Service is not ready yet. Sleeping for $sleep_duration seconds..."
-          sleep $sleep_duration
-          attempt=$(( attempt + 1 ))
-          sleep_duration=$(( sleep_duration * 2 ))
-        fi
-      done
-      if [ $attempt -gt $MAX_ATTEMPTS_TO_START_SERVICE ]; then
-        echo "Service did not start within the expected time."
-        exit 1
-      fi
+    - npm start & sleep 10
   script:
     - newman run api-tests/collection.json -e api-tests/environment.json --bail
   allow_failure: false
