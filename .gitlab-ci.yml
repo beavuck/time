@@ -74,7 +74,6 @@ update_dependencies:
     BRANCH_NAME: chore/update-dependencies
     COMMIT_MESSAGE: '⚙️ Update dependencies automatically'
     COMMAND: |
-      npm ci && \
       ncu --format group && \
       ncu -u && \
       npm install && \
@@ -84,6 +83,7 @@ update_dependencies:
     TMP_SCRIPTS_DIR: /tmp/scripts
   before_script:
     - apt-get update && apt-get install -y bash curl jq
+    - npm install -g npm-check-updates
   script:
     - mkdir -p $TMP_SCRIPTS_DIR
     - git clone https://gitlab-ci-token:$GITLAB_TOKEN@$GITLAB_HOST/beavuck-services/scripts/command-runner-and-mr-creator.git $TMP_SCRIPTS_DIR
