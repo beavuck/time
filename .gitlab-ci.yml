@@ -4,8 +4,8 @@ stages:
   - Update dependencies
 
 variables:
-  GITLAB_CONTAINER_REGISTRY: "registry.gitlab.com"
-  GITLAB_DOCKER_IMAGE_PATH: "$GITLAB_CONTAINER_REGISTRY/beavuck-services/time"
+  GITLAB_CONTAINER_REGISTRY: 'registry.gitlab.com'
+  GITLAB_DOCKER_IMAGE_PATH: '$GITLAB_CONTAINER_REGISTRY/beavuck-services/time'
   DOCKERHUB_DOCKER_IMAGE_NAME: 'beavuck/time'
 
 run_unit_tests:
