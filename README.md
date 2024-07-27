@@ -21,8 +21,6 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=coverage)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
-
 </div>
 
 ---
