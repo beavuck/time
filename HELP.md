@@ -1,13 +1,5 @@
 # Beavuck Time
 
-## Analysis
-
-Run a SonarQube analysis with:
-
-```bash
-./sonar_scan.sh
-```
-
 ## Usage
 
 ### Set up (outside a container)
@@ -33,8 +25,8 @@ npm start
 When you run:
 
 ```shell
-curl --location 'http://localhost:{{SOME_PORT_NUMBER}}/now' \
---header 'Origin: {{SOME_TRUSTED_ORIGIN}}'
+curl --location 'http://localhost:9124/now' \
+--header 'Origin: http://localhost:8477'
 ```
 
 you should expect an answer such as:

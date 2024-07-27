@@ -1,10 +1,10 @@
 // src/errors/BeavuckTimeServerError.ts
 
-import {BeavuckTimeError} from './BeavuckTimeError'
+import {BeavuckTimeError} from './base/BeavuckTimeError'
 import {StatusCodes} from 'http-status-codes'
 
 export class BeavuckTimeServerError extends BeavuckTimeError {
-  static baseMessage = 'Internal Server Error'
+  static readonly baseMessage: string = 'Internal Server Error'
 
   constructor(
     message: string,

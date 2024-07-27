@@ -2,6 +2,31 @@
 
 ---
 
+## 📊 Status
+
+<div style="text-align: center;">
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=beavuck-services_time)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=bugs)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=coverage)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
+</div>
+
+---
+
 ## 💡 Why
 
 You can't count on client devices to all be set up with the correct date and time.
@@ -101,11 +126,11 @@ variable.
 When you use the API, keep in mind what these headers mean:
 
 | `"Origin:"`                                     | `"Referer:"`                   | Result |
-| ----------------------------------------------- | ------------------------------ | ------ |
-| Is defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
-| Is trusted                                      | Whatever                       | ✅     |
-| Is same as this API's host                      | Whatever                       | ✅     |
-| Not defined                                     | Same as this API's host        | ✅     |
-| Is defined and not trusted                      | Whatever                       | ❌     |
-| Not defined                                     | Not defined                    | ❌     |
-| Not defined or not trusted                      | Different from this API's host | ❌     |
+|-------------------------------------------------|--------------------------------|--------|
+| Is defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅      |
+| Is trusted                                      | Whatever                       | ✅      |
+| Is same as this API's host                      | Whatever                       | ✅      |
+| Not defined                                     | Same as this API's host        | ✅      |
+| Is defined and not trusted                      | Whatever                       | ❌      |
+| Not defined                                     | Not defined                    | ❌      |
+| Not defined or not trusted                      | Different from this API's host | ❌      |

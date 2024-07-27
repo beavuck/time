@@ -1,5 +1,6 @@
 stages:
   - Test
+  - Analyze
   - Publish
   - Update dependencies
 
@@ -26,7 +27,6 @@ run_integration_tests:
     API_PORT: 9124
     HOST_URL: http://localhost:9124
     TRUSTED_ORIGINS: http://localhost:8477
-    MAX_ATTEMPTS_TO_START_SERVICE: 5
   before_script:
     - npm ci
     - npm install -g newman
@@ -41,6 +41,28 @@ run_integration_tests:
   needs:
     - run_unit_tests
   when: on_success
+
+analyze:
+  image:
+    name: sonarsource/sonar-scanner-cli:5.0.1
+    entrypoint: [ "" ]
+  stage: Analyze
+  variables:
+    SONAR_USER_HOME: '${CI_PROJECT_DIR}/.sonar'  # Defines the location of the analysis task cache
+    GIT_DEPTH: '0'  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: '${CI_JOB_NAME}'
+    paths:
+      - .sonar/cache
+  script:
+    - git config --global --add safe.directory /builds/beavuck-services/time
+    - LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+    - PROJECT_VERSION="$LATEST_TAG-mr-$CI_MERGE_REQUEST_IID"
+    - sonar-scanner -Dsonar.projectVersion="$PROJECT_VERSION"
+  allow_failure: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "$CI_DEFAULT_BRANCH"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
 publish:
   image: docker:latest
@@ -92,4 +114,3 @@ update_dependencies:
     - /bin/bash ./run_command_and_create_mr.sh
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-      when: always
