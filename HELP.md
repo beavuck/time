@@ -60,6 +60,14 @@ docker tag beavuck-time:latest beavuck/time:latest
 docker push beavuck/time:latest
 ```
 
+## Update dependencies
+
+To update the dependencies, run:
+
+```shell
+npm run update
+```
+
 ## Integration API tests
 
 To run the integration tests, you need to have a running instance of the API. You also need newman installed.

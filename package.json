@@ -1,11 +1,12 @@
 {
   "name": "beavuck-time",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "main": "dist/app.js",
   "scripts": {
     "up-patch": "npm version patch --no-git-tag-version",
     "up-minor": "npm version minor --no-git-tag-version",
     "up-major": "npm version major --no-git-tag-version",
+    "update": "ncu --format group && ncu -u && npm install && npm prune && npm audit fix",
     "test": "jest --coverage",
     "format": "prettier --write .",
     "build": "tsc",
@@ -29,12 +30,12 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.12",
+    "@types/node": "^22.1.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
-    "npm-check-updates": "^16.14.20",
+    "npm-check-updates": "^17.0.1",
     "prettier": "3.3.3",
-    "ts-jest": "^29.2.3",
+    "ts-jest": "^29.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }
