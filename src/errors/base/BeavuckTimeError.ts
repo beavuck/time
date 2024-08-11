@@ -1,4 +1,4 @@
-// src/errors/BeavuckTimeError.ts
+// src/errors/base/BeavuckTimeError.ts
 
 export abstract class BeavuckTimeError extends Error {
   code: number

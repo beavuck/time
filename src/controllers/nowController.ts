@@ -1,3 +1,5 @@
+// src/controllers/nowController.ts
+
 import {Router} from 'express'
 
 const nowController = Router()

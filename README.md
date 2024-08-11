@@ -21,6 +21,8 @@
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=coverage)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
+
 </div>
 
 ---
@@ -124,11 +126,11 @@ variable.
 When you use the API, keep in mind what these headers mean:
 
 | `"Origin:"`                                     | `"Referer:"`                   | Result |
-|-------------------------------------------------|--------------------------------|--------|
-| Is defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅      |
-| Is trusted                                      | Whatever                       | ✅      |
-| Is same as this API's host                      | Whatever                       | ✅      |
-| Not defined                                     | Same as this API's host        | ✅      |
-| Is defined and not trusted                      | Whatever                       | ❌      |
-| Not defined                                     | Not defined                    | ❌      |
-| Not defined or not trusted                      | Different from this API's host | ❌      |
+| ----------------------------------------------- | ------------------------------ | ------ |
+| Is defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
+| Is trusted                                      | Whatever                       | ✅     |
+| Is same as this API's host                      | Whatever                       | ✅     |
+| Not defined                                     | Same as this API's host        | ✅     |
+| Is defined and not trusted                      | Whatever                       | ❌     |
+| Not defined                                     | Not defined                    | ❌     |
+| Not defined or not trusted                      | Different from this API's host | ❌     |

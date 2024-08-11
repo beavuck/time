@@ -1,6 +1,6 @@
-// src/__tests__/urlUtil.test.ts
+// src/__tests__/utils/urlUtil.test.ts
 
-import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
+import {isSameOrigin, tryParseUrl} from '../../utils/urlUtil'
 import {URL} from 'url'
 
 const A_VALID_URL_STRING = 'https://example.com:1234'
@@ -12,7 +12,7 @@ describe('urlUtil', () => {
   describe('isSameOrigin', () => {
     it('returns false when either URL is undefined', () => {
       const url = new URL(A_VALID_URL_STRING)
-      expect(isSameOrigin(url, undefined)).toBe(false)
+      expect(isSameOrigin(url)).toBe(false)
       expect(isSameOrigin(undefined, url)).toBe(false)
     })
 
@@ -37,7 +37,7 @@ describe('urlUtil', () => {
 
   describe('tryParseUrl', () => {
     it('returns undefined when URL string is undefined', () => {
-      expect(tryParseUrl(undefined)).toBeUndefined()
+      expect(tryParseUrl()).toBeUndefined()
     })
 
     it('returns a URL object when URL string is valid', () => {

@@ -41,7 +41,7 @@ run_integration_tests:
 run_unit_tests_then_analyze:
   image:
     name: sonarsource/sonar-scanner-cli:11
-    entrypoint: [ '' ]
+    entrypoint: ['']
   stage: Analyze
   variables:
     SONAR_USER_HOME: '${CI_PROJECT_DIR}/.sonar' # Defines the location of the analysis task cache
@@ -92,13 +92,7 @@ update_dependencies:
   variables:
     BRANCH_NAME: chore/update-dependencies
     COMMIT_MESSAGE: '⚙️ Update dependencies automatically'
-    COMMAND: |
-      ncu --format group && \
-      ncu -u && \
-      npm install && \
-      npm prune && \
-      npm audit fix && \
-      npm run up-patch
+    COMMAND: npm run update && npm run up-patch
     TMP_SCRIPTS_DIR: /tmp/scripts
   before_script:
     - apt-get update && apt-get install -y bash curl jq
