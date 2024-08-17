@@ -10,6 +10,7 @@ COPY tsconfig.json ./
 COPY src ./src
 
 RUN npm run build \
+&& apk add --no-cache shadow \
 && groupadd -r appgroup \
 && useradd -r -g appgroup appuser \
 && chown -R appuser:appgroup /usr/src/app
