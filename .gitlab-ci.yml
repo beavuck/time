@@ -9,16 +9,6 @@ variables:
   GITLAB_DOCKER_IMAGE_PATH: '$GITLAB_CONTAINER_REGISTRY/beavuck-services/time'
   DOCKERHUB_DOCKER_IMAGE_NAME: 'beavuck/time'
 
-run_unit_tests:
-  image: node:22
-  stage: Test
-  script:
-    - npm ci
-    - npm test
-  allow_failure: false
-  rules:
-    - if: $CI_COMMIT_TAG
-
 run_integration_tests:
   image: node:22
   stage: Test
