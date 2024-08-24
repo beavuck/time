@@ -18,11 +18,11 @@ run_integration_tests:
     TRUSTED_ORIGINS: http://localhost:8477
   before_script:
     - npm ci
-    - npm install -g newman@6.1.3
+    - npm install -g newman
     - npm run build
     - npm start & sleep 10
   script:
-    - newman run api-tests/collection.json -e api-tests/environment.json --bail
+    - npm run run-integration-tests
   allow_failure: false
   rules:
     - if: $CI_COMMIT_TAG
@@ -82,7 +82,7 @@ update_dependencies:
   variables:
     BRANCH_NAME: chore/update-dependencies
     COMMIT_MESSAGE: '⚙️ Update dependencies automatically'
-    COMMAND: npm run update && npm run up-patch
+    COMMAND: npm run update-dependencies && npm run up-patch
     TMP_SCRIPTS_DIR: /tmp/scripts
   before_script:
     - apt-get update && apt-get install -y bash curl jq
