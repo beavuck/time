@@ -65,7 +65,7 @@ projects. On Docker Hub, while you're developing, you should use the `beavuck/ti
 version.
 
 When the time comes to go to production, to protect yourself from surprise breaking changes, you should instead point to
-specific minor version tags, such as `beavuck/time:2.1` : those will not get breaking changes, but they will get
+specific minor version tags, such as `beavuck/time:2.0` : those will not get breaking changes, but they will get
 security updates and bugfixes while they're active.
 
 ---
