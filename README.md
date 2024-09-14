@@ -1,10 +1,6 @@
 # ⏲️ Beavuck Time
 
----
-
 ## 📊 Status
-
-<div style="text-align: center;">
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=beavuck-services_time)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
 
@@ -22,8 +18,6 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=beavuck-services_time&metric=coverage)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
-
-</div>
 
 ---
 
@@ -43,10 +37,20 @@ now?"
 
 Get the current time in ISO format, in UTC timezone.
 
-This lightweight service needs no persistence layer, is capable of handling multiple concurrent requests, and is
-protected by a simple CORS config for security and performance reasons.
+This lightweight service focuses on one job. 
 
-Made available as a Docker image, for easy deployment and scaling.
+It needs no persistence layer, is capable of handling multiple concurrent requests, and is protected by a simple
+CORS config for security and performance reasons.
+
+Dockerized for easy deployment and scaling.
+
+---
+
+## 🔍 Where
+
+The code lives on [GitLab](https://gitlab.com/beavuck-services/time),
+and the Docker image is hosted on [Docker Hub](https://hub.docker.com/r/beavuck/time) 
+(use the `beavuck/time:latest` tag to always get the latest version with dependency updates for security). 
 
 ---
 
@@ -123,14 +127,22 @@ you should expect an answer such as:
 This service is protected by a CORS policy, which you can configure by setting the `TRUSTED_ORIGINS` environment
 variable.
 
-When you use the API, keep in mind what these headers mean:
+When you use the API, keep in mind what roles these headers play:
 
-| `"Origin:"`                                     | `"Referer:"`                   | Result |
-| ----------------------------------------------- | ------------------------------ | ------ |
-| Is defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
-| Is trusted                                      | Whatever                       | ✅     |
-| Is same as this API's host                      | Whatever                       | ✅     |
-| Not defined                                     | Same as this API's host        | ✅     |
-| Is defined and not trusted                      | Whatever                       | ❌     |
-| Not defined                                     | Not defined                    | ❌     |
-| Not defined or not trusted                      | Different from this API's host | ❌     |
+| `"Origin:"`                                  | `"Referer:"`                   | Result |
+| -------------------------------------------- | ------------------------------ | ------ |
+| Defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
+| Trusted                                      | Whatever                       | ✅     |
+| Same as this API's host                      | Whatever                       | ✅     |
+| Not defined                                  | Same as this API's host        | ✅     |
+| Defined and not trusted                      | Whatever                       | 🛑     |
+| Not defined                                  | Not defined                    | 🛑     |
+| Not defined or not trusted                   | Different from this API's host | 🛑     |
+
+---
+
+## 📜 License
+
+Have at it.
+
+This project uses the Unlicense. See the [UNLICENSE](UNLICENSE) file for details.
