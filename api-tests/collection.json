@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "4ede0f48-021a-4699-9a8f-8584fed898e8",
+    "_postman_id": "242fee54-da0a-4a43-8ccc-261025065fcb",
     "name": "Time",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "25824312"
@@ -53,8 +53,12 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -106,8 +110,12 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -159,8 +167,12 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -211,8 +223,12 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -258,8 +274,12 @@
         "header": [],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -315,8 +335,12 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -368,8 +392,12 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": ["{{BASE_URL}}"],
-          "path": ["now"]
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "now"
+          ]
         }
       },
       "response": []
@@ -381,7 +409,9 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     },
     {
@@ -389,7 +419,9 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     }
   ]

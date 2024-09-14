@@ -39,9 +39,9 @@ you should expect an answer such as:
 
 ## Deployment
 
-To build, tag, and push the Docker image, use GitLab to create a tag from the `main` branch.
+**To build, tag, and push the Docker image, use GitLab to create a tag from the `main` branch.**
 
-A pipeline will be created, which you can run manually when you're ready.
+**A pipeline will be created, where you can run the "Deploy" job manually when you're ready.**
 
 Or simply run:
 
@@ -65,7 +65,7 @@ docker push beavuck/time:latest
 To update the dependencies, run:
 
 ```shell
-npm run update
+npm run update-dependencies
 ```
 
 ## Integration API tests

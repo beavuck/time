@@ -37,7 +37,7 @@ now?"
 
 Get the current time in ISO format, in UTC timezone.
 
-This lightweight service focuses on one job. 
+This lightweight service focuses on one job.
 
 It needs no persistence layer, is capable of handling multiple concurrent requests, and is protected by a simple
 CORS config for security and performance reasons.
@@ -49,8 +49,24 @@ Dockerized for easy deployment and scaling.
 ## 🔍 Where
 
 The code lives on [GitLab](https://gitlab.com/beavuck-services/time),
-and the Docker image is hosted on [Docker Hub](https://hub.docker.com/r/beavuck/time) 
-(use the `beavuck/time:latest` tag to always get the latest version with dependency updates for security). 
+and the Docker image is hosted on [Docker Hub](https://hub.docker.com/r/beavuck/time)
+
+### 🦊 GitLab
+
+You can find the code on GitLab, where, once you have read the [CONTRIBUTING.md](CONTRIBUTING.md) file, you can also
+create issues and merge requests.
+
+Feel free to fork the repo and make your own changes at will, as per the [UNLICENSE](UNLICENSE).
+
+### 🐳 Docker Hub
+
+Most devs will only use Docker Hub for their purposes with this project, to use it as is as a dependency for their own
+projects. On Docker Hub, while you're developing, you should use the `beavuck/time:latest` tag to always get the latest
+version.
+
+When the time comes to go to production, to protect yourself from surprise breaking changes, you should instead point to
+specific minor version tags, such as `beavuck/time:2.1` : those will not get breaking changes, but they will get
+security updates and bugfixes while they're active.
 
 ---
 
@@ -74,7 +90,7 @@ time:
     - API_PORT: 3000
     # API_PORT: Optional. Internal port when in a container. Defaults to 3000
     - RATE_LIMIT: 100
-    # RATE_LIMIT: Optional. Number of requests per minute. If negative or 0, no limit. Defaults to no limit
+    # RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
     - LOG_LEVEL: info
     # LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
     - MAX_LOG_FILES: 7d
