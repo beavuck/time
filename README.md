@@ -157,6 +157,55 @@ When you use the API, keep in mind what roles these headers play:
 
 ---
 
+## 📚 Use cases
+
+### Batch `POST`s
+
+Suppose you're creating timestamped entities in your app, and you want to send them in a batch to your API. Your API
+knows the current time when it gets the request, but not the creation time of each entity.
+
+```mermaid
+sequenceDiagram
+    participant 📱 Client
+    participant 🖥 Core API
+    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
+```
+
+And querying your core API for the current time for each entity is a waste of resources -- that's why you're batching
+the operation in the first place.
+
+```mermaid
+sequenceDiagram
+    participant 📱 Client
+    participant 🖥 Core API
+    📱 Client->>🖥 Core API: GET /now
+    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
+    📱 Client->>🖥 Core API: GET /now
+    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
+    📱 Client->>🖥 Core API: GET /now
+    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
+    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
+```
+
+So you can use this service to get the current time whenever you need it, and use that as the creation time for each
+entity.
+
+```mermaid
+sequenceDiagram
+    participant 📱 Client
+    participant 🕒 Time
+    participant 🖥 Core API
+    📱 Client->>🕒 Time: GET /now
+    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
+    📱 Client->>🕒 Time: GET /now
+    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
+    📱 Client->>🕒 Time: GET /now
+    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
+    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
+```
+
+---
+
 ## 📜 License
 
 Have at it.
