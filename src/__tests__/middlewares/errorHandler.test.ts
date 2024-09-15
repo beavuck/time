@@ -29,9 +29,7 @@ describe('errorHandler', () => {
     errorHandler(err, req, res, next)
     expect(logger.warn).toHaveBeenCalledWith(err)
     expect(res.status).toHaveBeenCalledWith(err.code)
-    expect(res.json).toHaveBeenCalledWith({
-      message: BeavuckTimeClientError.baseMessage,
-    })
+    expect(res.json).toHaveBeenCalledWith({message: BeavuckTimeClientError.baseMessage})
   })
 
   it('should handle CorsError', () => {
@@ -47,9 +45,7 @@ describe('errorHandler', () => {
     errorHandler(err, req, res, next)
     expect(logger.error).toHaveBeenCalledWith(err)
     expect(res.status).toHaveBeenCalledWith(err.code)
-    expect(res.json).toHaveBeenCalledWith({
-      message: BeavuckTimeServerError.baseMessage,
-    })
+    expect(res.json).toHaveBeenCalledWith({message: BeavuckTimeServerError.baseMessage})
   })
 
   it('should handle unknown error', () => {

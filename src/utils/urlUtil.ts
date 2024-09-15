@@ -7,11 +7,11 @@ export function isSameOrigin(thisUrl?: URL, thatUrl?: URL): boolean {
   if (!thisUrl || !thatUrl) return false
   if (thisUrl.origin === thatUrl.origin) return true
 
-  return (
-    thisUrl.protocol === thatUrl.protocol &&
-    thisUrl.hostname === thatUrl.hostname &&
-    thisUrl.port === thatUrl.port
-  )
+  const isSameProtocol = thisUrl.protocol === thatUrl.protocol
+  const isSameHost = thisUrl.hostname === thatUrl.hostname
+  const isSamePort = thisUrl.port === thatUrl.port
+
+  return isSameProtocol && isSameHost && isSamePort
 }
 
 export function tryParseUrl(urlString?: string): URL | undefined {

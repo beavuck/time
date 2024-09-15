@@ -12,10 +12,9 @@
     "up-major": "npm version major --no-git-tag-version",
     "update-dependencies": "ncu --format group && ncu -u && npm install && npm prune && npm audit fix",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest --coverage",
-    "format": "prettier --write .",
     "build": "tsc",
     "start": "node dist/server.js",
-    "go": "npm run test && npm run format && npm run build && npm start"
+    "go": "npm run test && npm run build && npm start"
   },
   "keywords": [],
   "author": "Alexis Drai",
@@ -25,7 +24,7 @@
   "homepage": "https://gitlab.com/beavuck-services/time",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/beavuck-services/time.git"
+    "url": "https://gitlab.com/beavuck-services/time.git"
   },
   "bugs": "https://gitlab.com/beavuck-services/time/-/issues",
   "dependencies": {
