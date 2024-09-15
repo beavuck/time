@@ -53,12 +53,8 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -110,12 +106,8 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -167,12 +159,8 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -223,12 +211,8 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -274,12 +258,8 @@
         "header": [],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -335,12 +315,8 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -392,12 +368,8 @@
         ],
         "url": {
           "raw": "{{BASE_URL}}/now",
-          "host": [
-            "{{BASE_URL}}"
-          ],
-          "path": [
-            "now"
-          ]
+          "host": ["{{BASE_URL}}"],
+          "path": ["now"]
         }
       },
       "response": []
@@ -409,9 +381,7 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     },
     {
@@ -419,9 +389,7 @@
       "script": {
         "type": "text/javascript",
         "packages": {},
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     }
   ]

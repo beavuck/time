@@ -33,7 +33,7 @@ you should expect an answer such as:
 
 ```json
 {
-  "now": "2024-06-14T18:25:46.835Z"
+    "now": "2024-06-14T18:25:46.835Z"
 }
 ```
 

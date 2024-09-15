@@ -18,7 +18,7 @@ Closes #{{issue_number}}
 
 (_List the tests that were added or updated and how they cover the bug fix._)
 
-- 
+- Test
 
 ---
 

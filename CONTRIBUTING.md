@@ -34,25 +34,25 @@ Any open merge requests that do not follow the guidelines may be closed immediat
 
 **All merge requests**
 
-- **Commits**: 
-  - Your MR will need to be separated into digestible, _logical commits_, with a clear message for each. To fit 
-      with this project's conventions, a _commit message's style_ should be short, in the imperative, start with a relevant emoji,
-      have its first word be capitalized, and not end with a period. For example: `✏️ Fix typo in README`.
-  - Your MR will need to follow TDD principles:
-    - _First, commit failing tests_ targeting the bug or feature in question.
-    - Then, commit the code that does the thing -- the previously failing tests should now pass. (The pre-existing tests
-        should also still pass, obviously.)
-- **Title**: Should be treated like a very important commit message, since it will appear as a commit message on the
+-   **Commits**:
+    -   Your MR will need to be separated into digestible, _logical commits_, with a clear message for each. To fit
+        with this project's conventions, a _commit message's style_ should be short, in the imperative, start with a relevant emoji,
+        have its first word be capitalized, and not end with a period. For example: `✏️ Fix typo in README`.
+    -   Your MR will need to follow TDD principles:
+        -   _First, commit failing tests_ targeting the bug or feature in question.
+        -   Then, commit the code that does the thing -- the previously failing tests should now pass. (The pre-existing tests
+            should also still pass, obviously.)
+-   **Title**: Should be treated like a very important commit message, since it will appear as a commit message on the
     `main` branch. See sub-parts below for specific guidelines.
-- **Description (Template)**: Choose the relevant template. See sub-parts below.
-- **Description (Body)**: Please follow the relevant template.
+-   **Description (Template)**: Choose the relevant template. See sub-parts below.
+-   **Description (Body)**: Please follow the relevant template.
 
 ### 🐛 Bug fixes
 
-- **Title**: Should follow the convention `🐛 Fix #{{issue_number}}: {{very_short_description_in_the_imperative}}`
-- **Description (Template)**: Please choose the `bug_fix` MR template when creating the MR.
+-   **Title**: Should follow the convention `🐛 Fix #{{issue_number}}: {{very_short_description_in_the_imperative}}`
+-   **Description (Template)**: Please choose the `bug_fix` MR template when creating the MR.
 
 ### ✨ New features, improvements, etc.
 
-- **Title**: `✨ Add #{{issue_number}}: {{very_short_description_in_the_imperative}}`
-- **Description (Template)**: Please choose the `feature` MR template when creating the MR.
+-   **Title**: `✨ Add #{{issue_number}}: {{very_short_description_in_the_imperative}}`
+-   **Description (Template)**: Please choose the `feature` MR template when creating the MR.

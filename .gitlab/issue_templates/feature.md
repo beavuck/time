@@ -24,11 +24,12 @@
 
 ## 📋 Steps to use the feature
 
-(_How will users interact with this feature? Describe the user journey or interface interactions. 
-For bonus points, use a user story format, and add a 
+(_How will users interact with this feature? Describe the user journey or interface interactions.
+For bonus points, use a user story format, and add a
 [sequence diagram](https://mermaid.js.org/syntax/sequenceDiagram.html) or [flowchart](https://mermaid.js.org/syntax/flowchart.html)_)
 
 (_For example_:
+
 ```mermaid
 sequenceDiagram
     participant Client
@@ -36,6 +37,7 @@ sequenceDiagram
     Client->>API: GET /now (ask for time)
     API->>Client: {"now": "2024-06-14T18:25:46.835Z"} (responds with time)
 ```
+
 )
 
 ---

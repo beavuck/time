@@ -78,39 +78,39 @@ To run the service in a docker-compose environment, add this in your `docker-com
 
 ```yaml
 time:
-  image: beavuck/time:latest
-  ports:
-    - 'SOME_PORT_NUMBER:3000'
-    # HOST_PORT:CONTAINER_PORT (Since we are in a container, CONTAINER_PORT corresponds to the API_PORT variable below)
-  environment:
-    - HOST_URL: https://time-api.example.com
-    # HOST_URL: That API's URL. Essential for CORS config.
-    - TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
-    # TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
-    - API_PORT: 3000
-    # API_PORT: Optional. Internal port when in a container. Defaults to 3000
-    - RATE_LIMIT: 100
-    # RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
-    - LOG_LEVEL: info
-    # LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
-    - MAX_LOG_FILES: 7d
-    # MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 7d
-    - MAX_SIZE_LOG_FILES: 1m
-    # MAX_SIZE_LOG_FILES: Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is null
+    image: beavuck/time:latest
+    ports:
+        - 'SOME_PORT_NUMBER:3000'
+        # HOST_PORT:CONTAINER_PORT (Since we are in a container, CONTAINER_PORT corresponds to the API_PORT variable below)
+    environment:
+        - HOST_URL: https://time-api.example.com
+        # HOST_URL: That API's URL. Essential for CORS config.
+        - TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
+        # TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
+        - API_PORT: 3000
+        # API_PORT: Optional. Internal port when in a container. Defaults to 3000
+        - RATE_LIMIT: 100
+        # RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
+        - LOG_LEVEL: info
+        # LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
+        - MAX_LOG_FILES: 7d
+        # MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 7d
+        - MAX_SIZE_LOG_FILES: 1m
+        # MAX_SIZE_LOG_FILES: Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is null
 ```
 
 Here's the simple docker compose file I used to test this service locally:
 
 ```yaml
 services:
-  time:
-    image: beavuck/time:latest
-    ports:
-      - '3000:3000'
-    environment:
-      HOST_URL: http://127.0.0.1:3000
-      TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
-      LOG_LEVEL: debug
+    time:
+        image: beavuck/time:latest
+        ports:
+            - '3000:3000'
+        environment:
+            HOST_URL: http://127.0.0.1:3000
+            TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
+            LOG_LEVEL: debug
 ```
 
 When you're ready, just run your services with:
@@ -132,7 +132,7 @@ you should expect an answer such as:
 
 ```json
 {
-  "now": "2024-06-15T12:35:48.022Z"
+    "now": "2024-06-15T12:35:48.022Z"
 }
 ```
 

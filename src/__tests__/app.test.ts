@@ -33,9 +33,7 @@ describe('App Initialization', () => {
   })
 
   it('should block requests from non-trusted origins', async () => {
-    const res = await request(api)
-      .get('/now')
-      .set('Origin', 'https://non-trusted.com')
+    const res = await request(api).get('/now').set('Origin', 'https://non-trusted.com')
 
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.FORBIDDEN)
@@ -56,9 +54,7 @@ describe('App Initialization', () => {
   })
 
   it('should handle errors using errorHandler middleware', async () => {
-    const res = await request(api)
-      .get('/non-existent-endpoint')
-      .set('Origin', getSomeTrustedOrigin())
+    const res = await request(api).get('/non-existent-endpoint').set('Origin', getSomeTrustedOrigin())
 
     expect(res.status).toBe(StatusCodes.NOT_FOUND)
   })

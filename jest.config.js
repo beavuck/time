@@ -20,4 +20,4 @@ module.exports = {
   setupFiles: ['dotenv/config'],
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
-}
+};

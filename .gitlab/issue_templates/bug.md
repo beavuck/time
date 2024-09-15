@@ -2,7 +2,7 @@
 
 (_Summarize the bug encountered concisely. "X happens"_)
 
---- 
+---
 
 ## 🐛 What is the current bug behavior?
 
@@ -20,9 +20,9 @@
 
 (_How one can reproduce the issue - this is very important. Please use a numbered list_)
 
-1. 
-2. 
-3. 
+1. Step 1
+2. Step 2
+3. Step 3
 ...
 
 ---
@@ -32,9 +32,11 @@
 (_Paste any relevant logs - please use code blocks (```) to format console output, logs, etc. as it's very hard to read otherwise._)
 
 (_for example_:
+
 ```
 Error: something went wrong
 ```
+
 )
 
 ---

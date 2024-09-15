@@ -10,8 +10,8 @@ dotenv.config()
 
 const HOST_URL: URL | undefined = tryParseUrl(process.env.HOST_URL ?? '')
 const TRUSTED_ORIGINS: string[] = process.env.TRUSTED_ORIGINS
-  ? process.env.TRUSTED_ORIGINS.split(',')
-  : [HOST_URL?.origin ?? '']
+                                  ? process.env.TRUSTED_ORIGINS.split(',')
+                                  : [HOST_URL?.origin ?? '']
 
 export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],
