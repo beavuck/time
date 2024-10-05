@@ -15,11 +15,11 @@ Please just follow this link where we set it all up for you: [🐞 Create a bug 
 
 Or, to do it by hand : please choose the `bug` issue template when creating the issue, and follow it.
 
-### 💡 Suggestions, feature requests, etc.
+### 💡 Suggestions, enhancement requests, etc.
 
-Please just follow this link where we set it all up for you: [💡 Create a feature request](https://gitlab.com/beavuck-services/time/-/issues/new?issuable_template=feature)
+Please just follow this link where we set it all up for you: [💡 Create an enhancement request](https://gitlab.com/beavuck-services/time/-/issues/new?issuable_template=enhancement)
 
-Or, to do it by hand : please choose the `feature` issue template when creating the issue, and follow it.
+Or, to do it by hand : please choose the `enhancement` issue template when creating the issue, and follow it.
 
 ## 🔀 Preparing for merge requests
 
@@ -39,7 +39,7 @@ Any open merge requests that do not follow the guidelines may be closed immediat
         with this project's conventions, a _commit message's style_ should be short, in the imperative, start with a relevant emoji,
         have its first word be capitalized, and not end with a period. For example: `✏️ Fix typo in README`.
     -   Your MR will need to follow TDD principles:
-        -   _First, commit failing tests_ targeting the bug or feature in question.
+        -   _First, commit failing tests_ targeting the bug or enhancement in question.
         -   Then, commit the code that does the thing -- the previously failing tests should now pass. (The pre-existing tests
             should also still pass, obviously.)
 -   **Title**: Should be treated like a very important commit message, since it will appear as a commit message on the
@@ -52,7 +52,7 @@ Any open merge requests that do not follow the guidelines may be closed immediat
 -   **Title**: Should follow the convention `🐛 Fix #{{issue_number}}: {{very_short_description_in_the_imperative}}`
 -   **Description (Template)**: Please choose the `bug_fix` MR template when creating the MR.
 
-### ✨ New features, improvements, etc.
+### ✨ Enhancements, new features, etc.
 
 -   **Title**: `✨ Add #{{issue_number}}: {{very_short_description_in_the_imperative}}`
--   **Description (Template)**: Please choose the `feature` MR template when creating the MR.
+-   **Description (Template)**: Please choose the `enhancement` MR template when creating the MR.

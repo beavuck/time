@@ -4,7 +4,7 @@ Closes #{{issue_number}}
 
 ## 📝 Summary
 
-(_Summarize the feature being implemented concisely. "By accepting this MR, you add X functionality"_)
+(_Summarize the enhancement concisely. "By accepting this MR, you add X functionality"_)
 
 ---
 
@@ -16,7 +16,7 @@ Closes #{{issue_number}}
 
 ## 🧪 Testing
 
-(_List the tests that were added and how they cover the feature._)
+(_List the tests that were added and how they cover the enhancement._)
 
 ---
 
@@ -39,6 +39,6 @@ improving security without compromising performance."_)
 
 ---
 
-(_Automatically adds the feature label for easier tracking_)
+(_Automatically adds the enhancement label for easier tracking_)
 
-/label ~feature
+/label ~enhancement
