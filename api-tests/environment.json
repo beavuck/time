@@ -21,7 +21,7 @@
       "enabled": true
     },
     {
-      "key": "NON_RECOGNIZED_REFERER",
+      "key": "NON_RECOGNIZED_REFERRER",
       "value": "http://localhost:9236",
       "type": "default",
       "enabled": true

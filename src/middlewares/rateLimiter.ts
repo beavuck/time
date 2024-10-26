@@ -12,4 +12,4 @@ const ONE_MINUTE = SECONDS_IN_ONE_MINUTE * MILLISECONDS_IN_ONE_SECOND
 export const rateLimiter =
   RATE_LIMIT > 0
   ? rateLimit({windowMs: ONE_MINUTE, limit: RATE_LIMIT})
-  : (req: any, res: any, next: any) => next()
+  : (_req: any, _res: any, next: any) => next()

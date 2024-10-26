@@ -1,11 +1,20 @@
 // src/controllers/nowController.ts
 
-import {Router} from 'express'
+import {Controller, Get, OperationId, Route, Tags} from 'tsoa'
+import {Now} from '../models/now'
+import {NowService} from '../services/nowService'
 
-const nowController = Router()
+@Route('now')
+export class NowController extends Controller {
 
-nowController.get('/now', (req, res) => {
-  res.json({now: new Date().toISOString()})
-})
-
-export default nowController
+  /**
+   * Get the current time in ISO format, in UTC timezone
+   * @summary Get current time
+   */
+  @Tags('now')
+  @Get()
+  @OperationId('getNow')
+  public async getNow(): Promise<Now> {
+    return new NowService().get()
+  }
+}

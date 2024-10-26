@@ -21,7 +21,7 @@ const dailyRotateFileTransport = new transports.DailyRotateFile(
   },
 )
 
-const logger = createLogger(
+export const logger = createLogger(
   {
     level: LOG_LEVEL,
     format: format.combine(
@@ -37,5 +37,3 @@ const logger = createLogger(
     ],
   },
 )
-
-export default logger

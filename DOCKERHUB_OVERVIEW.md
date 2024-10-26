@@ -53,10 +53,10 @@ and the Docker image is hosted on [Docker Hub](https://hub.docker.com/r/beavuck/
 
 ### 🦊 GitLab
 
-You can find the code on GitLab, where, once you have read the [CONTRIBUTING.md](CONTRIBUTING.md) file, you can also
+You can find the code on GitLab, where, once you have read the [CONTRIBUTING.md](https://gitlab.com/beavuck-services/time/-/blob/main/CONTRIBUTING.md?ref_type=heads) file, you can also
 create issues and merge requests.
 
-Feel free to fork the repo and make your own changes at will, as per the [UNLICENSE](UNLICENSE).
+Feel free to fork the repo and make your own changes at will, as per the [UNLICENSE](https://gitlab.com/beavuck-services/time/-/blob/main/UNLICENSE?ref_type=heads).
 
 ### 🐳 Docker Hub
 
@@ -164,45 +164,17 @@ When you use the API, keep in mind what roles these headers play:
 Suppose you're creating timestamped entities in your app, and you want to send them in a batch to your API. Your API
 knows the current time when it gets the request, but not the creation time of each entity.
 
-```mermaid
-sequenceDiagram
-    participant 📱 Client
-    participant 🖥 Core API
-    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
-```
+![](https://www.mermaidchart.com/raw/d089f4b4-f7d8-4901-b257-5fcdbb258629?theme=dark&version=v0.1&format=svg)
 
 And querying your core API for the current time for each entity is a waste of resources -- that's why you're batching
 the operation in the first place.
 
-```mermaid
-sequenceDiagram
-    participant 📱 Client
-    participant 🖥 Core API
-    📱 Client->>🖥 Core API: GET /now
-    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
-    📱 Client->>🖥 Core API: GET /now
-    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
-    📱 Client->>🖥 Core API: GET /now
-    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
-    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
-```
+![](https://www.mermaidchart.com/raw/3a8e339e-151d-4e7b-aa4d-114f17d1bb72?theme=dark&version=v0.1&format=svg)
 
 So you can use this service to get the current time whenever you need it, and use that as the creation time for each
 entity.
 
-```mermaid
-sequenceDiagram
-    participant 📱 Client
-    participant 🕒 Time
-    participant 🖥 Core API
-    📱 Client->>🕒 Time: GET /now
-    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
-    📱 Client->>🕒 Time: GET /now
-    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
-    📱 Client->>🕒 Time: GET /now
-    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
-    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
-```
+![](https://www.mermaidchart.com/raw/81c7ad4f-7462-4c95-8da3-1c1d3c0ac4f7?theme=dark&version=v0.1&format=svg)
 
 ---
 
@@ -210,4 +182,4 @@ sequenceDiagram
 
 Have at it.
 
-This project uses the Unlicense. See the [UNLICENSE](UNLICENSE) file for details.
+This project uses the Unlicense. See the [UNLICENSE](https://gitlab.com/beavuck-services/time/-/blob/main/UNLICENSE?ref_type=heads) file for details.

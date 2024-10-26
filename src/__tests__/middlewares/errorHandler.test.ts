@@ -6,7 +6,7 @@ import {BeavuckTimeClientError} from '../../errors/BeavuckTimeClientError'
 import {BeavuckTimeServerError} from '../../errors/BeavuckTimeServerError'
 import {CorsError} from '../../errors/CorsError'
 import {StatusCodes} from 'http-status-codes'
-import logger from '../../config/logger'
+import {logger} from '../../config/logger'
 
 jest.mock('../../config/logger')
 

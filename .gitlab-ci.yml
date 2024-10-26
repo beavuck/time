@@ -30,7 +30,7 @@ run_integration_tests:
 
 run_unit_tests_then_analyze:
   image:
-    name: sonarsource/sonar-scanner-cli:11
+    name: sonarsource/sonar-scanner-cli:latest
     entrypoint: ['']
   stage: Analyze
   variables:

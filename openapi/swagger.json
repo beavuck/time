@@ -1,0 +1,75 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"IsoTimestamp": {
+				"type": "string",
+				"format": "date-time",
+				"description": "Stringified date-time in RFC 3339 format (often referred to as ISO 8601 format)\nSee [RFC 3339 section 5.6](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6)"
+			},
+			"Now": {
+				"properties": {
+					"now": {
+						"$ref": "#/components/schemas/IsoTimestamp"
+					}
+				},
+				"required": [
+					"now"
+				],
+				"type": "object",
+				"additionalProperties": false,
+				"example": {
+					"now": "2019-08-24T14:15:22Z"
+				}
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "beavuck-time",
+		"version": "2.1.1",
+		"description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
+		"license": {
+			"name": "Unlicense"
+		},
+		"contact": {
+			"name": "Alexis Drai"
+		}
+	},
+	"paths": {
+		"/now": {
+			"get": {
+				"operationId": "getNow",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Now"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get the current time in ISO format, in UTC timezone",
+				"summary": "Get current time",
+				"tags": [
+					"now"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

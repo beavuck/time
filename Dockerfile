@@ -7,6 +7,7 @@ COPY package*.json ./
 RUN npm install --ignore-scripts
 
 COPY tsconfig.json ./
+COPY tsoa.json ./
 COPY src ./src
 
 RUN npm run build \
@@ -19,4 +20,4 @@ USER appuser
 
 EXPOSE 3000
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "build/server.js"]

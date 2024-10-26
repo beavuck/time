@@ -3,8 +3,8 @@
 import {CorsOptions} from 'cors'
 import {CorsError} from '../errors/CorsError'
 import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
-import dotenv from 'dotenv'
 import {StatusCodes} from 'http-status-codes'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
@@ -16,7 +16,10 @@ const TRUSTED_ORIGINS: string[] = process.env.TRUSTED_ORIGINS
 export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],
   optionsSuccessStatus: StatusCodes.OK,
-  origin: (origin, callback) => {
+  origin: (
+    origin: (string | undefined),
+    callback: (err: (Error | null), allow?: boolean) => void,
+  ): void => {
     if (
       isAllTrusted() ||
       isSameOrigin(HOST_URL, tryParseUrl(origin)) ||
@@ -29,7 +32,7 @@ export const corsOptions: CorsOptions = {
   },
 }
 
-export function isAllTrusted(): boolean {
+function isAllTrusted(): boolean {
   return TRUSTED_ORIGINS.includes('*')
 }
 

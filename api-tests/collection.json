@@ -113,7 +113,7 @@
       "response": []
     },
     {
-      "name": "Get now - same referer",
+      "name": "Get now - same referrer",
       "event": [
         {
           "listen": "test",
@@ -153,7 +153,7 @@
         "method": "GET",
         "header": [
           {
-            "key": "Referer",
+            "key": "Referrer",
             "value": "{{BASE_URL}}"
           }
         ],
@@ -265,7 +265,7 @@
       "response": []
     },
     {
-      "name": "Get now - non-trusted origin and referer",
+      "name": "Get now - non-trusted origin and referrer",
       "event": [
         {
           "listen": "test",
@@ -308,8 +308,8 @@
             "value": "{{NON_TRUSTED_ORIGIN}}"
           },
           {
-            "key": "Referer",
-            "value": "{{NON_RECOGNIZED_REFERER}}",
+            "key": "Referrer",
+            "value": "{{NON_RECOGNIZED_REFERRER}}",
             "type": "text"
           }
         ],
@@ -322,7 +322,7 @@
       "response": []
     },
     {
-      "name": "Get now - non-recognized referer",
+      "name": "Get now - non-recognized referrer",
       "event": [
         {
           "listen": "test",
@@ -361,8 +361,8 @@
         "method": "GET",
         "header": [
           {
-            "key": "Referer",
-            "value": "{{NON_RECOGNIZED_REFERER}}",
+            "key": "Referrer",
+            "value": "{{NON_RECOGNIZED_REFERRER}}",
             "type": "text"
           }
         ],

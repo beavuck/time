@@ -1,9 +1,10 @@
 // src/utils/urlUtil.ts
 
 import {URL} from 'url'
-import logger from '../config/logger'
+import {logger} from '../config/logger'
 
 export function isSameOrigin(thisUrl?: URL, thatUrl?: URL): boolean {
+  logger.debug(`Comparing origins: ${thisUrl?.origin} and ${thatUrl?.origin}`)
   if (!thisUrl || !thatUrl) return false
   if (thisUrl.origin === thatUrl.origin) return true
 

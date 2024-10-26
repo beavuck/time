@@ -1,8 +1,8 @@
 // src/server.ts
 
-import api from './app'
+import {api} from './api'
 import dotenv from 'dotenv'
-import logger from './config/logger'
+import {logger} from './config/logger'
 
 dotenv.config()
 
@@ -10,6 +10,9 @@ const API_PORT = process.env.API_PORT ?? 3000
 
 const HOST_URL = process.env.HOST_URL ?? ''
 const TRUSTED_ORIGINS = process.env.TRUSTED_ORIGINS ?? ''
+
+const SIGTERM = 'SIGTERM'
+const SIGINT = 'SIGINT'
 
 if (!HOST_URL) {
   logger.error('HOST_URL not set in environment variables')
@@ -35,5 +38,5 @@ const gracefulShutdown = (signal: string) => {
   })
 }
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'))
-process.on('SIGINT', () => gracefulShutdown('SIGINT'))
+process.on(SIGTERM, () => gracefulShutdown(SIGTERM))
+process.on(SIGINT, () => gracefulShutdown(SIGINT))

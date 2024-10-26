@@ -1,6 +1,7 @@
 import request from 'supertest'
-import api from '../app'
+import {api} from '../api'
 import {StatusCodes} from 'http-status-codes'
+import {RFC_3339_FORMAT} from '../types/isoTimestamp'
 
 let callsMadeSoFar = 0
 
@@ -14,9 +15,7 @@ function getSomeTrustedOrigin(): string {
 async function makeSuccessfulCallToNowEndpoint() {
   const trustedOrigin = getSomeTrustedOrigin()
   const res = await request(api).get('/now').set('Origin', trustedOrigin)
-
-  callsMadeSoFar++ // IMPORTANT
-
+  callsMadeSoFar++
   return {res, trustedOrigin}
 }
 
@@ -34,7 +33,6 @@ describe('App Initialization', () => {
 
   it('should block requests from non-trusted origins', async () => {
     const res = await request(api).get('/now').set('Origin', 'https://non-trusted.com')
-
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.FORBIDDEN)
   })
@@ -45,17 +43,24 @@ describe('App Initialization', () => {
     expect(res.status).toBe(StatusCodes.FORBIDDEN)
   })
 
-  it('should allow requests with no origin header but a referer header identical to server url', async () => {
-    const REFERER: string = process.env.HOST_URL!
-    const res = await request(api).get('/now').set('Referer', REFERER)
-    callsMadeSoFar++
+  it('should allow requests with no origin header but a referrer header identical to server url', async () => {
+    const REFERRER: string = process.env.HOST_URL!
+    const res = await request(api).get('/now').set('Referrer', REFERRER)
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.OK)
+    callsMadeSoFar++
+  })
+
+  it('should allow requests with no origin header but a referer (sic) header identical to server url', async () => {
+    const REFERER: string = process.env.HOST_URL!
+    const res = await request(api).get('/now').set('Referer', REFERER)
+    expect(res.header['access-control-allow-origin']).toBeUndefined()
+    expect(res.status).toBe(StatusCodes.OK)
+    callsMadeSoFar++
   })
 
   it('should handle errors using errorHandler middleware', async () => {
     const res = await request(api).get('/non-existent-endpoint').set('Origin', getSomeTrustedOrigin())
-
     expect(res.status).toBe(StatusCodes.NOT_FOUND)
   })
 
@@ -63,9 +68,7 @@ describe('App Initialization', () => {
     const {res} = await makeSuccessfulCallToNowEndpoint()
     expect(res.status).toBe(StatusCodes.OK)
     expect(res.body).toHaveProperty('now')
-
-    const Iso8601Format = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/
-    expect(res.body.now).toMatch(Iso8601Format)
+    expect(res.body.now).toMatch(RFC_3339_FORMAT)
   })
 
   it('should block requests that exceed the rate limit', async () => {
@@ -73,7 +76,7 @@ describe('App Initialization', () => {
     let fallbackCounter = 0
     while (callsMadeSoFar <= RATE_LIMIT && fallbackCounter++ < 10) {
       let {res} = await makeSuccessfulCallToNowEndpoint() // incrementing callsMadeSoFar
-      if (callsMadeSoFar == RATE_LIMIT) {
+      if (callsMadeSoFar === RATE_LIMIT) {
         expect(res.status).toBe(StatusCodes.TOO_MANY_REQUESTS)
       }
     }
