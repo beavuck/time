@@ -44,8 +44,7 @@ Any open merge requests that do not follow the guidelines may be closed immediat
             should also still pass, obviously.)
 -   **Title**: Should be treated like a very important commit message, since it will appear as a commit message on the
     `main` branch. See sub-parts below for specific guidelines.
--   **Description (Template)**: Choose the relevant template. See sub-parts below.
--   **Description (Body)**: Please follow the relevant template.
+-   **Template**: Choose the relevant template (see sub-parts below), then follow the instructions within said template.
 
 ### 🐛 Bug fixes
 

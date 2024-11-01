@@ -1,0 +1,38 @@
+# .pr_agent.toml
+# See https://github.com/Codium-ai/pr-agent/blob/main/pr_agent/settings/configuration.toml
+
+[config]
+
+output_relevant_configurations = true
+model = "gpt-4o-mini"
+model_turbo = "gpt-4o-mini"
+fallback_models = ["gpt-4o-mini"]
+max_model_tokens = 16384
+git_provider = "gitlab"
+verbosity_level = 0
+
+[pr_reviewer] # /review #
+
+enable_help_text = false
+extra_instructions = """\
+If you see comments in the code that are not exceptionally useful, you should draw the reviewer's attention to them.
+Comments in the code that seem to be compensating for a lack of clarity in the code itself, should not be accepted --
+instead we should extract meaningfully named functions and variables, etc.
+
+In the code feedback section, emphasize the following:
+- Does the code logic cover relevant edge cases?
+- Is the code logic clear and easy to understand?
+- Is the code logic efficient?
+
+Moreover, please ensure those principles are adhered to:
+  - SOLID
+  - KISS
+  - REST
+  - DRY
+"""
+require_score_review = true
+
+[pr_description] # /describe #
+
+enable_help_text = false
+enable_help_comment = false
