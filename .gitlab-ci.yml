@@ -28,8 +28,7 @@ run_integration_tests:
   script:
     - npm run run-integration-tests
   extends:
-    - .on-mr-to-main
-    - .on-tag
+    - .on-mr-to-main-or-tag
   allow_failure: false
 
 run_unit_tests_then_analyze:
@@ -51,8 +50,7 @@ run_unit_tests_then_analyze:
     - npm ci && npm test
     - sonar-scanner -Dsonar.projectVersion=$PROJECT_VERSION
   extends:
-    - .on-mr-to-main
-    - .on-commit-to-main
+    - .on-commit-to-main-or-mr-to-main
   allow_failure: false
 
 create_review:
@@ -128,18 +126,14 @@ update_dependencies:
 
 ########~~~~-- Rules --~~~~########
 
-.on-commit-to-main:
+.on-commit-to-main-or-mr-to-main:
   rules:
-    - if: '$CI_COMMIT_BRANCH == $MAIN_BRANCH'
+    - if: '$CI_COMMIT_BRANCH == $MAIN_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $MAIN_BRANCH'
 
-.on-mr-to-main:
+.on-mr-to-main-or-tag:
   rules:
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $MAIN_BRANCH'
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $MAIN_BRANCH || $CI_COMMIT_TAG'
 
 .on-schedule:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-
-.on-tag:
-  rules:
-    - if: '$CI_COMMIT_TAG'

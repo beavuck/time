@@ -12,4 +12,10 @@ export class BeavuckTimeServerError extends BeavuckTimeError {
   ) {
     super(`${BeavuckTimeServerError.baseMessage}: ${message}`, code)
   }
+
+  static fromError(error: Error): BeavuckTimeServerError {
+    return error instanceof BeavuckTimeServerError
+           ? error
+           : new BeavuckTimeServerError(error.message)
+  }
 }

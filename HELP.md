@@ -37,6 +37,32 @@ you should expect an answer such as:
 }
 ```
 
+### Writing tests
+
+To run the tests, you can use:
+
+```shell
+npm test
+```
+
+Writing tests can be made a little easier by calling the `./cover_agent.sh` script. You first need to install the
+CLI tool locally, and to forge and export an OPENAI_API_KEY with some credit attached to it. In details:
+
+```shell
+pipx install git+https://github.com/Codium-ai/cover-agent.git
+```
+
+and add this to your `.bashrc` or `.zshrc` or equivalent, replacing `...` with your actual key:
+```
+export OPENAI_API_KEY=...
+```
+
+Then, you can run the script from this project's root:
+
+```shell
+./cover_agent.sh -s path/from/repo/root/to/testFile.ts
+```
+
 ## Deployment
 
 **To build, tag, and push the Docker image, use GitLab to create a tag from the `main` branch.**

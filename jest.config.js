@@ -3,7 +3,7 @@ module.exports = {
   bail: 1,
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  coverageReporters: ['cobertura', 'json', 'lcov', 'text', 'clover'],
   collectCoverageFrom: [
     'src/utils/**/*.ts',
     'src/services/**/*.ts',
@@ -14,7 +14,6 @@ module.exports = {
     'src/middlewares/errorHandler.ts',
     'src/middlewares/notFoundHandler.ts',
     'scr/models/**/*.ts',
-    'src/routes/**/*.ts',
     'src/services/**/*.ts',
     'src/types/**/*.ts',
     'src/api.ts',

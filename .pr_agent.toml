@@ -15,9 +15,18 @@ verbosity_level = 0
 
 enable_help_text = false
 extra_instructions = """\
+Please don't be nitpicky. If you make suggestions just because you're supposed to, it's not helpful.
+Only make suggestions if they will genuinely improve the code.
+
 If you see comments in the code that are not exceptionally useful, you should draw the reviewer's attention to them.
 Comments in the code that seem to be compensating for a lack of clarity in the code itself, should not be accepted --
 instead we should extract meaningfully named functions and variables, etc.
+
+If it would make sense to see unit tests for the code under review, you should mention that in the feedback. Basically,
+if the code is non-trivial, logic-heavy, and fairly isolated (no need for complicated mocks, etc.), then unit tests are warranted.
+
+If instead some backend integration tests would be more appropriate, and it's reasonable to assume that the author had to
+perform cURLs or manual tests, you should suggest that they use those manual tests to write integration tests to contribute to our codebase.
 
 In the code feedback section, emphasize the following:
 - Does the code logic cover relevant edge cases?

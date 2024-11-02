@@ -9,6 +9,8 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+test_results.html
+cover_agent_unit_test_runs.db
 
 # Environment variables
 .env

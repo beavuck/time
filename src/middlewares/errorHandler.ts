@@ -5,8 +5,8 @@ import {logger} from '../config/logger'
 import {BeavuckTimeClientError} from '../errors/BeavuckTimeClientError'
 import {BeavuckTimeServerError} from '../errors/BeavuckTimeServerError'
 import {StatusCodes} from 'http-status-codes'
-import {CorsError} from '../errors/CorsError'
 import {ValidateError} from 'tsoa'
+import {BeavuckTimeError} from '../errors/base/BeavuckTimeError'
 
 export const errorHandler = (
   err: unknown,
@@ -14,30 +14,43 @@ export const errorHandler = (
   res: express.Response,
   next: express.NextFunction,
 ) => {
-  if (err instanceof BeavuckTimeClientError) {
-    logger.warn(err)
-    res.status(err.code).json(
-      {
-        message:
-          err instanceof CorsError
-          ? CorsError.baseMessage
-          : BeavuckTimeClientError.baseMessage,
-      },
-    )
-  } else if (err instanceof BeavuckTimeServerError) {
-    logger.error(err)
-    res.status(err.code).json({message: BeavuckTimeServerError.baseMessage})
-  } else if (err instanceof ValidateError) {
-    logger.error(`Validation error on ${req.path}: ${err.fields}`)
-    res
-      .status(StatusCodes.UNPROCESSABLE_ENTITY)
-      .json({message: 'Validation Error', details: err.fields})
+  if (err instanceof ValidateError) {
+    const logMsg = `Validation error on ${req.path}: ${err.fields}`
+    const resStatus = StatusCodes.UNPROCESSABLE_ENTITY
+    const resMsgObj = {message: 'Validation Error', details: err.fields}
+    handleOtherError(res, err, logMsg, resStatus, resMsgObj)
+  } else if (err instanceof BeavuckTimeClientError) {
+    handleBeavuckClientError(res, err)
+  } else if (err instanceof BeavuckTimeServerError || err instanceof Error) {
+    handleBeavuckServerError(res, BeavuckTimeServerError.fromError(err))
   } else if (err) {
-    logger.error(err)
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({message: 'Internal Server Error'})
+    handleOtherError(res, err)
   } else {
     next()
   }
+}
+
+function sendErrorResponse(res: express.Response, err: BeavuckTimeError) {
+  res.status(err.code).json({message: err.message})
+}
+
+function handleBeavuckClientError(res: express.Response, err: BeavuckTimeClientError) {
+  logger.warn(err)
+  sendErrorResponse(res, err)
+}
+
+function handleBeavuckServerError(res: express.Response, err: BeavuckTimeServerError) {
+  logger.error(err)
+  sendErrorResponse(res, err)
+}
+
+function handleOtherError(
+  res: express.Response,
+  err: unknown,
+  logMsg: string = `Unknown error`,
+  resStatus: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR,
+  resMsg: {message: string; details?: unknown} = {message: BeavuckTimeServerError.baseMessage},
+) {
+  logger.error(`${logMsg}: ${err}`)
+  res.status(resStatus).json(resMsg)
 }

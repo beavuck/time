@@ -71,6 +71,21 @@ describe('App Initialization', () => {
     expect(res.body.now).toMatch(RFC_3339_FORMAT)
   })
 
+  it('should return 500 if HOST_URL is not set', async () => {
+    const originalHostUrl = process.env.HOST_URL
+    delete process.env.HOST_URL
+
+    const res = await request(api).get('/now')
+    expect(res.status).toBe(StatusCodes.INTERNAL_SERVER_ERROR)
+
+    process.env.HOST_URL = originalHostUrl
+  })
+
+  it('should block requests with non-trusted referrer header if origin is not OK', async () => {
+    const res = await request(api).get('/now').set('Referrer', 'https://non-trusted.com')
+    expect(res.status).toBe(StatusCodes.FORBIDDEN)
+  })
+
   it('should block requests that exceed the rate limit', async () => {
     const RATE_LIMIT = parseInt(process.env.RATE_LIMIT!, 10)
     let fallbackCounter = 0

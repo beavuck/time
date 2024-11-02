@@ -7,6 +7,7 @@ import {BeavuckTimeServerError} from '../../errors/BeavuckTimeServerError'
 import {CorsError} from '../../errors/CorsError'
 import {StatusCodes} from 'http-status-codes'
 import {logger} from '../../config/logger'
+import {ValidateError} from 'tsoa'
 
 jest.mock('../../config/logger')
 
@@ -29,7 +30,7 @@ describe('errorHandler', () => {
     errorHandler(err, req, res, next)
     expect(logger.warn).toHaveBeenCalledWith(err)
     expect(res.status).toHaveBeenCalledWith(err.code)
-    expect(res.json).toHaveBeenCalledWith({message: BeavuckTimeClientError.baseMessage})
+    expect(res.json).toHaveBeenCalledWith({message: `${err.message}`})
   })
 
   it('should handle CorsError', () => {
@@ -37,7 +38,7 @@ describe('errorHandler', () => {
     errorHandler(err, req, res, next)
     expect(logger.warn).toHaveBeenCalledWith(err)
     expect(res.status).toHaveBeenCalledWith(err.code)
-    expect(res.json).toHaveBeenCalledWith({message: CorsError.baseMessage})
+    expect(res.json).toHaveBeenCalledWith({message: `${err.message}`})
   })
 
   it('should handle BeavuckTimeServerError', () => {
@@ -45,19 +46,42 @@ describe('errorHandler', () => {
     errorHandler(err, req, res, next)
     expect(logger.error).toHaveBeenCalledWith(err)
     expect(res.status).toHaveBeenCalledWith(err.code)
-    expect(res.json).toHaveBeenCalledWith({message: BeavuckTimeServerError.baseMessage})
+    expect(res.json).toHaveBeenCalledWith({message: `${err.message}`})
   })
 
-  it('should handle unknown error', () => {
+  it('should handle non-specific error', () => {
     const err = new Error('Some message')
     errorHandler(err, req, res, next)
-    expect(logger.error).toHaveBeenCalledWith(err)
+    const beavuckError = BeavuckTimeServerError.fromError(err)
+    expect(logger.error).toHaveBeenCalledWith(beavuckError)
     expect(res.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR)
-    expect(res.json).toHaveBeenCalledWith({message: 'Internal Server Error'})
+    expect(res.json).toHaveBeenCalledWith({message: `${beavuckError.message}`})
   })
 
   it('should call next if no error', () => {
     errorHandler(null, req, res, next)
     expect(next).toHaveBeenCalled()
   })
+
+  it('should handle ValidateError', () => {
+    const err = new ValidateError({}, 'Some message')
+    errorHandler(err, req, res, next)
+    expect(logger.error).toHaveBeenCalled()
+    expect(res.status).toHaveBeenCalledWith(StatusCodes.UNPROCESSABLE_ENTITY)
+    expect(res.json).toHaveBeenCalledWith({message: 'Validation Error', details: err.fields})
+  })
+
+  it('should handle unknown error type', () => {
+    const err = {some: 'unknown error'}
+    errorHandler(err, req, res, next)
+    expect(logger.error).toHaveBeenCalled()
+    expect(res.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR)
+    expect(res.json).toHaveBeenCalledWith({message: 'Internal Server Error'})
+  })
+
+  it('should handle null error', () => {
+    errorHandler(null, req, res, next)
+    expect(next).toHaveBeenCalled()
+  })
+
 })

@@ -3,6 +3,7 @@
 import {api} from './api'
 import dotenv from 'dotenv'
 import {logger} from './config/logger'
+import {tryParseUrl} from './utils/urlUtil'
 
 dotenv.config()
 
@@ -14,8 +15,8 @@ const TRUSTED_ORIGINS = process.env.TRUSTED_ORIGINS ?? ''
 const SIGTERM = 'SIGTERM'
 const SIGINT = 'SIGINT'
 
-if (!HOST_URL) {
-  logger.error('HOST_URL not set in environment variables')
+if (!HOST_URL || !tryParseUrl(HOST_URL)) {
+  logger.error('HOST_URL not set in environment variables (or is not a valid URL)')
   process.exit(1)
 }
 
