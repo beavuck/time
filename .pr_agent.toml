@@ -7,7 +7,7 @@ output_relevant_configurations = true
 model = "gpt-4o-mini"
 model_turbo = "gpt-4o-mini"
 fallback_models = ["gpt-4o-mini"]
-max_model_tokens = 16384
+max_model_tokens = 8192
 git_provider = "gitlab"
 verbosity_level = 0
 
@@ -15,29 +15,19 @@ verbosity_level = 0
 
 enable_help_text = false
 extra_instructions = """\
-Please don't be nitpicky. If you make suggestions just because you're supposed to, it's not helpful.
-Only make suggestions if they will genuinely improve the code.
+Focus on suggestions that truly improve the code, keeping feedback concise, constructive, and respectful.
 
-If you see comments in the code that are not exceptionally useful, you should draw the reviewer's attention to them.
-Comments in the code that seem to be compensating for a lack of clarity in the code itself, should not be accepted --
-instead we should extract meaningfully named functions and variables, etc.
+Prioritize feedback on those essential aspects:
+- Reliability / edge case coverage
+- Performance efficiency
+- Security
+- Maintainability, clarity and readability
 
-If it would make sense to see unit tests for the code under review, you should mention that in the feedback. Basically,
-if the code is non-trivial, logic-heavy, and fairly isolated (no need for complicated mocks, etc.), then unit tests are warranted.
+That means ensuring adherence to best practices (e.g. SOLID, KISS, DRY).
 
-If instead some backend integration tests would be more appropriate, and it's reasonable to assume that the author had to
-perform cURLs or manual tests, you should suggest that they use those manual tests to write integration tests to contribute to our codebase.
+Please also recommend unit tests for non-trivial, isolated logic, and integration tests if backend flows need verification.
 
-In the code feedback section, emphasize the following:
-- Does the code logic cover relevant edge cases?
-- Is the code logic clear and easy to understand?
-- Is the code logic efficient?
-
-Moreover, please ensure those principles are adhered to:
-  - SOLID
-  - KISS
-  - REST
-  - DRY
+Suggest improving code clarity over adding redundant comments -- clear naming and modularity are preferred.
 """
 require_score_review = true
 
