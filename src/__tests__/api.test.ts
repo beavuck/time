@@ -60,7 +60,7 @@ describe('App Initialization', () => {
   })
 
   it('should handle errors using errorHandler middleware', async () => {
-    const res = await request(api).get('/non-existent-endpoint').set('Origin', getSomeTrustedOrigin())
+    const res = await request(api).get('/nope').set('Origin', getSomeTrustedOrigin())
     expect(res.status).toBe(StatusCodes.NOT_FOUND)
   })
 

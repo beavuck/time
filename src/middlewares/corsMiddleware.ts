@@ -15,7 +15,8 @@ export const corsMiddleware = (
 ) => {
   const HOST_URL = tryParseUrl(process.env.HOST_URL ?? '')
   // 'referer' is a misspelling that was kept for compatibility: https://en.wikipedia.org/wiki/HTTP_referer
-  const referrerHeader: string | undefined = req.headers.referrer as string || req.headers.referer
+  const referrerHeader: string | undefined =
+    (req.headers.referrer as string) || req.headers.referer
   if (req.headers.origin) {
     logger.debug(`CORS request from ${req.headers.origin}`)
     cors(corsOptions)(req, res, next)

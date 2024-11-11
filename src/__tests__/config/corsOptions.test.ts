@@ -5,7 +5,7 @@ import {CorsError} from '../../errors/CorsError'
 import * as process from 'node:process'
 
 describe('CORS Options', () => {
-  it('should allow requests from trusted origins', (done) => {
+  it('should allow requests from trusted origins', done => {
     const origin = process.env.TRUSTED_ORIGINS?.split(',')[0]
     if (typeof corsOptions.origin === 'function') {
       corsOptions.origin(origin, (err: any, allow?: any) => {
@@ -16,7 +16,7 @@ describe('CORS Options', () => {
     }
   })
 
-  it('should block requests from non-trusted origins', (done) => {
+  it('should block requests from non-trusted origins', done => {
     const origin = 'https://non-trusted.com'
     if (typeof corsOptions.origin === 'function') {
       corsOptions.origin(origin, (err: any, allow?: any) => {
@@ -27,7 +27,7 @@ describe('CORS Options', () => {
     }
   })
 
-  it('should allow requests with undefined origin (effectively delegating to CORS middleware)', (done) => {
+  it('should allow requests with undefined origin (effectively delegating to CORS middleware)', done => {
     if (typeof corsOptions.origin === 'function') {
       corsOptions.origin(undefined, (err: any, allow?: any) => {
         expect(err).toBeNull()
@@ -37,7 +37,7 @@ describe('CORS Options', () => {
     }
   })
 
-  it('should allow requests when TRUSTED_ORIGINS includes *', (done) => {
+  it('should allow requests when TRUSTED_ORIGINS includes *', done => {
     const originalTrustedOrigins = process.env.TRUSTED_ORIGINS
     process.env.TRUSTED_ORIGINS = '*'
     initTrustedOrigins()

@@ -49,7 +49,9 @@ function handleOtherError(
   err: unknown,
   logMsg: string = `Unknown error`,
   resStatus: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR,
-  resMsg: {message: string; details?: unknown} = {message: BeavuckTimeServerError.baseMessage},
+  resMsg: {message: string; details?: unknown} = {
+    message: BeavuckTimeServerError.baseMessage,
+  },
 ) {
   logger.error(`${logMsg}: ${err}`)
   res.status(resStatus).json(resMsg)

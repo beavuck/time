@@ -4,7 +4,7 @@ import {isSameOrigin, tryParseUrl} from '../../utils/urlUtil'
 import {URL} from 'url'
 
 const A_VALID_URL_STRING = 'https://example.com:1234'
-const THE_SAME_VALID_URL_STRING_WITH_A_DIFFERENT_PORT = 'https://example.com:81'
+const SAME_VALID_URL_DIFFERENT_PORT = 'https://example.com:81'
 const SOME_OTHER_VALID_URL_STRING = 'https://different.com:1234'
 const AN_INVALID_URL_STRING = 'invalid'
 
@@ -24,7 +24,7 @@ describe('urlUtil', () => {
 
     it('returns false when URLs have the same origin but different ports', () => {
       const url1 = new URL(A_VALID_URL_STRING)
-      const url2 = new URL(THE_SAME_VALID_URL_STRING_WITH_A_DIFFERENT_PORT)
+      const url2 = new URL(SAME_VALID_URL_DIFFERENT_PORT)
       expect(isSameOrigin(url1, url2)).toBe(false)
     })
 

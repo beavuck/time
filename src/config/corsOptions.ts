@@ -12,8 +12,8 @@ export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],
   optionsSuccessStatus: StatusCodes.OK,
   origin: (
-    origin: (string | undefined),
-    callback: (err: (Error | null), allow?: boolean) => void,
+    origin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void,
   ): void => {
     if (
       isAllTrusted() ||

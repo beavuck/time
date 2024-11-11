@@ -6,7 +6,6 @@ import {NowService} from '../services/nowService'
 
 @Route('now')
 export class NowController extends Controller {
-
   /**
    * Get the current time in ISO format, in UTC timezone
    * @summary Get current time

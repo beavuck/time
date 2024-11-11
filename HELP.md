@@ -53,6 +53,7 @@ pipx install git+https://github.com/Codium-ai/cover-agent.git
 ```
 
 and add this to your `.bashrc` or `.zshrc` or equivalent, replacing `...` with your actual key:
+
 ```
 export OPENAI_API_KEY=...
 ```
