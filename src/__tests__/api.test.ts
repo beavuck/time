@@ -90,7 +90,7 @@ describe('App Initialization', () => {
     const RATE_LIMIT = parseInt(process.env.RATE_LIMIT!, 10)
     let fallbackCounter = 0
     while (callsMadeSoFar <= RATE_LIMIT && fallbackCounter++ < 10) {
-      let {res} = await makeSuccessfulCallToNowEndpoint() // incrementing callsMadeSoFar
+      const {res} = await makeSuccessfulCallToNowEndpoint() // incrementing callsMadeSoFar
       if (callsMadeSoFar === RATE_LIMIT) {
         expect(res.status).toBe(StatusCodes.TOO_MANY_REQUESTS)
       }

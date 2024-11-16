@@ -20,6 +20,7 @@ export const corsOptions: CorsOptions = {
       isSameOrigin(getHostUrl(), tryParseUrl(origin)) ||
       isOriginAbsentOrTrusted(origin)
     ) {
+      // eslint-disable-next-line no-restricted-syntax
       callback(null, true)
     } else {
       callback(new CorsError(origin), false)

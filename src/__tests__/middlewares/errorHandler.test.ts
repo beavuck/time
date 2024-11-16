@@ -56,12 +56,12 @@ describe('errorHandler', () => {
     expect(logger.error).toHaveBeenCalledWith(beavuckError)
     expect(res.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
-                                            message: `${beavuckError.message}`,
-                                          })
+      message: `${beavuckError.message}`,
+    })
   })
 
   it('should call next if no error', () => {
-    errorHandler(null, req, res, next)
+    errorHandler(undefined, req, res, next)
     expect(next).toHaveBeenCalled()
   })
 
@@ -71,9 +71,9 @@ describe('errorHandler', () => {
     expect(logger.error).toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(StatusCodes.UNPROCESSABLE_ENTITY)
     expect(res.json).toHaveBeenCalledWith({
-                                            message: 'Validation Error',
-                                            details: err.fields,
-                                          })
+      message: 'Validation Error',
+      details: err.fields,
+    })
   })
 
   it('should handle unknown error type', () => {
@@ -82,12 +82,12 @@ describe('errorHandler', () => {
     expect(logger.error).toHaveBeenCalled()
     expect(res.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR)
     expect(res.json).toHaveBeenCalledWith({
-                                            message: 'Internal Server Error',
-                                          })
+      message: 'Internal Server Error',
+    })
   })
 
   it('should handle null error', () => {
-    errorHandler(null, req, res, next)
+    errorHandler(undefined, req, res, next)
     expect(next).toHaveBeenCalled()
   })
 })

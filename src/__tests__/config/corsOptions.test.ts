@@ -1,6 +1,14 @@
 // src/__tests__/config/corsOptions.test.ts
 
-import {corsOptions, getHostUrl, getTrustedOrigins, initHostUrl, initTrustedOrigins, isAllTrusted, isOriginAbsentOrTrusted} from '../../config/corsOptions'
+import {
+  corsOptions,
+  getHostUrl,
+  getTrustedOrigins,
+  initHostUrl,
+  initTrustedOrigins,
+  isAllTrusted,
+  isOriginAbsentOrTrusted,
+} from '../../config/corsOptions'
 import {CorsError} from '../../errors/CorsError'
 import * as process from 'node:process'
 

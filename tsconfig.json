@@ -16,6 +16,9 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     /* Additional Checks */
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noEmitOnError": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

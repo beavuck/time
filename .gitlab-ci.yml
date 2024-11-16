@@ -10,7 +10,7 @@ stages:
 ########~~~~-- Variables & defaults --~~~~########
 
 default:
-  image: node:22
+  image: node:lts-jod
 
 ########~~~~-- Jobs --~~~~########
 

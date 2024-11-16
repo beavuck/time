@@ -22,8 +22,8 @@ export function tryParseUrl(urlString?: string): URL | undefined {
   }
   try {
     return new URL(urlString)
-  } catch (error) {
-    logger.warn(`Invalid URL string: ${urlString}`)
+  } catch (error: unknown) {
+    logger.warn(`Invalid URL string: ${urlString} (${error})`)
   }
   return undefined
 }
