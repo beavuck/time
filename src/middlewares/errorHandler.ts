@@ -18,13 +18,13 @@ export const errorHandler = (
     const logMsg = `Validation error on ${req.path}: ${err.fields}`
     const resStatus = StatusCodes.UNPROCESSABLE_ENTITY
     const resMsgObj = {message: 'Validation Error', details: err.fields}
-    handleOtherError(res, err, logMsg, resStatus, resMsgObj)
+    handleOtherError(res, logMsg, resStatus, resMsgObj)
   } else if (err instanceof BeavuckTimeClientError) {
     handleBeavuckClientError(res, err)
   } else if (err instanceof BeavuckTimeServerError || err instanceof Error) {
     handleBeavuckServerError(res, BeavuckTimeServerError.fromError(err))
   } else if (err) {
-    handleOtherError(res, err)
+    handleOtherError(res)
   } else {
     next()
   }
@@ -46,13 +46,12 @@ function handleBeavuckServerError(res: express.Response, err: BeavuckTimeServerE
 
 function handleOtherError(
   res: express.Response,
-  err: unknown,
   logMsg: string = `Unknown error`,
   resStatus: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR,
   resMsg: {message: string; details?: unknown} = {
     message: BeavuckTimeServerError.baseMessage,
   },
 ) {
-  logger.error(`${logMsg}: ${err}`)
+  logger.error(`${logMsg}: ${resMsg}`)
   res.status(resStatus).json(resMsg)
 }
