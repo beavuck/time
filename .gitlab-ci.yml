@@ -112,4 +112,4 @@ update_dependencies:
     - cp $TMP_SCRIPTS_DIR/run_command_and_create_mr.sh .
     - chmod +x run_command_and_create_mr.sh
     - /bin/bash ./run_command_and_create_mr.sh
-  rules: [if: '$CI_PIPELINE_SOURCE == "schedule"']
+  rules: [if: '$CI_PIPELINE_SOURCE == "schedule" && $IS_UPDATE == "true"']
