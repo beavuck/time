@@ -13,10 +13,11 @@
     "update-dependencies": "ncu --format group && ncu -u && npm install --verbose && npm prune --verbose && npm audit fix --verbose",
     "lint": "eslint --fix src/",
     "format": "prettier --write src/ --log-level warn",
+    "clean": "npm run lint && npm run format",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest --coverage",
     "build": "tsoa spec-and-routes && tsc",
     "start": "node build/server.js",
-    "go": "npm run lint && npm run format && npm run build && npm run test && npm start"
+    "go": "npm run build && npm run clean && npm run test && npm start"
   },
   "keywords": [],
   "author": "Alexis Drai",
