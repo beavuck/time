@@ -7,7 +7,7 @@ output_relevant_configurations = true
 model = "gpt-4o-mini"
 model_turbo = "gpt-4o-mini"
 fallback_models = ["gpt-4o-mini"]
-max_model_tokens = 8192
+max_model_tokens = 16384
 git_provider = "gitlab"
 verbosity_level = 0
 

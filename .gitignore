@@ -75,4 +75,6 @@ Thumbs.db
 
 # Sonar
 .scannerwork/
-sonar_scan.sh
+
+# GitGuardian
+.cache_ggshield
