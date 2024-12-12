@@ -1,0 +1,23 @@
+meta {
+  name: nok_non_recognized_referrer
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BASE_URL}}/now
+  body: none
+  auth: none
+}
+
+headers {
+  Referrer: {{NON_RECOGNIZED_REFERRER}}
+}
+
+assert {
+  res.status: eq 403
+  res.body: isDefined
+  res.body.message: isDefined
+  res.body.message: matches {{CORS_REGEX}}
+  res.responseTime: lt 200
+}

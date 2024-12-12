@@ -42,19 +42,22 @@ export function RegisterRoutes(app: Router) {
   //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
   // ###########################################################################################################
 
+  const argsNowController_getNow: Record<string, TsoaRoute.ParameterSchema> = {}
   app.get(
     '/now',
     ...fetchMiddlewares<RequestHandler>(NowController),
     ...fetchMiddlewares<RequestHandler>(NowController.prototype.getNow),
 
     async function NowController_getNow(request: ExRequest, response: ExResponse, next: any) {
-      const args: Record<string, TsoaRoute.ParameterSchema> = {}
-
       // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
       let validatedArgs: any[] = []
       try {
-        validatedArgs = templateService.getValidatedArgs({args, request, response})
+        validatedArgs = templateService.getValidatedArgs({
+          args: argsNowController_getNow,
+          request,
+          response,
+        })
 
         const controller = new NowController()
 

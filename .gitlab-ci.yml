@@ -10,7 +10,7 @@ stages:
 ########~~~~-- Variables & defaults --~~~~########
 
 default:
-  image: node:lts-jod
+  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/node:lts-jod
 
 ########~~~~-- Workflows --~~~~########
 
@@ -63,7 +63,7 @@ format:
 
 find_secrets:
   stage: secure
-  image: gitguardian/ggshield:latest
+  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/gitguardian/ggshield:latest
   interruptible: true
   script: ggshield secret scan ci
   rules:
@@ -80,7 +80,6 @@ run_integration_tests:
   before_script:
     - npm install -g npm@latest
     - npm ci
-    - npm install -g newman@latest
     - npm run build
     - npm start & sleep 10
   script: npm run run-integration-tests
@@ -89,7 +88,7 @@ run_integration_tests:
 run_unit_tests_then_analyze:
   stage: test
   image:
-    name: sonarsource/sonar-scanner-cli:latest
+    name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
   interruptible: true
   cache:
@@ -129,7 +128,7 @@ update_dependencies:
 describe_and_review:
   stage: .post
   image:
-    name: codiumai/pr-agent:latest
+    name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/codiumai/pr-agent:latest
     entrypoint: [""]
   interruptible: true
   script:
