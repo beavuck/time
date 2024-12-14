@@ -9,8 +9,13 @@ stages:
 
 ########~~~~-- Variables & defaults --~~~~########
 
+variables:
+  GITLAB_USER_EMAIL: "alexis@alexisdrai.com"
+  IMAGE: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/node:lts-jod"
+  SCRIPT_TO_INSTALL_DEPS: "apt-get update && apt-get install -y git bash curl jq && npm install -g npm@latest && npm ci"
+
 default:
-  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/node:lts-jod
+  image: $IMAGE
 
 ########~~~~-- Workflows --~~~~########
 
@@ -27,39 +32,47 @@ workflow:
 ########~~~~-- Includes --~~~~########
 
 include:
+  - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/command-runner/command-runner@main"
+    inputs:
+      job_name: "format"
+      stage_config: ".pre"
+      branch_name: "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
+      command: "npm ci && npm run clean"
+      commit_message: "🎨 Format code automatically"
+      git_user_email: "$GITLAB_USER_EMAIL"
+      image: "$IMAGE"
+      script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
+
+  - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/command-runner/command-runner@main"
+    inputs:
+      job_name: "update"
+      stage_config: "update"
+      branch_name: "chore/update-dependencies"
+      command: "npm run update-dependencies && npm run up-patch"
+      commit_message: "⚙️ Update dependencies automatically"
+      git_user_email: "$GITLAB_USER_EMAIL"
+      image: "$IMAGE"
+      script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
+
   - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/docker-publisher/docker-publisher@main"
     inputs:
-      image_name: "beavuck/time"
+      job_name: "publish"
       stage_config: "deploy"
+      image_name: "beavuck/time"
       publish_to_dockerhub: true
-      rules_config:
-        - if: "$CI_COMMIT_TAG"
-          when: manual
 
-########~~~~-- Jobs --~~~~########
+update:
+  rules: [if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"]
 
 format:
-  stage: .pre
-  interruptible: true
-  variables:
-    BRANCH_NAME: $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
-    COMMIT_MESSAGE: "🎨 Format code automatically"
-    COMMAND: npm run clean
-    TMP_SCRIPTS_DIR: /tmp/ci-scripts
-  before_script:
-    - apt-get update && apt-get install -y bash curl jq
-    - npm install -g npm@latest
-    - npm ci
-  script:
-    - git fetch origin $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME
-    - LATEST_COMMIT_MESSAGE=$(git log -1 --pretty=%B origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME)
-    - if [[ "$LATEST_COMMIT_MESSAGE" == "$COMMIT_MESSAGE" ]]; then echo "Previous commit $LATEST_COMMIT_MESSAGE was a format job. Skipping format job now."; exit 0; fi
-    - mkdir -p $TMP_SCRIPTS_DIR
-    - git clone https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/beavuck-services/scripts/command-runner-and-mr-creator.git $TMP_SCRIPTS_DIR
-    - cp $TMP_SCRIPTS_DIR/run_command_and_create_mr.sh .
-    - chmod +x run_command_and_create_mr.sh
-    - /bin/bash ./run_command_and_create_mr.sh
-  rules: [if: "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH"]
+  rules: [if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"]
+
+publish:
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
+
+########~~~~-- Jobs --~~~~########
 
 find_secrets:
   stage: secure
@@ -105,26 +118,6 @@ run_unit_tests_then_analyze:
     - sonar-scanner -Dsonar.projectVersion=$PROJECT_VERSION
   rules: [if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH"]
 
-update_dependencies:
-  stage: update
-  interruptible: true
-  variables:
-    BRANCH_NAME: chore/update-dependencies
-    COMMIT_MESSAGE: "⚙️ Update dependencies automatically"
-    COMMAND: npm run update-dependencies && npm run up-patch
-    TMP_SCRIPTS_DIR: /tmp/scripts
-  before_script:
-    - apt-get update && apt-get install -y bash curl jq
-    - npm install -g npm@latest
-    - npm ci
-  script:
-    - mkdir -p $TMP_SCRIPTS_DIR
-    - git clone https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/beavuck-services/scripts/command-runner-and-mr-creator.git $TMP_SCRIPTS_DIR
-    - cp $TMP_SCRIPTS_DIR/run_command_and_create_mr.sh .
-    - chmod +x run_command_and_create_mr.sh
-    - /bin/bash ./run_command_and_create_mr.sh
-  rules: [if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"]
-
 describe_and_review:
   stage: .post
   image:
@@ -143,9 +136,7 @@ describe_and_review:
     - python -m pr_agent.cli --pr_url="${MR_URL}" review
   rules:
     - if: "$CI_MERGE_REQUEST_LABELS =~ /auto-review/"
-      needs: [run_unit_tests_then_analyze]
       when: on_success
     - if: "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH"
-      needs: [run_unit_tests_then_analyze]
       when: manual
   allow_failure: true
