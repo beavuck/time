@@ -10,8 +10,8 @@ stages:
 ########~~~~-- Variables & defaults --~~~~########
 
 variables:
-  GITLAB_USER_EMAIL: "alexis@alexisdrai.com"
   IMAGE: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/node:lts-jod"
+  GITLAB_USER_EMAIL: "alexis@alexisdrai.com"
   SCRIPT_TO_INSTALL_DEPS: "apt-get update && apt-get install -y git bash curl jq && npm install -g npm@latest && npm ci"
 
 default:
@@ -32,6 +32,11 @@ workflow:
 ########~~~~-- Includes --~~~~########
 
 include:
+  - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/secret-finder/secret-finder@main"
+    inputs:
+      job_name: "find_secrets"
+      stage_config: "secure"
+
   - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/command-runner/command-runner@main"
     inputs:
       job_name: "format"
@@ -61,6 +66,9 @@ include:
       image_name: "beavuck/time"
       publish_to_dockerhub: true
 
+find_secrets:
+  rules: [if: "$CI_COMMIT_BRANCH || $CI_PIPELINE_SOURCE == 'merge_request_event'"]
+
 update:
   rules: [if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"]
 
@@ -73,15 +81,6 @@ publish:
       when: manual
 
 ########~~~~-- Jobs --~~~~########
-
-find_secrets:
-  stage: secure
-  image: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/gitguardian/ggshield:latest
-  interruptible: true
-  script: ggshield secret scan ci
-  rules:
-    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
-    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
 run_integration_tests:
   stage: test
