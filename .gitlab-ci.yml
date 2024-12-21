@@ -110,7 +110,7 @@ run_unit_tests_then_analyze:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar" # Defines the location of the analysis task cache
     GIT_DEPTH: 0 # Tells git to fetch all the branches of the project, required by the analysis task
   script:
-    - git config --global --add safe.directory /builds/beavuck-services/time
+    - git config --global --add safe.directory "/builds/$CI_PROJECT_PATH"
     - LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
     - if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then PROJECT_VERSION=$LATEST_TAG; else PROJECT_VERSION=$LATEST_TAG-$CI_MERGE_REQUEST_ID; fi
     - npm ci && npm test
