@@ -95,9 +95,21 @@ run_integration_tests:
     - npm run build
     - npm start & sleep 10
   script: npm run run-integration-tests
-  rules: [if: "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG"]
+  rules: [if: "$CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_TAG"]
 
-run_unit_tests_then_analyze:
+coverage:
+  stage: test
+  artifacts:
+    paths: [coverage/lcov.info]
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+  before_script: npm install -g npm@latest && npm ci
+  script: npm run test
+  rules: [if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_TAG"]
+
+analyze:
   stage: test
   image:
     name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
@@ -113,9 +125,11 @@ run_unit_tests_then_analyze:
     - git config --global --add safe.directory "/builds/$CI_PROJECT_PATH"
     - LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
     - if [ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]; then PROJECT_VERSION=$LATEST_TAG; else PROJECT_VERSION=$LATEST_TAG-$CI_MERGE_REQUEST_ID; fi
-    - npm ci && npm test
     - sonar-scanner -Dsonar.projectVersion=$PROJECT_VERSION
-  rules: [if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH"]
+  rules: [if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == 'merge_request_event'"]
+  needs:
+    - job: coverage
+      artifacts: true
 
 describe_and_review:
   stage: .post
@@ -136,6 +150,6 @@ describe_and_review:
   rules:
     - if: "$CI_MERGE_REQUEST_LABELS =~ /auto-review/"
       when: on_success
-    - if: "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH"
+    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
       when: manual
   allow_failure: true
