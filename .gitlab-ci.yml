@@ -16,6 +16,7 @@ variables:
 
 default:
   image: $IMAGE
+  interruptible: true
 
 ########~~~~-- Workflows --~~~~########
 
@@ -84,7 +85,6 @@ publish:
 
 run_integration_tests:
   stage: test
-  interruptible: true
   variables:
     API_PORT: 9124
     HOST_URL: http://localhost:9124
@@ -114,7 +114,6 @@ analyze:
   image:
     name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
-  interruptible: true
   cache:
     key: "${CI_JOB_NAME}"
     paths: [.sonar/cache]
@@ -136,7 +135,6 @@ describe_and_review:
   image:
     name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/codiumai/pr-agent:latest
     entrypoint: [""]
-  interruptible: true
   script:
     - if [[ "$CI_MERGE_REQUEST_LABELS" =~ (auto-generated|skip\ auto-review) ]]; then echo "Because of the labels of this MR, no AI review"; exit 0; fi
     - cd /app
