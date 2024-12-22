@@ -147,7 +147,9 @@ describe_and_review:
     - python -m pr_agent.cli --pr_url="${MR_URL}" review
   rules:
     - if: "$CI_MERGE_REQUEST_LABELS =~ /auto-review/"
+      needs: [find_secrets]
       when: on_success
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
+      needs: [find_secrets]
       when: manual
   allow_failure: true
