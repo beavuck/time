@@ -112,7 +112,7 @@ coverage:
 analyze:
   stage: test
   image:
-    name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest
+    name: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/sonarsource/sonar-scanner-cli:latest"
     entrypoint: [""]
   cache:
     key: "${CI_JOB_NAME}"
@@ -133,7 +133,7 @@ analyze:
 describe_and_review:
   stage: .post
   image:
-    name: ${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/codiumai/pr-agent:latest
+    name: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/codiumai/pr-agent:latest"
     entrypoint: [""]
   script:
     - if [[ "$CI_MERGE_REQUEST_LABELS" =~ (auto-generated|skip\ auto-review) ]]; then echo "Because of the labels of this MR, no AI review"; exit 0; fi

@@ -37,7 +37,9 @@ you should expect an answer such as:
 }
 ```
 
-### Writing tests
+### Testing
+
+#### Node tests
 
 To run the tests, you can use:
 
@@ -61,5 +63,15 @@ export OPENAI_API_KEY=...
 Then, you can run the script from this project's root:
 
 ```shell
-./cover_agent.sh -s path/from/repo/root/to/testFile.ts
+./cover_agent.sh -s path/from/repo/root/to/file.under.test.ts
 ```
+
+#### API client tests
+
+Check out the `run-integration-tests` script in the `package.json` file. If you run the API then run the tests, you
+should see the tests pass.
+
+We write those tests using [Bruno](https://docs.usebruno.com/), because Postman is whack and bloaty and impossible to 
+version cleanly within a repo.
+
+Bruno is pretty neat -- it's made by devs for devs and it has a lot to offer right now, as well as a lot of promise.
