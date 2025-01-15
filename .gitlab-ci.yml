@@ -68,7 +68,7 @@ include:
       publish_to_dockerhub: true
 
 find_secrets:
-  rules: [if: "$CI_COMMIT_BRANCH || $CI_PIPELINE_SOURCE == 'merge_request_event'"]
+  rules: [if: "$CI_COMMIT_BRANCH || $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_TAG"]
 
 update:
   rules: [if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"]
