@@ -96,7 +96,7 @@ time:
         - MAX_LOG_FILES: 64
         # MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 64
         - MAX_SIZE_LOG_FILES: 1m
-        # MAX_SIZE_LOG_FILES: Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is 1m
+        # MAX_SIZE_LOG_FILES: Optional. Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is 1m
 ```
 
 Here's the simple docker compose file I used to test this service locally:
