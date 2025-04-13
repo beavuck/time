@@ -46,6 +46,7 @@ include:
       commit_message: "🎨 Format code automatically"
       image: "$IMAGE"
       script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
+      consecutive_command_commits_allowed: false
 
   - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/command-runner/command-runner@main"
     inputs:
@@ -56,6 +57,7 @@ include:
       commit_message: "⚙️ Update dependencies automatically"
       image: "$IMAGE"
       script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
+      consecutive_command_commits_allowed: true
 
   - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/docker-publisher/docker-publisher@main"
     inputs:
