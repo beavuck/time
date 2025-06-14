@@ -20,7 +20,7 @@ RUN npm install --ignore-scripts -g npm@latest \
 && find /usr/local/lib/node_modules -name "cross-spawn" -type d -exec rm -rf {} + \
 && npm install --ignore-scripts -g cross-spawn@^7.0.6 --force \
 # making the image smaller by removing npm
-&& npm uninstall -g npm@latest
+&& npm uninstall -g npm
 
 USER appuser
 
