@@ -14,11 +14,6 @@ RUN npm install --ignore-scripts -g npm@latest \
 && groupadd -r appgroup \
 && useradd -r -g appgroup appuser \
 && chown -R appuser:appgroup /usr/src/app \
-# manually handling cross-spawn issue (FIXME remove this handling when node image is fixed)
-&& npm uninstall -g cross-spawn  \
-&& npm cache clean --force  \
-&& find /usr/local/lib/node_modules -name "cross-spawn" -type d -exec rm -rf {} + \
-&& npm install --ignore-scripts -g cross-spawn@^7.0.6 --force \
 # making the image smaller by removing npm
 && npm uninstall -g npm
 
