@@ -4,9 +4,9 @@ import {CorsOptions} from 'cors'
 import {CorsError} from '../errors/CorsError'
 import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
 import {StatusCodes} from 'http-status-codes'
-import dotenv from 'dotenv'
+import dotenvx from '@dotenvx/dotenvx'
 
-dotenv.config()
+dotenvx.config()
 
 export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],

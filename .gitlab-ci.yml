@@ -89,8 +89,8 @@ publish:
 run_integration_tests:
   stage: test
   variables:
-    API_PORT: 9124
-    HOST_URL: http://localhost:9124
+    API_PORT: 3000
+    HOST_URL: http://localhost:3000
     TRUSTED_ORIGINS: http://localhost:8477
   before_script:
     - npm install -g npm@latest

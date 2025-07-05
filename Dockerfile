@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json tsconfig.json tsoa.json ./
 COPY src ./src
+COPY .env ./.env
 
 # building the app
 RUN npm install --ignore-scripts -g npm@latest \

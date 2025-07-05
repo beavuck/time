@@ -13,7 +13,7 @@ test_results.html
 cover_agent_unit_test_runs.db
 
 # Environment variables
-.env
+.env.keys
 
 # Runtime data
 pids

@@ -2,9 +2,9 @@
 
 import {createLogger, format, transports} from 'winston'
 import 'winston-daily-rotate-file'
-import dotenv from 'dotenv'
+import dotenvx from '@dotenvx/dotenvx'
 
-dotenv.config()
+dotenvx.config()
 
 const LOGS_DIR = 'logs'
 const LOG_LEVEL: string = process.env.LOG_LEVEL ?? 'info'

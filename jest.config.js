@@ -21,7 +21,7 @@ module.exports = {
     '!**/vendor/**',
   ],
   preset: 'ts-jest',
-  setupFiles: ['dotenv/config'],
+  setupFiles: ['@dotenvx/dotenvx/config'],
   testEnvironment: 'node',
   testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
-};
+}

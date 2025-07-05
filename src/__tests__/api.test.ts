@@ -88,10 +88,9 @@ describe('App Initialization', () => {
 
   it('should block requests that exceed the rate limit', async () => {
     const RATE_LIMIT = parseInt(process.env.RATE_LIMIT!, 10)
-    let fallbackCounter = 0
-    while (callsMadeSoFar <= RATE_LIMIT && fallbackCounter++ < 10) {
-      const {res} = await makeSuccessfulCallToNowEndpoint() // incrementing callsMadeSoFar
-      if (callsMadeSoFar === RATE_LIMIT) {
+    while (callsMadeSoFar <= RATE_LIMIT) {
+      const {res} = await makeSuccessfulCallToNowEndpoint()
+      if (callsMadeSoFar > RATE_LIMIT) {
         expect(res.status).toBe(StatusCodes.TOO_MANY_REQUESTS)
       }
     }

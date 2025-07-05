@@ -4,28 +4,23 @@
 
 ### Set up (outside a container)
 
-To use this service in local env (not in a container), start by preparing your .env:
-
-```shell
-cp .env.example .env
-```
-
-You can change environment variables to suit your needs, specifically depending on what URLs you run this API and your
-other app(s) on.
-
-Then, install the dependencies, and run the service with:
+Install the dependencies, and run the service with:
 
 ```shell
 npm install
-npm start
+npm run go
 ```
+
+### Managing environment variables
+
+Environment variables are encrypted. Check out https://dotenvx.com/docs/quickstart to manage them if needed
 
 ### Using the service
 
 When you run:
 
 ```shell
-curl --location 'http://localhost:9124/now' \
+curl --location 'http://localhost:3000/now' \
 --header 'Origin: http://localhost:8477'
 ```
 
@@ -45,25 +40,6 @@ To run the tests, you can use:
 
 ```shell
 npm test
-```
-
-Writing tests can be made a little easier by calling the `./cover_agent.sh` script. You first need to install the
-CLI tool locally, and to forge and export an OPENAI_API_KEY with some credit attached to it. In details:
-
-```shell
-pipx install git+https://github.com/Codium-ai/cover-agent.git
-```
-
-and add this to your `.bashrc` or `.zshrc` or equivalent, replacing `...` with your actual key:
-
-```
-export OPENAI_API_KEY=...
-```
-
-Then, you can run the script from this project's root:
-
-```shell
-./cover_agent.sh -s path/from/repo/root/to/file.under.test.ts
 ```
 
 #### API client tests

@@ -1,11 +1,11 @@
 // src/server.ts
 
 import {api} from './api'
-import dotenv from 'dotenv'
 import {logger} from './config/logger'
 import {tryParseUrl} from './utils/urlUtil'
+import dotenvx from '@dotenvx/dotenvx'
 
-dotenv.config()
+dotenvx.config()
 
 const API_PORT = process.env.API_PORT ?? 3000
 
