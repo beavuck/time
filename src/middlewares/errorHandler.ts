@@ -52,6 +52,6 @@ function handleOtherError(
     message: BeavuckTimeServerError.baseMessage,
   },
 ) {
-  logger.error(`${logMsg}: ${resMsg}`)
+  logger.error(`${logMsg}: ${JSON.stringify(resMsg)}`)
   res.status(resStatus).json(resMsg)
 }

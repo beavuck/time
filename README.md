@@ -154,7 +154,9 @@ When you use the API, keep in mind what roles these headers play:
 | Defined and not trusted                      | Whatever                       | 🛑     |
 | Not defined                                  | Not defined                    | 🛑     |
 | Not defined or not trusted                   | Different from this API's host | 🛑     |
-* AKA `Referer` (sic).
+
+*AKA `Referer` (sic).
+
 ---
 
 ## 📚 Use cases
