@@ -1,4 +1,4 @@
-FROM node:22-alpine3.21
+FROM node:jod-alpine
 
 WORKDIR /usr/src/app
 

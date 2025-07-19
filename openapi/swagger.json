@@ -32,7 +32,7 @@
 	},
 	"info": {
 		"title": "beavuck-time",
-		"version": "2.1.20",
+		"version": "2.1.21",
 		"description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
 		"license": {
 			"name": "Unlicense"

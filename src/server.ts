@@ -27,7 +27,17 @@ if (!TRUSTED_ORIGINS) {
 
 const server = api.listen(API_PORT, () => {
   logger.info(
-    `Ready on API port ${API_PORT} (if this is running in a container, this port number is internal to the container)`,
+    `
+| |                               | |                                          ,=.
+| |__   ___  __ ___   ___   _  ___| | __                        ,=""""==.__.="  o".___
+| '_ \\ / _ \\/ _\` \\ \\ / / | | |/ __| |/ /                  ,=.=="                  ___/
+| |_) |  __/ (_| |\\ V /| |_| | (__|   <             ,==.,"    ,          , \\,===""
+|_.__/ \\___|\\__,_| \\_/  \\__,_|\\___|_|\\_\\          <     ,==)  \\"'"=._.==)  \\
+                                                    \`==''    \`"           \`"
+ 
+ Beavuck Time microservice started successfully
+ 
+ Ready on API port ${API_PORT} (if this is running in a container, this port number is internal to the container)`,
   )
 })
 
