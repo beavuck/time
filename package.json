@@ -1,8 +1,14 @@
 {
   "name": "beavuck-time",
-  "version": "2.1.21",
+  "version": "2.2.0",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
-  "keywords": ["time", "iso", "high-performance", "microservice", "open source"],
+  "keywords": [
+    "time",
+    "iso",
+    "high-performance",
+    "microservice",
+    "open source"
+  ],
   "homepage": "https://gitlab.com/beavuck-services/time",
   "bugs": {
     "url": "https://gitlab.com/beavuck-services/time/-/issues"
@@ -16,7 +22,6 @@
   "type": "commonjs",
   "main": "build/api.js",
   "scripts": {
-    "npm-publish": "npm publish --access public",
     "run-integration-tests": "cd api-tests/bruno && npm install -g @usebruno/cli && bru run --env local --bail",
     "up-patch": "npm version patch --no-git-tag-version",
     "up-minor": "npm version minor --no-git-tag-version",
