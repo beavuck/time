@@ -13,7 +13,7 @@ export const corsMiddleware = (
   res: express.Response,
   next: express.NextFunction,
 ) => {
-  const HOST_URL = tryParseUrl(process.env.HOST_URL ?? '')
+  const HOST_URL = tryParseUrl(process.env.BEAVUCK_TIME_HOST_URL ?? '')
   // 'referer' is a misspelling that was kept for compatibility: https://en.wikipedia.org/wiki/HTTP_referer
   const referrerHeader: string | undefined =
     (req.headers.referrer as string) || req.headers.referer

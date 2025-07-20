@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -21,6 +21,9 @@
   "author": "Alexis Drai",
   "type": "commonjs",
   "main": "build/api.js",
+  "bin": {
+    "beavuck-time": "./build/server.js"
+  },
   "scripts": {
     "run-integration-tests": "cd api-tests/bruno && npm install -g @usebruno/cli && bru run --env local --bail",
     "up-patch": "npm version patch --no-git-tag-version",

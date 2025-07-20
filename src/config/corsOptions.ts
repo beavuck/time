@@ -39,7 +39,7 @@ export function getHostUrl(): URL | undefined {
 }
 
 export function initHostUrl(): void {
-  HOST_URL = new URL(process.env.HOST_URL!)
+  HOST_URL = new URL(process.env.BEAVUCK_TIME_HOST_URL!)
 }
 
 export function getTrustedOrigins(): string[] {
@@ -50,7 +50,7 @@ export function getTrustedOrigins(): string[] {
 }
 
 export function initTrustedOrigins(): void {
-  const trustedOrigins: string = process.env.TRUSTED_ORIGINS!
+  const trustedOrigins: string = process.env.BEAVUCK_TIME_TRUSTED_ORIGINS!
   TRUSTED_ORIGINS = trustedOrigins.split(',')
 }
 

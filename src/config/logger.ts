@@ -7,9 +7,9 @@ import dotenvx from '@dotenvx/dotenvx'
 dotenvx.config()
 
 const LOGS_DIR = 'logs'
-const LOG_LEVEL: string = process.env.LOG_LEVEL ?? 'info'
-const MAX_LOG_FILES: string | number = process.env.MAX_LOG_FILES ?? 64
-const MAX_SIZE_LOG_FILES: string = process.env.MAX_SIZE_LOG_FILES ?? '1m'
+const LOG_LEVEL: string = process.env.BEAVUCK_TIME_LOG_LEVEL ?? 'info'
+const MAX_LOG_FILES: string | number = process.env.BEAVUCK_TIME_MAX_LOG_FILES ?? 64
+const MAX_SIZE_LOG_FILES: string = process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES ?? '1m'
 
 const dailyRotateFileTransport = new transports.DailyRotateFile({
   filename: `${LOGS_DIR}/%DATE%-combined.log`,

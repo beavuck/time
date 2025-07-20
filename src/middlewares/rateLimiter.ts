@@ -3,7 +3,7 @@
 import rateLimit from 'express-rate-limit'
 
 const NO_RATE_LIMIT = '-1'
-const RATE_LIMIT = parseInt(process.env.RATE_LIMIT ?? NO_RATE_LIMIT, 10)
+const RATE_LIMIT = parseInt(process.env.BEAVUCK_TIME_RATE_LIMIT ?? NO_RATE_LIMIT, 10)
 
 const SECONDS_IN_ONE_MINUTE = 60
 const MILLISECONDS_IN_ONE_SECOND = 1000

@@ -6,7 +6,7 @@ import {RFC_3339_FORMAT} from '../types/isoTimestamp'
 let callsMadeSoFar = 0
 
 function getSomeTrustedOrigin(): string {
-  return process.env.TRUSTED_ORIGINS?.split(',')[0] ?? ''
+  return process.env.BEAVUCK_TIME_TRUSTED_ORIGINS?.split(',')[0] ?? ''
 }
 
 /**
@@ -44,7 +44,7 @@ describe('App Initialization', () => {
   })
 
   it('should allow requests with no origin header but a referrer header identical to server url', async () => {
-    const REFERRER: string = process.env.HOST_URL!
+    const REFERRER: string = process.env.BEAVUCK_TIME_HOST_URL!
     const res = await request(api).get('/now').set('Referrer', REFERRER)
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.OK)
@@ -52,7 +52,7 @@ describe('App Initialization', () => {
   })
 
   it('should allow requests with no origin header but a referer (sic) header identical to server url', async () => {
-    const REFERER: string = process.env.HOST_URL!
+    const REFERER: string = process.env.BEAVUCK_TIME_HOST_URL!
     const res = await request(api).get('/now').set('Referer', REFERER)
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.OK)
@@ -72,13 +72,13 @@ describe('App Initialization', () => {
   })
 
   it('should return 500 if HOST_URL is not set', async () => {
-    const originalHostUrl = process.env.HOST_URL
-    delete process.env.HOST_URL
+    const originalHostUrl = process.env.BEAVUCK_TIME_HOST_URL
+    delete process.env.BEAVUCK_TIME_HOST_URL
 
     const res = await request(api).get('/now')
     expect(res.status).toBe(StatusCodes.INTERNAL_SERVER_ERROR)
 
-    process.env.HOST_URL = originalHostUrl
+    process.env.BEAVUCK_TIME_HOST_URL = originalHostUrl
   })
 
   it('should block requests with non-trusted referrer header if origin is not OK', async () => {
@@ -87,7 +87,7 @@ describe('App Initialization', () => {
   })
 
   it('should block requests that exceed the rate limit', async () => {
-    const RATE_LIMIT = parseInt(process.env.RATE_LIMIT!, 10)
+    const RATE_LIMIT = parseInt(process.env.BEAVUCK_TIME_RATE_LIMIT!, 10)
     while (callsMadeSoFar <= RATE_LIMIT) {
       const {res} = await makeSuccessfulCallToNowEndpoint()
       if (callsMadeSoFar > RATE_LIMIT) {

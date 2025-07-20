@@ -83,20 +83,20 @@ time:
         - 'SOME_PORT_NUMBER:3000'
         # HOST_PORT:CONTAINER_PORT (Since we are in a container, CONTAINER_PORT corresponds to the API_PORT variable below)
     environment:
-        - HOST_URL: https://time-api.example.com
-        # HOST_URL: That API's URL. Essential for CORS config.
-        - TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
-        # TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
-        - API_PORT: 3000
-        # API_PORT: Optional. Internal port when in a container. Defaults to 3000
-        - RATE_LIMIT: 100
-        # RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
-        - LOG_LEVEL: info
-        # LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
-        - MAX_LOG_FILES: 64
-        # MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 64
-        - MAX_SIZE_LOG_FILES: 1m
-        # MAX_SIZE_LOG_FILES: Optional. Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is 1m
+        - BEAVUCK_TIME_HOST_URL: https://time-api.example.com
+        # BEAVUCK_TIME_HOST_URL: That API's URL. Essential for CORS config.
+        - BEAVUCK_TIME_TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
+        # BEAVUCK_TIME_TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
+        - BEAVUCK_TIME_API_PORT: 3000
+        # BEAVUCK_TIME_API_PORT: Optional. Internal port when in a container. Defaults to 3000
+        - BEAVUCK_TIME_RATE_LIMIT: 100
+        # BEAVUCK_TIME_RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
+        - BEAVUCK_TIME_LOG_LEVEL: info
+        # BEAVUCK_TIME_LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
+        - BEAVUCK_TIME_MAX_LOG_FILES: 64
+        # BEAVUCK_TIME_MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 64
+        - BEAVUCK_TIME_MAX_SIZE_LOG_FILES: 1m
+        # BEAVUCK_TIME_MAX_SIZE_LOG_FILES: Optional. Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is 1m
 ```
 
 Here's the simple docker compose file I used to test this service locally:
@@ -108,9 +108,9 @@ services:
         ports:
             - '3000:3000'
         environment:
-            HOST_URL: http://127.0.0.1:3000
-            TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
-            LOG_LEVEL: debug
+            BEAVUCK_TIME_HOST_URL: http://127.0.0.1:3000
+            BEAVUCK_TIME_TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
+            BEAVUCK_TIME_LOG_LEVEL: debug
 ```
 
 When you're ready, just run your services with:
@@ -145,15 +145,15 @@ variable.
 
 When you use the API, keep in mind what roles these headers play:
 
-| `"Origin:"`                                  | `"Referrer:"`*                 | Result |
-| -------------------------------------------- | ------------------------------ | ------ |
-| Defined and API `TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
-| Trusted                                      | Whatever                       | ✅     |
-| Same as this API's host                      | Whatever                       | ✅     |
-| Not defined                                  | Same as this API's host        | ✅     |
-| Defined and not trusted                      | Whatever                       | 🛑     |
-| Not defined                                  | Not defined                    | 🛑     |
-| Not defined or not trusted                   | Different from this API's host | 🛑     |
+| `"Origin:"`                                               | `"Referrer:"`*                 | Result |
+| --------------------------------------------------------- | ------------------------------ | ------ |
+| Defined and API `BEAVUCK_TIME_TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
+| Trusted                                                   | Whatever                       | ✅     |
+| Same as this API's host                                   | Whatever                       | ✅     |
+| Not defined                                               | Same as this API's host        | ✅     |
+| Defined and not trusted                                   | Whatever                       | 🛑     |
+| Not defined                                               | Not defined                    | 🛑     |
+| Not defined or not trusted                                | Different from this API's host | 🛑     |
 * AKA `Referer` (sic).
 ---
 
