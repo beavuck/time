@@ -1,11 +1,22 @@
 {
   "name": "beavuck-time",
   "version": "2.1.21",
-  "main": "build/api.js",
-  "engines": {
-    "node": ">=18.20.8"
+  "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
+  "keywords": [],
+  "homepage": "https://gitlab.com/beavuck-services/time",
+  "bugs": {
+    "url": "https://gitlab.com/beavuck-services/time/-/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/beavuck-services/time.git"
+  },
+  "license": "Unlicense",
+  "author": "Alexis Drai",
+  "type": "commonjs",
+  "main": "build/api.js",
   "scripts": {
+    "npm-publish": "npm publish --access public",
     "run-integration-tests": "cd api-tests/bruno && npm install -g @usebruno/cli && bru run --env local --bail",
     "up-patch": "npm version patch --no-git-tag-version",
     "up-minor": "npm version minor --no-git-tag-version",
@@ -19,31 +30,6 @@
     "start": "node build/server.js",
     "go": "npm install && npm run build && npm run clean && npm run test && npm start"
   },
-  "keywords": [],
-  "author": "Alexis Drai",
-  "license": "Unlicense",
-  "private": "false",
-  "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
-  "homepage": "https://gitlab.com/beavuck-services/time",
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/beavuck-services/time.git"
-  },
-  "prettier": {
-    "experimentalTernaries": true,
-    "semi": false,
-    "printWidth": 96,
-    "tabWidth": 2,
-    "useTabs": false,
-    "singleQuote": true,
-    "jsxSingleQuote": false,
-    "bracketSameLine": false,
-    "arrowParens": "avoid",
-    "endOfLine": "lf",
-    "bracketSpacing": false,
-    "trailingComma": "all"
-  },
-  "bugs": "https://gitlab.com/beavuck-services/time/-/issues",
   "dependencies": {
     "@dotenvx/dotenvx": "^1.48.0",
     "cors": "^2.8.5",
@@ -73,5 +59,22 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.37.0"
+  },
+  "engines": {
+    "node": ">=18.20.8"
+  },
+  "prettier": {
+    "experimentalTernaries": true,
+    "semi": false,
+    "printWidth": 96,
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "bracketSameLine": false,
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "bracketSpacing": false,
+    "trailingComma": "all"
   }
 }
