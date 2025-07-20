@@ -2,7 +2,7 @@
   "name": "beavuck-time",
   "version": "2.1.21",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
-  "keywords": [],
+  "keywords": ["time", "iso", "high-performance", "microservice", "open source"],
   "homepage": "https://gitlab.com/beavuck-services/time",
   "bugs": {
     "url": "https://gitlab.com/beavuck-services/time/-/issues"
