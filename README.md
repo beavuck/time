@@ -79,7 +79,7 @@ npm install beavuck-time
 
 #### Programmatically
 
-Then, if you want to run this service programmatically in your Node.js project:
+If you want to run this service programmatically in your Node.js project:
 
 ```js
 import { startServer } from 'beavuck-time'
@@ -92,7 +92,7 @@ startServer({
 ```
 
 You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) instead of passing an options object. Refer to
-the docker Compose example below to see an exhaustive list of available environment variables and what they do.
+the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
 
 #### CLI
 
@@ -102,7 +102,7 @@ To run this service directly in your command line interface, just run:
 npx beavuck-time
 ```
 
-Refer to the docker Compose example below to see an exhaustive list of available environment variables and what they do.
+Refer to the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
 
 ---
 
