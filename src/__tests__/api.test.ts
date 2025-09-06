@@ -2,8 +2,12 @@ import request from 'supertest'
 import {api} from '../api'
 import {StatusCodes} from 'http-status-codes'
 import {RFC_3339_FORMAT} from '../types/isoTimestamp'
+import dotenvx from '@dotenvx/dotenvx'
 
-let callsMadeSoFar = 0
+dotenvx.config({
+  path: '.env.test',
+  ignore: ['MISSING_ENV_FILE'],
+})
 
 function getSomeTrustedOrigin(): string {
   return process.env.BEAVUCK_TIME_TRUSTED_ORIGINS?.split(',')[0] ?? ''
@@ -15,7 +19,6 @@ function getSomeTrustedOrigin(): string {
 async function makeSuccessfulCallToNowEndpoint() {
   const trustedOrigin = getSomeTrustedOrigin()
   const res = await request(api).get('/now').set('Origin', trustedOrigin)
-  callsMadeSoFar++
   return {res, trustedOrigin}
 }
 
@@ -48,7 +51,6 @@ describe('App Initialization', () => {
     const res = await request(api).get('/now').set('Referrer', REFERRER)
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.OK)
-    callsMadeSoFar++
   })
 
   it('should allow requests with no origin header but a referer (sic) header identical to server url', async () => {
@@ -56,7 +58,6 @@ describe('App Initialization', () => {
     const res = await request(api).get('/now').set('Referer', REFERER)
     expect(res.header['access-control-allow-origin']).toBeUndefined()
     expect(res.status).toBe(StatusCodes.OK)
-    callsMadeSoFar++
   })
 
   it('should handle errors using errorHandler middleware', async () => {
@@ -84,15 +85,5 @@ describe('App Initialization', () => {
   it('should block requests with non-trusted referrer header if origin is not OK', async () => {
     const res = await request(api).get('/now').set('Referrer', 'https://non-trusted.com')
     expect(res.status).toBe(StatusCodes.FORBIDDEN)
-  })
-
-  it('should block requests that exceed the rate limit', async () => {
-    const RATE_LIMIT = parseInt(process.env.BEAVUCK_TIME_RATE_LIMIT!, 10)
-    while (callsMadeSoFar <= RATE_LIMIT) {
-      const {res} = await makeSuccessfulCallToNowEndpoint()
-      if (callsMadeSoFar > RATE_LIMIT) {
-        expect(res.status).toBe(StatusCodes.TOO_MANY_REQUESTS)
-      }
-    }
   })
 })

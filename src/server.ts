@@ -8,7 +8,9 @@ import {tryParseUrl} from './utils/urlUtil'
 import dotenvx from '@dotenvx/dotenvx'
 import http from 'http'
 
-dotenvx.config()
+dotenvx.config({
+  ignore: ['MISSING_ENV_FILE'],
+})
 
 type ServerOptions = {
   port?: number

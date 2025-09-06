@@ -2,6 +2,12 @@
 
 import {isSameOrigin, tryParseUrl} from '../../utils/urlUtil'
 import {URL} from 'url'
+import dotenvx from '@dotenvx/dotenvx'
+
+dotenvx.config({
+  path: '.env.test',
+  ignore: ['MISSING_ENV_FILE'],
+})
 
 const A_VALID_URL_STRING = 'https://example.com:1234'
 const SAME_VALID_URL_DIFFERENT_PORT = 'https://example.com:81'

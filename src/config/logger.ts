@@ -4,7 +4,9 @@ import {createLogger, format, transports} from 'winston'
 import 'winston-daily-rotate-file'
 import dotenvx from '@dotenvx/dotenvx'
 
-dotenvx.config()
+dotenvx.config({
+  ignore: ['MISSING_ENV_FILE'],
+})
 
 const LOGS_DIR = 'logs'
 const LOG_LEVEL: string = process.env.BEAVUCK_TIME_LOG_LEVEL ?? 'info'
