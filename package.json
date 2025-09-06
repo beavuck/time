@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "2.3.6",
+  "version": "2.3.7",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -21,6 +21,14 @@
   "author": "Alexis Drai",
   "type": "commonjs",
   "main": "build/api.js",
+  "files": [
+    "build/",
+    "openapi/swagger.json",
+    "package.json",
+    "CONTRIBUTING.md",
+    "README.md",
+    "UNLICENSE"
+  ],
   "bin": {
     "beavuck-time": "build/server.js"
   },
@@ -32,12 +40,13 @@
     "update-dependencies": "ncu --format group && ncu -u && npm install --verbose && npm prune --verbose && npm audit fix --verbose",
     "prepublishOnly": "npm install && npm run build",
     "lint": "eslint --fix src/",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write src/ --log-level warn",
-    "clean": "npm run lint && npm run format",
+    "clean": "npm run lint && npm run typecheck && npm run format",
     "test": "DOTENV_CONFIG_PATH=./.env.test jest --coverage",
     "build": "tsoa spec-and-routes && tsc",
     "start": "node build/server.js",
-    "go": "npm install && npm run build && npm run clean && npm run test && npm start"
+    "go": "rm -rf build && npm install && npm run build && npm run clean && npm run test && npm start"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.49.0",

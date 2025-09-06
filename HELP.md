@@ -13,7 +13,7 @@ npm run go
 
 ### Managing environment variables
 
-Environment variables are encrypted. Check out https://dotenvx.com/docs/quickstart to manage them if needed
+Test environment variables are encrypted. Check out https://dotenvx.com/docs/quickstart to manage them if needed
 
 ### Using the service
 
