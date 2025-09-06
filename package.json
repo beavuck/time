@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -22,7 +22,7 @@
   "type": "commonjs",
   "main": "build/api.js",
   "bin": {
-    "beavuck-time": "./build/server.js"
+    "beavuck-time": "build/server.js"
   },
   "scripts": {
     "run-integration-tests": "cd api-tests/bruno && npm install -g @usebruno/cli && bru run --env local --bail",
