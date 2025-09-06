@@ -86,15 +86,12 @@ If you want to run this service programmatically in your Node.js project:
 ```js
 import { startServer } from 'beavuck-time'
 
-startServer({
-  port: 3000,
-  hostUrl: 'https://time-api.example.com',
-  trustedOrigins: 'https://my.app.com,https://my-other.app.com'
-})
+startServer()
 ```
 
-You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) instead of passing an options object. Refer to
-the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
+You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) stored in a `.env` file at the root of your project.
+It is a known limitation -- work is in progress to allow passing those options directly as parameters to `startServer()`.
+Refer to the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
 
 #### CLI
 

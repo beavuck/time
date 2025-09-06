@@ -4,6 +4,7 @@ npm-debug.log
 yarn-error.log
 
 # Logs
+beavuck-time-logs
 logs
 *.log
 npm-debug.log*

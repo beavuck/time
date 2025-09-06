@@ -8,7 +8,7 @@ dotenvx.config({
   ignore: ['MISSING_ENV_FILE'],
 })
 
-const LOGS_DIR = 'logs'
+const LOGS_DIR = 'beavuck-time-logs'
 const LOG_LEVEL: string = process.env.BEAVUCK_TIME_LOG_LEVEL ?? 'info'
 const MAX_LOG_FILES: string | number = process.env.BEAVUCK_TIME_MAX_LOG_FILES ?? 64
 const MAX_SIZE_LOG_FILES: string = process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES ?? '1m'
