@@ -89,16 +89,12 @@ import { startServer } from 'beavuck-time'
 startServer({
   hostUrl: 'https://time-api.example.com',
   trustedOrigins: 'https://my.app.com, https://my.app.com/*, https://my-other.app.com, https://my-other.app.com/*',
-  apiPort: 3000,
-  rateLimit: -1,
-  logLevel: 'info',
-  maxLogFiles: 64,
-  maxSizeLogFiles: '1m',
+  apiPort: 3000
 })
 ```
 
-You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) instead of passing an options object. Refer to
-the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
+You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) together with (or instead of) passing an options object. 
+Refer to the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
 
 #### CLI
 
