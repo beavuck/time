@@ -2,10 +2,10 @@
 
 import cors from 'cors'
 import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
-import {CorsError} from '../errors/CorsError'
+import {CorsError} from '../errors/corsError'
 import express from 'express'
 import {logger} from '../config/logger'
-import {BeavuckTimeServerError} from '../errors/BeavuckTimeServerError'
+import {BeavuckTimeServerError} from '../errors/beavuckTimeServerError'
 import {corsOptions} from '../config/corsOptions'
 
 export const corsMiddleware = (

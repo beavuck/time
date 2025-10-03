@@ -2,11 +2,12 @@
 
 import express from 'express'
 import {logger} from '../config/logger'
-import {BeavuckTimeClientError} from '../errors/BeavuckTimeClientError'
-import {BeavuckTimeServerError} from '../errors/BeavuckTimeServerError'
+import {BeavuckTimeClientError} from '../errors/beavuckTimeClientError'
+import {BeavuckTimeServerError} from '../errors/beavuckTimeServerError'
 import {StatusCodes} from 'http-status-codes'
 import {ValidateError} from 'tsoa'
-import {BeavuckTimeError} from '../errors/base/BeavuckTimeError'
+import {BeavuckTimeError} from '../errors/base/beavuckTimeError'
+import {ErrorResponse} from '../errors/errorResponse'
 
 export const errorHandler = (
   err: unknown,
@@ -48,9 +49,7 @@ function handleOtherError(
   res: express.Response,
   logMsg: string = `Unknown error`,
   resStatus: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR,
-  resMsg: {message: string; details?: unknown} = {
-    message: BeavuckTimeServerError.baseMessage,
-  },
+  resMsg: ErrorResponse = new ErrorResponse(),
 ) {
   logger.error(`${logMsg}: ${JSON.stringify(resMsg)}`)
   res.status(resStatus).json(resMsg)

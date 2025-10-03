@@ -1,6 +1,6 @@
 // src/utils/urlUtil.ts
 
-import {URL} from 'url'
+import {URL} from 'node:url'
 import {logger} from '../config/logger'
 
 export function isSameOrigin(thisUrl?: URL, thatUrl?: URL): boolean {

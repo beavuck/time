@@ -6,7 +6,7 @@ import {api} from './api'
 import {logger} from './config/logger'
 import {tryParseUrl} from './utils/urlUtil'
 import dotenvx from '@dotenvx/dotenvx'
-import http from 'http'
+import http from 'node:http'
 
 dotenvx.config({
   ignore: ['MISSING_ENV_FILE'],

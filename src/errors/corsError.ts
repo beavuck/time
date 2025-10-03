@@ -1,7 +1,7 @@
-// src/errors/CorsError.ts
+// src/errors/corsError.ts
 
 import {StatusCodes} from 'http-status-codes'
-import {BeavuckTimeClientError} from './BeavuckTimeClientError'
+import {BeavuckTimeClientError} from './beavuckTimeClientError'
 
 export class CorsError extends BeavuckTimeClientError {
   static readonly baseMessage: string = 'Origin forbidden by CORS'

@@ -1,7 +1,7 @@
 // src/config/corsOptions.ts
 
 import {CorsOptions} from 'cors'
-import {CorsError} from '../errors/CorsError'
+import {CorsError} from '../errors/corsError'
 import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
 import {StatusCodes} from 'http-status-codes'
 import dotenvx from '@dotenvx/dotenvx'

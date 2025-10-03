@@ -2,9 +2,9 @@
 
 import express from 'express'
 import {errorHandler} from '../../middlewares/errorHandler'
-import {BeavuckTimeClientError} from '../../errors/BeavuckTimeClientError'
-import {BeavuckTimeServerError} from '../../errors/BeavuckTimeServerError'
-import {CorsError} from '../../errors/CorsError'
+import {BeavuckTimeClientError} from '../../errors/beavuckTimeClientError'
+import {BeavuckTimeServerError} from '../../errors/beavuckTimeServerError'
+import {CorsError} from '../../errors/corsError'
 import {StatusCodes} from 'http-status-codes'
 import {logger} from '../../config/logger'
 import {ValidateError} from 'tsoa'

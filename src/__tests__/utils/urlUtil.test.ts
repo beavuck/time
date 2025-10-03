@@ -1,7 +1,7 @@
 // src/__tests__/utils/urlUtil.test.ts
 
 import {isSameOrigin, tryParseUrl} from '../../utils/urlUtil'
-import {URL} from 'url'
+import {URL} from 'node:url'
 import dotenvx from '@dotenvx/dotenvx'
 
 dotenvx.config({

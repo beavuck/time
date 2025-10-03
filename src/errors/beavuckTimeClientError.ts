@@ -1,6 +1,6 @@
-// src/errors/BeavuckTimeClientError.ts
+// src/errors/beavuckTimeClientError.ts
 
-import {BeavuckTimeError} from './base/BeavuckTimeError'
+import {BeavuckTimeError} from './base/beavuckTimeError'
 import {StatusCodes} from 'http-status-codes'
 
 export class BeavuckTimeClientError extends BeavuckTimeError {
