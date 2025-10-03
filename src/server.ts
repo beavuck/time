@@ -8,52 +8,16 @@ import {tryParseUrl} from './utils/urlUtil'
 import dotenvx from '@dotenvx/dotenvx'
 import http from 'node:http'
 
+// Load environment variables from .env file, if available
+// but don't error if the file is missing
 dotenvx.config({
   ignore: ['MISSING_ENV_FILE'],
 })
 
-type ServerOptions = {
-  port?: number
-  hostUrl?: string
-  trustedOrigins?: string
-}
-
-function validateEnv({
-  hostUrl,
-  trustedOrigins,
-}: Required<Pick<ServerOptions, 'hostUrl' | 'trustedOrigins'>>) {
-  if (!hostUrl || !tryParseUrl(hostUrl)) {
-    logger.error('HOST_URL not set or is not a valid URL')
-    process.exit(1)
-  }
-
-  if (!trustedOrigins) {
-    logger.error('TRUSTED_ORIGINS not set')
-    process.exit(1)
-  }
-}
-
-function propagateOptionsInEnv(
-  HOST_URL: string,
-  TRUSTED_ORIGINS: string,
-  API_PORT: string | number,
-) {
-  process.env.BEAVUCK_TIME_HOST_URL = HOST_URL
-  process.env.BEAVUCK_TIME_TRUSTED_ORIGINS = TRUSTED_ORIGINS
-  process.env.BEAVUCK_TIME_API_PORT = String(API_PORT)
-}
-
 export function startServer(options: ServerOptions = {}): http.Server {
-  const API_PORT = options.port ?? process.env.BEAVUCK_TIME_API_PORT ?? 3000
-  const HOST_URL = options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL ?? ''
-  const TRUSTED_ORIGINS =
-    options.trustedOrigins ?? process.env.BEAVUCK_TIME_TRUSTED_ORIGINS ?? ''
+  manageEnvVars(options)
 
-  propagateOptionsInEnv(HOST_URL, TRUSTED_ORIGINS, API_PORT)
-
-  validateEnv({hostUrl: HOST_URL, trustedOrigins: TRUSTED_ORIGINS})
-
-  const server = api.listen(API_PORT, () => {
+  const server = api.listen(process.env.BEAVUCK_TIME_API_PORT, () => {
     logger.info(
       `
 | |                               | |                                          ,=.
@@ -65,7 +29,7 @@ export function startServer(options: ServerOptions = {}): http.Server {
 
  Beavuck Time microservice started successfully
 
- Ready on API port ${API_PORT} (if this is running in a container, this port number is internal to the container)
+ Ready on API port ${process.env.BEAVUCK_TIME_API_PORT} (if this is running in a container, this port number is internal to the container)
       `,
     )
   })
@@ -89,6 +53,59 @@ export function startServer(options: ServerOptions = {}): http.Server {
   process.on(SIGINT, () => gracefulShutdown(SIGINT))
 
   return server
+}
+
+type ServerOptions = {
+  apiPort?: number | string
+  hostUrl?: string
+  trustedOrigins?: string
+  rateLimit?: number | string
+  logLevel?: 'error' | 'warn' | 'info' | 'http' | 'verbose' | 'debug' | 'silly'
+  maxLogFiles?: number | string
+  maxSizeLogFiles?: string
+}
+
+function manageEnvVars(options: ServerOptions) {
+  process.env.BEAVUCK_TIME_API_PORT =
+    options.apiPort === undefined
+    ? '3000'
+    : String(options.apiPort)
+
+  process.env.BEAVUCK_TIME_HOST_URL =
+    options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL
+
+  process.env.BEAVUCK_TIME_TRUSTED_ORIGINS =
+    options.trustedOrigins ?? process.env.BEAVUCK_TIME_TRUSTED_ORIGINS
+
+  process.env.BEAVUCK_TIME_RATE_LIMIT =
+    options.rateLimit === undefined
+    ? process.env.BEAVUCK_TIME_RATE_LIMIT
+    : String(options.rateLimit)
+
+  process.env.BEAVUCK_TIME_LOG_LEVEL =
+    options.logLevel ?? process.env.BEAVUCK_TIME_LOG_LEVEL
+
+  process.env.BEAVUCK_TIME_MAX_LOG_FILES =
+    options.maxLogFiles === undefined
+    ? process.env.BEAVUCK_TIME_MAX_LOG_FILES
+    : String(options.maxLogFiles)
+
+  process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES =
+    options.maxSizeLogFiles ?? process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES
+
+  validateEnv()
+}
+
+function validateEnv() {
+  if (!process.env.BEAVUCK_TIME_HOST_URL || !tryParseUrl(process.env.BEAVUCK_TIME_HOST_URL)) {
+    logger.error('HOST_URL not set or is not a valid URL')
+    process.exit(1)
+  }
+
+  if (!process.env.BEAVUCK_TIME_TRUSTED_ORIGINS) {
+    logger.error('TRUSTED_ORIGINS not set')
+    process.exit(1)
+  }
 }
 
 // Support running as standalone binary

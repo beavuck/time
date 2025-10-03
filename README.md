@@ -87,9 +87,13 @@ If you want to run this service programmatically in your Node.js project:
 import { startServer } from 'beavuck-time'
 
 startServer({
-  port: 3000,
   hostUrl: 'https://time-api.example.com',
-  trustedOrigins: 'https://my.app.com,https://my-other.app.com'
+  trustedOrigins: 'https://my.app.com,https://my-other.app.com',
+  apiPort: 3000,
+  rateLimit: -1,
+  logLevel: 'info',
+  maxLogFiles: 64,
+  maxSizeLogFiles: '1m',
 })
 ```
 
@@ -130,7 +134,7 @@ time:
         # BEAVUCK_TIME_TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
         - BEAVUCK_TIME_API_PORT: 3000
         # BEAVUCK_TIME_API_PORT: Optional. Internal port when in a container. Defaults to 3000
-        - BEAVUCK_TIME_RATE_LIMIT: 100
+        - BEAVUCK_TIME_RATE_LIMIT: -1
         # BEAVUCK_TIME_RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
         - BEAVUCK_TIME_LOG_LEVEL: info
         # BEAVUCK_TIME_LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
