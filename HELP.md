@@ -21,7 +21,7 @@ When you run:
 
 ```shell
 curl --location 'http://localhost:3000/now' \
---header 'Origin: http://localhost:8477'
+--header 'Origin: http://localhost:8477/bla'
 ```
 
 you should expect an answer such as:

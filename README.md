@@ -88,7 +88,7 @@ import { startServer } from 'beavuck-time'
 
 startServer({
   hostUrl: 'https://time-api.example.com',
-  trustedOrigins: 'https://my.app.com,https://my-other.app.com',
+  trustedOrigins: 'https://my.app.com, https://my.app.com/*, https://my-other.app.com, https://my-other.app.com/*',
   apiPort: 3000,
   rateLimit: -1,
   logLevel: 'info',

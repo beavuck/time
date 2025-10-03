@@ -51,7 +51,10 @@ export function getTrustedOrigins(): string[] {
 
 export function initTrustedOrigins(): void {
   const trustedOrigins: string = process.env.BEAVUCK_TIME_TRUSTED_ORIGINS!
-  TRUSTED_ORIGINS = trustedOrigins.split(',')
+  TRUSTED_ORIGINS = trustedOrigins
+    .split(',')
+    .map(to => to.trim())
+    .filter(to => to.length > 0)
 }
 
 export function isAllTrusted(): boolean {
@@ -59,5 +62,9 @@ export function isAllTrusted(): boolean {
 }
 
 export function isOriginAbsentOrTrusted(origin?: string): boolean {
-  return !origin || getTrustedOrigins().includes(origin)
+  return (
+    !origin ||
+    getTrustedOrigins().includes(origin) ||
+    getTrustedOrigins().some(to => to.includes('/*') && origin.startsWith(to))
+  )
 }
