@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "2.3.13",
+  "version": "2.4.0",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -46,7 +46,7 @@
     "test": "DOTENV_CONFIG_PATH=./.env.test jest --coverage",
     "build": "tsoa spec-and-routes && tsc",
     "start": "node build/server.js",
-    "go": "rm -rf build && npm install && npm run build && npm run clean && npm run test && npm start"
+    "go": "rm -rf build && npm install && npm run build && npm run clean && npm run test && npm run start"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.0",

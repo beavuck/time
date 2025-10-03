@@ -33,12 +33,23 @@ function validateEnv({
   }
 }
 
-// FIXME the server options method causes an exception, npm users will have to use a .env file for now
+function propagateOptionsInEnv(
+  HOST_URL: string,
+  TRUSTED_ORIGINS: string,
+  API_PORT: string | number,
+) {
+  process.env.BEAVUCK_TIME_HOST_URL = HOST_URL
+  process.env.BEAVUCK_TIME_TRUSTED_ORIGINS = TRUSTED_ORIGINS
+  process.env.BEAVUCK_TIME_API_PORT = String(API_PORT)
+}
+
 export function startServer(options: ServerOptions = {}): http.Server {
   const API_PORT = options.port ?? process.env.BEAVUCK_TIME_API_PORT ?? 3000
   const HOST_URL = options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL ?? ''
   const TRUSTED_ORIGINS =
     options.trustedOrigins ?? process.env.BEAVUCK_TIME_TRUSTED_ORIGINS ?? ''
+
+  propagateOptionsInEnv(HOST_URL, TRUSTED_ORIGINS, API_PORT)
 
   validateEnv({hostUrl: HOST_URL, trustedOrigins: TRUSTED_ORIGINS})
 
