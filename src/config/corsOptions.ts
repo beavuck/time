@@ -6,7 +6,11 @@ import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
 import {StatusCodes} from 'http-status-codes'
 import dotenvx from '@dotenvx/dotenvx'
 
-dotenvx.config()
+// Load environment variables from .env file, if available
+// but don't error if the file is missing
+dotenvx.config({
+  ignore: ['MISSING_ENV_FILE'],
+})
 
 export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],

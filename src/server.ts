@@ -66,32 +66,41 @@ type ServerOptions = {
 }
 
 function manageEnvVars(options: ServerOptions) {
+  logger.debug('serverOptions: ' + JSON.stringify(options))
+
   process.env.BEAVUCK_TIME_API_PORT =
     options.apiPort === undefined
     ? '3000'
     : String(options.apiPort)
+  logger.debug('API_PORT: ' + process.env.BEAVUCK_TIME_API_PORT)
 
   process.env.BEAVUCK_TIME_HOST_URL =
     options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL
+  logger.debug('HOST_URL: ' + process.env.BEAVUCK_TIME_HOST_URL)
 
   process.env.BEAVUCK_TIME_TRUSTED_ORIGINS =
     options.trustedOrigins ?? process.env.BEAVUCK_TIME_TRUSTED_ORIGINS
+  logger.debug('TRUSTED_ORIGINS: ' + process.env.BEAVUCK_TIME_TRUSTED_ORIGINS)
 
   process.env.BEAVUCK_TIME_RATE_LIMIT =
     options.rateLimit === undefined
     ? process.env.BEAVUCK_TIME_RATE_LIMIT
     : String(options.rateLimit)
+  logger.debug('RATE_LIMIT: ' + process.env.BEAVUCK_TIME_RATE_LIMIT)
 
   process.env.BEAVUCK_TIME_LOG_LEVEL =
     options.logLevel ?? process.env.BEAVUCK_TIME_LOG_LEVEL
+  logger.debug('LOG_LEVEL: ' + process.env.BEAVUCK_TIME_LOG_LEVEL)
 
   process.env.BEAVUCK_TIME_MAX_LOG_FILES =
     options.maxLogFiles === undefined
     ? process.env.BEAVUCK_TIME_MAX_LOG_FILES
     : String(options.maxLogFiles)
+  logger.debug('MAX_LOG_FILES: ' + process.env.BEAVUCK_TIME_MAX_LOG_FILES)
 
   process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES =
     options.maxSizeLogFiles ?? process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES
+  logger.debug('MAX_SIZE_LOG_FILES: ' + process.env.BEAVUCK_TIME_MAX_SIZE_LOG_FILES)
 
   validateEnv()
 }
