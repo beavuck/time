@@ -69,6 +69,6 @@ export function isOriginAbsentOrTrusted(origin?: string): boolean {
   return (
     !origin ||
     getTrustedOrigins().includes(origin) ||
-    getTrustedOrigins().some(to => to.includes('/*') && origin.startsWith(to))
+    getTrustedOrigins().some(to => origin.startsWith(to.replace('/*', '')))
   )
 }
