@@ -68,8 +68,7 @@ function manageEnvVars(options: ServerOptions) {
     options.apiPort === undefined ? '3000' : String(options.apiPort)
   logger.debug('API_PORT: ' + process.env.BEAVUCK_TIME_API_PORT)
 
-  process.env.BEAVUCK_TIME_HOST_URL =
-    options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL
+  process.env.BEAVUCK_TIME_HOST_URL = options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL
   logger.debug('HOST_URL: ' + process.env.BEAVUCK_TIME_HOST_URL)
 
   process.env.BEAVUCK_TIME_TRUSTED_ORIGINS =
