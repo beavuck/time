@@ -1,57 +1,39 @@
 # ⏲️ Beavuck Time
 
-Thank you for considering contributing to Beavuck Time!
+Thanks for contributing!
 
-## 🈸 Opening issues
+## 🈸 Issues
 
-When you open an issue (be it a bug, a suggestion, or other), please follow the relevant guidelines, so that we can
-help you as quickly as possible.
+Use the templates when opening issues:
 
-Any open issues that do not follow the guidelines may be closed immediately.
+- 🐞 [Bug report](https://gitlab.com/beavuck-services/time/-/issues/new?issuable_template=bug)
+- 💡 [Enhancement request](https://gitlab.com/beavuck-services/time/-/issues/new?issuable_template=enhancement)
 
-### 🐞 Bug reports
+## 🔀 Merge requests
 
-Please just follow this link where we set it all up for you: [🐞 Create a bug report](https://gitlab.com/beavuck-services/time/-/issues/new?issuable_template=bug)
+If you hate TDD, this might not be the project for you.
 
-Or, to do it by hand : please choose the `bug` issue template when creating the issue, and follow it.
+### Commit style
 
-### 💡 Suggestions, enhancement requests, etc.
+**Format:** `emoji Action that you did`
 
-Please just follow this link where we set it all up for you: [💡 Create an enhancement request](https://gitlab.com/beavuck-services/time/-/issues/new?issuable_template=enhancement)
+**Example:** `✏️ Fix typo in README`
 
-Or, to do it by hand : please choose the `enhancement` issue template when creating the issue, and follow it.
+Rules:
+- Short, imperative tense
+- Start with relevant emoji
+- Capitalize first word
+- No period at the end
 
-## 🔀 Preparing for merge requests
+### TDD workflow
 
-If you have something against TDD, now is probably the time to turn back.
+1. **First commit:** Failing tests that demonstrate the bug/feature
+2. **Second commit:** Code that makes tests pass
 
-You're still there! Thank you.
+All pre-existing tests must still pass.
 
-When you open a merge request, please make sure to follow the relevant steps, so that it can be reviewed and merged as
-quickly as possible.
+### Templates
 
-Any open merge requests that do not follow the guidelines may be closed immediately.
-
-**All merge requests**
-
--   **Commits**:
-    -   Your MR will need to be separated into digestible, _logical commits_, with a clear message for each. To fit
-        with this project's conventions, a _commit message's style_ should be short, in the imperative, start with a relevant emoji,
-        have its first word be capitalized, and not end with a period. For example: `✏️ Fix typo in README`.
-    -   Your MR will need to follow TDD principles:
-        -   _First, commit failing tests_ targeting the bug or enhancement in question.
-        -   Then, commit the code that does the thing -- the previously failing tests should now pass. (The pre-existing tests
-            should also still pass, obviously.)
--   **Title**: Should be treated like a very important commit message, since it will appear as a commit message on the
-    `main` branch. See sub-parts below for specific guidelines.
--   **Template**: Choose the relevant template (see sub-parts below), then follow the instructions within said template.
-
-### 🐛 Bug fixes
-
--   **Title**: Should follow the convention `🐛 Fix #{{issue_number}}: {{very_short_description_in_the_imperative}}`
--   **Description (Template)**: Please choose the `bug_fix` MR template when creating the MR.
-
-### ✨ Enhancements, new features, etc.
-
--   **Title**: `✨ Add #{{issue_number}}: {{very_short_description_in_the_imperative}}`
--   **Description (Template)**: Please choose the `enhancement` MR template when creating the MR.
+Pick the right template when creating your MR:
+- `bug_fix` for fixes
+- `enhancement` for new features

@@ -1,53 +1,43 @@
-## 🗒️ Summary
+## What's wrong?
 
-(_Summarize the bug encountered concisely. "X happens"_)
-
----
-
-## 🐛 What is the current bug behavior?
-
-(_What actually happens. "When W, then X"_)
+<!-- Brief summary of the bug -->
 
 ---
 
-## 🟢 What is the expected correct behavior?
+## Current behavior
 
-(_What you should see instead. "When W, then 42"_)
-
----
-
-## 📋 Steps to reproduce
-
-(_How one can reproduce the issue - this is very important. Please use a numbered list_)
-
-1. Step 1
-2. Step 2
-3. Step 3
-
-...
+<!-- What actually happens -->
 
 ---
 
-## 📜 Relevant logs and/or screenshots
+## Expected behavior
 
-(_Paste any relevant logs - please use code blocks (```) to format console output, logs, etc. as it's very hard to read otherwise._)
+<!-- What should happen instead -->
 
-(_for example_:
+---
+
+## Steps to reproduce
+
+1.
+2.
+3.
+
+---
+
+## Logs/Screenshots
+
+<!-- Use code blocks for logs -->
 
 ```
-Error: something went wrong
+paste logs here
 ```
 
-)
-
 ---
 
-## ⛳ Possible fixes
+## Possible fix
 
-(_Optional: If you have an idea of how to fix this, link to the code or describe the solution_)
+<!-- Optional: Got an idea how to fix it? Share it here -->
 
 ---
-
-(_Automatically adds the bug label for easier tracking_)
 
 /label ~bug

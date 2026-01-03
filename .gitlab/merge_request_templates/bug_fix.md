@@ -1,9 +1,29 @@
-## 📝 Summary
+**Fixes:** #
 
-(_Summarize the bug fix being implemented concisely. "By accepting this MR, you fix X issue."_)
+<!-- What bug does this fix and how? -->
 
 ---
 
-(_Automatically adds the bug label for easier tracking_)
+## Tests
+
+- [ ] Wrote failing tests first
+- [ ] Tests now pass
+- [ ] No regressions
+
+---
+
+## How to verify
+
+1.
+2.
+
+---
+
+## Breaking changes?
+
+- [ ] Yes (explain below)
+- [ ] No
+
+---
 
 /label ~bug

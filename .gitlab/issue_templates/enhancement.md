@@ -1,34 +1,30 @@
-## 🗒️ Summary
+## What should we add?
 
-(_Summarize the enhancement you'd like to see implemented concisely. "Add X functionality"_)
-
----
-
-## 🔍 What problem does this enhancement solve?
-
-(_Describe the problem this enhancement would address. "Currently, Y is a limitation, and adding X would solve it"_)
+<!-- Brief summary of the enhancement -->
 
 ---
 
-## 🎯 What is the proposed solution?
+## Problem it solves
 
-(_Describe how you envision this enhancement being implemented. "Add a new method for Z"_)
-
----
-
-## 🚀 Why is this enhancement valuable to the product?
-
-(_Explain why this enhancement would improve the product. "This would make the process faster, reduce errors, etc."_)
+<!-- What limitation or pain point does this address? -->
 
 ---
 
-## 📋 Steps to use the feature (if the enhancement is indeed a feature)
+## Proposed solution
 
-(_How will users interact with this feature? Describe the user journey or interface interactions.
-For bonus points, use a user story format, and add a
-[sequence diagram](https://mermaid.js.org/syntax/sequenceDiagram.html) or [flowchart](https://mermaid.js.org/syntax/flowchart.html)_)
+<!-- How should this work? -->
 
-(_For example_:
+---
+
+## Why it's valuable
+
+<!-- Why would this improve the project? -->
+
+---
+
+## Usage (if applicable)
+
+<!-- How would users interact with this? Add diagrams if helpful -->
 
 ```mermaid
 sequenceDiagram
@@ -38,16 +34,12 @@ sequenceDiagram
     API->>Client: {"now": "2024-06-14T18:25:46.835Z"} (responds with time)
 ```
 
-)
-
 ---
 
-## 📜 Additional details, mockups, or screenshots
+## Additional context
 
-(_If applicable, attach any additional context, mockups, or screenshots that help explain the enhancement_)
+<!-- Mockups, screenshots, references, etc. -->
 
 ---
-
-(_Automatically adds the enhancement label for easier tracking_)
 
 /label ~enhancement
