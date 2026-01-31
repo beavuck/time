@@ -3,7 +3,7 @@
 stages:
   - secure
   - test
-  - update
+  - upgrade
   - build
   - deploy
 
@@ -50,11 +50,11 @@ include:
 
   - component: "$CI_SERVER_FQDN/beavuck-services/ci-cd-catalog/command-runner/command-runner@main"
     inputs:
-      job_name: "update"
-      stage_config: "update"
-      branch_name: "chore/update-dependencies"
-      command: "npm run update-dependencies && npm run up-patch"
-      commit_message: "⚙️ Update dependencies automatically"
+      job_name: "upgrade"
+      stage_config: "upgrade"
+      branch_name: "chore/upgrade-dependencies"
+      command: "npm run upgrade-dependencies && npm run up-patch"
+      commit_message: "⚙️ Upgrade dependencies automatically"
       image: "$IMAGE"
       script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
       consecutive_command_commits_allowed: true
@@ -71,7 +71,7 @@ find_secrets:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != 'schedule'"
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
-update:
+upgrade:
   rules:
     - if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"
 

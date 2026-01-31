@@ -66,7 +66,7 @@ version.
 
 When the time comes to go to production, to protect yourself from surprise breaking changes, you should instead point to
 specific minor version tags, such as `beavuck/time:2.0` : those will not get breaking changes, but they will get
-security updates and bug fixes while they're active.
+security upgrades and bug fixes while they're active.
 
 ---
 
