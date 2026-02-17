@@ -1,21 +1,19 @@
-FROM node:krypton-alpine
+FROM dhi.io/node:24-alpine3.23-dev AS builder
 
 WORKDIR /usr/src/app
 
 COPY package*.json tsconfig.json tsoa.json ./
 COPY src ./src
-COPY .env ./.env
 
-RUN npm install --ignore-scripts -g npm@latest \
-&& npm ci --ignore-scripts \
-&& npm run build \
-&& apk add --no-cache shadow \
-&& groupadd -r appgroup \
-&& useradd -r -g appgroup appuser \
-&& chown -R appuser:appgroup /usr/src/app \
-&& npm uninstall -g npm
+RUN npm ci --ignore-scripts && npm run build
 
-USER appuser
+FROM dhi.io/node:24-alpine3.23
+
+WORKDIR /usr/src/app
+
+COPY --from=builder --chown=node:node /usr/src/app/build ./build
+COPY --from=builder --chown=node:node /usr/src/app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /usr/src/app/package.json ./
 
 EXPOSE 3000
 

@@ -8,12 +8,6 @@ import {CorsError} from '../../errors/corsError'
 import {StatusCodes} from 'http-status-codes'
 import {logger} from '../../config/logger'
 import {ValidateError} from 'tsoa'
-import dotenvx from '@dotenvx/dotenvx'
-
-dotenvx.config({
-  path: '.env.test',
-  ignore: ['MISSING_ENV_FILE'],
-})
 
 jest.mock('../../config/logger')
 

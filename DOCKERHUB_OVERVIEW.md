@@ -65,7 +65,7 @@ projects. On Docker Hub, while you're developing, you should use the `beavuck/ti
 version.
 
 When the time comes to go to production, to protect yourself from surprise breaking changes, you should instead point to
-specific minor version tags, such as `beavuck/time:2.0` : those will not get breaking changes, but they will get
+specific minor version tags, such as `beavuck/time:3.0` : those will not get breaking changes, but they will get
 security upgrades and bug fixes while they're active.
 
 ---
@@ -73,6 +73,8 @@ security upgrades and bug fixes while they're active.
 ## ⚙️ Usage
 
 ### 🪧 Set up (docker-compose example)
+
+> **Note:** The Docker image does not include a `.env` file. All configuration must be passed via environment variables at runtime.
 
 To run the service in a docker-compose environment, add this in your `docker-compose.yml`'s services section:
 

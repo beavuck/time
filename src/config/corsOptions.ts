@@ -4,27 +4,13 @@ import {CorsOptions} from 'cors'
 import {CorsError} from '../errors/corsError'
 import {isSameOrigin, tryParseUrl} from '../utils/urlUtil'
 import {StatusCodes} from 'http-status-codes'
-import dotenvx from '@dotenvx/dotenvx'
-
-// Load environment variables from .env file, if available
-// but don't error if the file is missing
-dotenvx.config({
-  ignore: ['MISSING_ENV_FILE'],
-})
 
 export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],
   optionsSuccessStatus: StatusCodes.OK,
-  origin: (
-    origin: string | undefined,
-    callback: (err: Error | null, allow?: boolean) => void,
-  ): void => {
-    if (
-      isAllTrusted() ||
-      isSameOrigin(getHostUrl(), tryParseUrl(origin)) ||
-      isOriginAbsentOrTrusted(origin)
-    ) {
-      // eslint-disable-next-line no-restricted-syntax
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void => {
+    if (isAllTrusted() || isSameOrigin(getHostUrl(), tryParseUrl(origin)) || isOriginAbsentOrTrusted(origin)) {
+      // eslint-disable-next-line no-restricted-syntax -- the http external library expects null
       callback(null, true)
     } else {
       callback(new CorsError(origin), false)

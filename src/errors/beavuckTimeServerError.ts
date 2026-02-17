@@ -11,8 +11,6 @@ export class BeavuckTimeServerError extends BeavuckTimeError {
   }
 
   static fromError(error: Error): BeavuckTimeServerError {
-    return error instanceof BeavuckTimeServerError ? error : (
-        new BeavuckTimeServerError(error.message)
-      )
+    return error instanceof BeavuckTimeServerError ? error : new BeavuckTimeServerError(error.message)
   }
 }

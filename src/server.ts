@@ -5,14 +5,13 @@
 import {api} from './api'
 import {logger} from './config/logger'
 import {tryParseUrl} from './utils/urlUtil'
-import dotenvx from '@dotenvx/dotenvx'
 import http from 'node:http'
 
-// Load environment variables from .env file, if available
-// but don't error if the file is missing
-dotenvx.config({
-  ignore: ['MISSING_ENV_FILE'],
-})
+try {
+  process.loadEnvFile()
+} catch {
+  // .env file is optional
+}
 
 export function startServer(options: ServerOptions = {}): http.Server {
   manageEnvVars(options)
@@ -64,15 +63,13 @@ type ServerOptions = {
 function manageEnvVars(options: ServerOptions) {
   logger.info('serverOptions: ' + JSON.stringify(options))
 
-  process.env.BEAVUCK_TIME_API_PORT =
-    options.apiPort === undefined ? '3000' : String(options.apiPort)
+  process.env.BEAVUCK_TIME_API_PORT = options.apiPort === undefined ? '3000' : String(options.apiPort)
   logger.debug('API_PORT: ' + process.env.BEAVUCK_TIME_API_PORT)
 
   process.env.BEAVUCK_TIME_HOST_URL = options.hostUrl ?? process.env.BEAVUCK_TIME_HOST_URL
   logger.debug('HOST_URL: ' + process.env.BEAVUCK_TIME_HOST_URL)
 
-  process.env.BEAVUCK_TIME_TRUSTED_ORIGINS =
-    options.trustedOrigins ?? process.env.BEAVUCK_TIME_TRUSTED_ORIGINS
+  process.env.BEAVUCK_TIME_TRUSTED_ORIGINS = options.trustedOrigins ?? process.env.BEAVUCK_TIME_TRUSTED_ORIGINS
   logger.debug('TRUSTED_ORIGINS: ' + process.env.BEAVUCK_TIME_TRUSTED_ORIGINS)
 
   validateEnv()

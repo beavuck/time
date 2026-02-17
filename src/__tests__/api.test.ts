@@ -2,12 +2,6 @@ import request from 'supertest'
 import {api} from '../api'
 import {StatusCodes} from 'http-status-codes'
 import {RFC_3339_FORMAT} from '../types/isoTimestamp'
-import dotenvx from '@dotenvx/dotenvx'
-
-dotenvx.config({
-  path: '.env.test',
-  ignore: ['MISSING_ENV_FILE'],
-})
 
 function getSomeTrustedOrigin(): string {
   return process.env.BEAVUCK_TIME_TRUSTED_ORIGINS?.split(',')[0] ?? ''

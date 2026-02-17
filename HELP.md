@@ -11,10 +11,6 @@ npm install
 npm run go
 ```
 
-### Managing environment variables
-
-Test environment variables are encrypted. Check out https://dotenvx.com/docs/quickstart to manage them if needed
-
 ### Using the service
 
 When you run:

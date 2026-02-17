@@ -10,8 +10,8 @@ stages:
 ########~~~~-- Variables & defaults --~~~~########
 
 variables:
-  IMAGE: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/node:lts-krypton"
-  SCRIPT_TO_INSTALL_DEPS: "apt-get update && apt-get install -y git bash curl jq && npm install -g npm@latest && npm ci"
+  IMAGE: "dhi.io/node:24-alpine3.23-dev"
+  SCRIPT_TO_INSTALL_DEPS: "apk add --no-cache git bash curl jq && npm ci"
 
 default:
   image: $IMAGE
@@ -67,7 +67,7 @@ include:
       publish_to_dockerhub: true
 
 find_secrets:
-  rules: 
+  rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != 'schedule'"
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
@@ -76,7 +76,7 @@ upgrade:
     - if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"
 
 format:
-  rules: 
+  rules:
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
 
 publish_to_docker:
@@ -89,9 +89,9 @@ publish_to_docker:
 run_integration_tests:
   stage: test
   variables:
-    API_PORT: 3000
-    HOST_URL: http://localhost:3000
-    TRUSTED_ORIGINS: http://localhost:8477
+    BEAVUCK_TIME_API_PORT: 3000
+    BEAVUCK_TIME_HOST_URL: http://localhost:3000
+    BEAVUCK_TIME_TRUSTED_ORIGINS: http://localhost:8477
   before_script:
     - npm install -g npm@latest
     - npm ci

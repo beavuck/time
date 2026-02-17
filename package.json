@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "2.5.4",
+  "version": "3.0.0",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -33,7 +33,7 @@
     "beavuck-time": "build/server.js"
   },
   "scripts": {
-    "run-integration-tests": "cd api-tests/bruno && npm install -g @usebruno/cli && bru run --env local --bail",
+    "run-integration-tests": "cd api-tests/bruno && npx --yes @usebruno/cli run --env local --bail",
     "up-patch": "npm version patch --no-git-tag-version",
     "up-minor": "npm version minor --no-git-tag-version",
     "up-major": "npm version major --no-git-tag-version",
@@ -43,13 +43,12 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write src/ --log-level warn",
     "clean": "npm run lint && npm run typecheck && npm run format",
-    "test": "DOTENV_CONFIG_PATH=./.env.test jest --coverage",
+    "test": "node --env-file=.env.test node_modules/.bin/jest --coverage",
     "build": "tsoa spec-and-routes && tsc",
     "start": "node build/server.js",
     "go": "rm -rf build && npm install && npm run build && npm run clean && npm run test && npm run start"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.52.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
@@ -76,15 +75,15 @@
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.55.0"
+    "typescript-eslint": "^8.56.0"
   },
   "engines": {
-    "node": ">=18.20.8"
+    "node": ">=20.12.0"
   },
   "prettier": {
     "experimentalTernaries": true,
     "semi": false,
-    "printWidth": 96,
+    "printWidth": 120,
     "tabWidth": 2,
     "useTabs": false,
     "singleQuote": true,

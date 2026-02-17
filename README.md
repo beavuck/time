@@ -68,7 +68,7 @@ projects. On Docker Hub, while you're developing, you should use the `beavuck/ti
 version.
 
 When the time comes to go to production, to protect yourself from surprise breaking changes, you should instead point to
-specific minor version tags, such as `beavuck/time:2.0` : those will not get breaking changes, but they will get
+specific minor version tags, such as `beavuck/time:3.0` : those will not get breaking changes, but they will get
 security upgrades and bug fixes while they're active.
 
 ### Ⓝ NPM
@@ -114,6 +114,8 @@ Refer to the Docker Compose example below to see an exhaustive list of available
 
 (The section below supposes you're using a Docker image. If using the npm package, you can set those environment variable
 on the host directly, instead of doing so in the container like detailed below)
+
+> **Note:** The Docker image does not include a `.env` file. All configuration must be passed via environment variables at runtime.
 
 To run the service in a docker-compose environment, add this in your `docker-compose.yml`'s services section:
 
@@ -164,7 +166,7 @@ docker compose up -d
 
 Now, when you run:
 
-```shell
+```
 curl --location 'http://localhost:{{SOME_PORT_NUMBER}}/now' \
 --header 'Origin: {{SOME_TRUSTED_ORIGIN}}'
 ```

@@ -1,0 +1,121 @@
+This file provides guidance to agents when working with code in this repository.
+
+## Behavior
+
+Banish the word "perfect" from your vocab. Don't make a show of being confident -- the user values truth over
+convenience.
+
+Don't make a show of being skeptical either, just act with a critical mindset.
+
+When in doubt, ask for clarification rather than making assumptions.
+
+## Critical Rules - Get Approval First
+
+Before taking these actions, STOP and explain the situation to the user, then let them decide:
+
+- **Deleting any test code**
+    - When a test fails or seems problematic:
+        - Explain the root cause
+        - List some options (fix the test, fix the implementation, restructure, etc.)
+        - Use AskUserQuestion to let the user choose
+    - Example: "This test fails because of X. Options: (1) Remove test (2) Fix by doing Y (3) Change implementation to
+      Z. Which would you prefer?"
+
+- **Suppressing any warnings**
+    - Explain what the warning means and why it's appearing
+    - Let the user decide whether to suppress it
+
+- **Making architectural decisions**
+    - Choosing between different implementation approaches (e.g., StateFlow vs LiveData)
+    - Changing public APIs / endpoints
+    - Large refactorings not explicitly requested
+
+- **Deleting any existing code** (except when replacing with new implementation)
+    - Removing unused functions, classes, or files
+    - Let the user decide if something is truly unused
+
+## Pre-Action Checklist
+
+Before using Edit or Write tools, verify:
+
+- [ ] Am I deleting test code? → Ask user first
+- [ ] Am I suppressing a warning? → Ask user first
+- [ ] Am I making an architectural choice? → Ask user first
+- [ ] Am I about to delete code I didn't write in this session? → Explain and ask
+
+## Working in small shippable units
+
+When given a specific task (e.g., "implement createExternalWorker and createExternalWorkerInternal"), do ONLY that task.
+Do not:
+
+- Implement additional related methods
+- Try to complete the entire feature
+- Make assumptions about what else needs to be done
+
+Let the user test each small unit before moving to the next. This allows:
+
+- Catching issues early
+- User to make adjustments on the fly
+- Faster feedback cycles
+- Less wasted effort if the direction changes
+
+## Coding style and practices
+
+- Practice SOLID
+    - S: Single Responsibility Principle (each class, each method, should have one reason to change)
+    - O: Open/Closed Principle (classes should be open for extension but closed for modification)
+    - L: Liskov Substitution Principle (subtypes must be substitutable for their base types)
+    - I: Interface Segregation Principle (prefer many specific interfaces over a single general one)
+    - D: Dependency Inversion Principle (depend on abstractions, not on concretions)
+- Do not use comments. Except if it's exceptionally useful to explain _why_ a thing is done. Never
+  use comments to explain _what_ is done -- the code should read clearly on its own.
+- Don't repeat yourself. If two bits of code look alike but are bound to evolve in different ways,
+  fair enough, but apart from that, duplicating code or logic should be banned.
+- Practice TDD: Write failing tests first. Then write code to make them pass. But don't test for
+  specific behavior within a method -- test for the observable effects of that behavior. Input in,
+  output out.
+    - Write unit tests for all core logic. Use Integration tests for cross-cutting concerns. API tests via
+      Bruno / bru can also be useful for that.
+- Use meaningful names. Choose clear and descriptive names for variables, functions, classes, and
+  modules.
+- Perform minimal changes necessary to implement features or fix bugs. Avoid large refactorings
+  unless asked for.
+- Never suppress any warnings -- let a human do so if they deem it necessary.
+- Ensure you use no deprecated methods, APIs, or libraries.
+- Follow TypeScript coding conventions and Node.js best practices.
+- Favor immutability. Use `const` over `let` unless mutability is strictly necessary.
+- Never use 'null' in TypeScript: undefined is much better suited for modern uses.
+- Favor composition over inheritance.
+
+## Project overview
+
+**beavuck-time** — a lightweight Node.js microservice that returns the current UTC time in ISO 8601 format. Single endpoint, minimal surface area.
+
+## Tech stack
+
+- TypeScript (CommonJS, strict mode), Express 5, tsoa (controller routing + OpenAPI spec generation)
+- winston for logging (`console.*` is banned by ESLint)
+- `null` is banned by ESLint — use `undefined`
+- ESLint 9 flat config + Prettier
+- Env vars prefixed `BEAVUCK_TIME_`
+
+## Source layout
+
+- `src/server.ts` — entry point
+- `src/api.ts` — Express app assembly
+- `src/controllers/` — tsoa controllers
+- `src/services/` — business logic
+- `src/models/`, `src/types/` — domain models and types
+- `src/errors/` — custom error hierarchy
+- `src/middlewares/` — CORS, rate limiter, error handler, 404
+- `src/routes/routes.ts` — **auto-generated by tsoa, do not edit**
+- `openapi/` — **auto-generated OpenAPI spec, do not edit**
+- `src/__tests__/` — Jest unit tests
+- `api-tests/bruno/` — Bruno integration tests
+
+## Key commands
+
+- `npm run build` — generate tsoa routes/spec then compile
+- `npm run clean` — lint + typecheck + format
+- `npm test` — unit tests (uses `.env.test`)
+- `npm run run-integration-tests` — Bruno integration tests against a live server

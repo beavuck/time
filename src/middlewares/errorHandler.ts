@@ -9,12 +9,7 @@ import {ValidateError} from 'tsoa'
 import {BeavuckTimeError} from '../errors/base/beavuckTimeError'
 import {ErrorResponse} from '../errors/errorResponse'
 
-export const errorHandler = (
-  err: unknown,
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction,
-) => {
+export const errorHandler = (err: unknown, req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (err instanceof ValidateError) {
     const logMsg = `Validation error on ${req.path}: ${err.fields}`
     const resStatus = StatusCodes.UNPROCESSABLE_ENTITY
