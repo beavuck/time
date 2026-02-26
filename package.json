@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -63,19 +63,19 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.3.0",
-    "@types/supertest": "^6.0.3",
-    "eslint": "^10.0.1",
+    "@types/node": "^25.3.2",
+    "@types/supertest": "^7.2.0",
+    "eslint": "^10.0.2",
     "globals": "^17.3.0",
     "jest": "^30.2.0",
     "nodemon": "^3.1.14",
-    "npm-check-updates": "^19.4.1",
+    "npm-check-updates": "^19.6.2",
     "prettier": "3.8.1",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.0"
+    "typescript-eslint": "^8.56.1"
   },
   "engines": {
     "node": ">=20.12.0"
