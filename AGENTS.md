@@ -1,5 +1,3 @@
-This file provides guidance to agents when working with code in this repository.
-
 ## Behavior
 
 Banish the word "perfect" from your vocab. Don't make a show of being confident -- the user values truth over
@@ -45,8 +43,7 @@ Before using Edit or Write tools, verify:
 
 ## Working in small shippable units
 
-When given a specific task (e.g., "implement createExternalWorker and createExternalWorkerInternal"), do ONLY that task.
-Do not:
+When given a specific task, do only that task. Do not:
 
 - Implement additional related methods
 - Try to complete the entire feature
@@ -82,10 +79,10 @@ Let the user test each small unit before moving to the next. This allows:
   unless asked for.
 - Never suppress any warnings -- let a human do so if they deem it necessary.
 - Ensure you use no deprecated methods, APIs, or libraries.
-- Follow TypeScript coding conventions and Node.js best practices.
-- Favor immutability. Use `const` over `let` unless mutability is strictly necessary.
-- Never use 'null' in TypeScript: undefined is much better suited for modern uses.
+- Favor immutability.
 - Favor composition over inheritance.
+- Follow TypeScript coding conventions and Node.js best practices.
+- Never use 'null' in TypeScript: undefined is much better suited for modern uses.
 
 ## Project overview
 
