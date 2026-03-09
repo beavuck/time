@@ -73,7 +73,7 @@ find_secrets:
 
 upgrade:
   rules:
-    - if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPDATE == 'true'"
+    - if: "$CI_PIPELINE_SOURCE == 'schedule' && $IS_UPGRADE == 'true'"
 
 format:
   rules:
