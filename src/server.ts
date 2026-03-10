@@ -34,7 +34,7 @@ export function startServer(options: ServerOptions = {}): http.Server {
                             Y88b. 888888  888  888Y8b.     
                              "Y888888888  888  888 "Y8888  
                                
- Beavuck Time microservice started successfully
+ Beavuck Time started successfully
 
  Ready on port ${process.env.BEAVUCK_TIME_API_PORT} (if this is running in a container, this port number is internal to the container)
       `,
