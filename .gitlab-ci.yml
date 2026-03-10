@@ -161,14 +161,18 @@ publish_to_npm:
 release:
   stage: deploy
   image: registry.gitlab.com/gitlab-org/release-cli:latest
-  script:
-    - |
-      release-cli create \
-        --name "$CI_COMMIT_TAG" \
-        --description "Details: https://${CI_SERVER_FQDN}/beavuck-services/time/-/network/main?ref_type=heads" \
-        --tag-name "$CI_COMMIT_TAG" \
-        --assets-link '{"name":"docker-image","url":"https://hub.docker.com/repository/docker/beavuck/time/tags?name='"${CI_COMMIT_TAG}"'","link_type":"image"}' \
-        --assets-link '{"name":"npm-package","url":"https://www.npmjs.com/package/beavuck-time/v/'"${CI_COMMIT_TAG}"'","link_type":"package"}'
+  release:
+    name: "$CI_COMMIT_TAG"
+    tag_name: "$CI_COMMIT_TAG"
+    description: "Details: https://${CI_SERVER_FQDN}/beavuck-services/time/-/network/main?ref_type=heads"
+    assets:
+      links:
+        - name: "docker-image"
+          url: "https://hub.docker.com/repository/docker/beavuck/time/tags?name=${CI_COMMIT_TAG}"
+          link_type: image
+        - name: "npm-package"
+          url: "https://www.npmjs.com/package/beavuck-time/v/${CI_COMMIT_TAG}"
+          link_type: package
   rules:
     - if: "$CI_COMMIT_TAG"
       needs: [ publish_to_docker, publish_to_npm ]

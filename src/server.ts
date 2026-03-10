@@ -25,10 +25,18 @@ export function startServer(options: ServerOptions = {}): http.Server {
 | |_) |  __/ (_| |\\ V /| |_| | (__|   <             ,==.,"    ,          , \\,===""
 |_.__/ \\___|\\__,_| \\_/  \\__,_|\\___|_|\\_\\          <     ,==)  \\"'"=._.==)  \\
                                                     \`==''    \`"           \`"
-
+                            888   d8b                      
+                            888   Y8P                      
+                            888                            
+                            88888888888888b.d88b.  .d88b.  
+                            888   888888 "888 "88bd8P  Y8b 
+                            888   888888  888  88888888888 
+                            Y88b. 888888  888  888Y8b.     
+                             "Y888888888  888  888 "Y8888  
+                               
  Beavuck Time microservice started successfully
 
- Ready on API port ${process.env.BEAVUCK_TIME_API_PORT} (if this is running in a container, this port number is internal to the container)
+ Ready on port ${process.env.BEAVUCK_TIME_API_PORT} (if this is running in a container, this port number is internal to the container)
       `,
     )
   })
