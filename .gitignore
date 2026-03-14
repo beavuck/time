@@ -79,3 +79,24 @@ Thumbs.db
 
 # GitGuardian
 .cache_ggshield
+
+# Misc
+/.bash_profile
+/.bashrc
+/.gitconfig
+/.gitmodules
+/.mcp.json
+/.profile
+/.ripgreprc
+/.vscode
+/.zprofile
+/.zshrc
+/.claude/agents
+/.claude/commands
+/config
+/HEAD
+/hooks
+/objects
+/refs
+/.claude/settings.json
+/.claude/skills
