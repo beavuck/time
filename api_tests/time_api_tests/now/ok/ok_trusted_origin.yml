@@ -1,0 +1,34 @@
+info:
+  name: ok_trusted_origin
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{BASE_URL}}/now"
+  headers:
+    - name: Origin
+      value: "{{TRUSTED_ORIGIN}}"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: isDefined
+    - expression: res.body.now
+      operator: isDefined
+    - expression: res.body.now
+      operator: matches
+      value: "{{RFC_3339_REGEX}}"
+    - expression: res.responseTime
+      operator: lt
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -2,9 +2,12 @@
 
 import {URL} from 'node:url'
 import {logger} from '../config/logger'
+import {sanitizeForLog} from './stringUtil'
 
 export function isSameOrigin(thisUrl?: URL, thatUrl?: URL): boolean {
-  logger.debug(`Comparing origins: ${thisUrl?.origin} and ${thatUrl?.origin}`)
+  logger.debug(
+    `Comparing origins: ${thisUrl?.origin ? sanitizeForLog(thisUrl?.origin) : undefined} and ${thatUrl?.origin ? sanitizeForLog(thatUrl?.origin) : undefined}`,
+  )
   if (!thisUrl || !thatUrl) {
     return false
   }
@@ -27,7 +30,7 @@ export function tryParseUrl(urlString?: string): URL | undefined {
   try {
     return new URL(urlString)
   } catch (error: unknown) {
-    logger.warn(`Invalid URL string: ${urlString} (${error})`)
+    logger.warn(`Invalid URL string: ${sanitizeForLog(urlString)} (${error})`)
   }
   return undefined
 }

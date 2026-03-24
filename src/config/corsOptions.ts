@@ -9,7 +9,7 @@ export const corsOptions: CorsOptions = {
   methods: ['GET', 'OPTIONS'],
   optionsSuccessStatus: StatusCodes.OK,
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void => {
-    if (isAllTrusted() || isSameOrigin(getHostUrl(), tryParseUrl(origin)) || isOriginAbsentOrTrusted(origin)) {
+    if (!origin || isAllTrusted() || isSameOrigin(getHostUrl(), tryParseUrl(origin)) || isOriginTrusted(origin)) {
       // eslint-disable-next-line no-restricted-syntax -- the http external library expects null
       callback(null, true)
     } else {
@@ -51,10 +51,23 @@ export function isAllTrusted(): boolean {
   return getTrustedOrigins().includes('*')
 }
 
-export function isOriginAbsentOrTrusted(origin?: string): boolean {
-  return (
-    !origin ||
-    getTrustedOrigins().includes(origin) ||
-    getTrustedOrigins().some(to => origin.startsWith(to.replace('/*', '')))
-  )
+export function isOriginTrusted(origin: string): boolean {
+  if (getTrustedOrigins().includes(origin)) {
+    return true
+  }
+
+  return getTrustedOrigins().some(trusted => {
+    const trustedPattern = trusted.replace(/\/\*$/, '')
+    try {
+      const trustedUrl = new URL(trustedPattern)
+      const originUrl = new URL(origin)
+      return (
+        trustedUrl.protocol === originUrl.protocol &&
+        trustedUrl.hostname === originUrl.hostname &&
+        trustedUrl.port === originUrl.port
+      )
+    } catch {
+      return false
+    }
+  })
 }

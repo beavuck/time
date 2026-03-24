@@ -51,15 +51,17 @@ Dockerized for easy deployment and scaling.
 ## 🔍 Where
 
 The code lives on [GitLab](https://gitlab.com/beavuck-services/time),
- the Docker image is hosted on [Docker Hub](https://hub.docker.com/r/beavuck/time),
- and it's also stored as a package on [NPM](https://www.npmjs.com/package/beavuck-time)
+the Docker image is hosted on [Docker Hub](https://hub.docker.com/r/beavuck/time),
+and it's also stored as a package on [NPM](https://www.npmjs.com/package/beavuck-time)
 
 ### 🦊 GitLab
 
-You can find the code on GitLab, where, once you have read the [CONTRIBUTING.md](https://gitlab.com/beavuck-services/time/-/blob/main/CONTRIBUTING.md?ref_type=heads) file, you can also
-create issues and merge requests.
+You can find the code on GitLab, where, once you have read
+the [CONTRIBUTING.md](https://gitlab.com/beavuck-services/time/-/blob/main/CONTRIBUTING.md?ref_type=heads) file, you can
+also create issues and merge requests.
 
-Feel free to fork the repo and make your own changes at will, as per the [UNLICENSE](https://gitlab.com/beavuck-services/time/-/blob/main/UNLICENSE?ref_type=heads).
+Feel free to fork the repo and make your own changes at will, as per
+the [UNLICENSE](https://gitlab.com/beavuck-services/time/-/blob/main/UNLICENSE?ref_type=heads).
 
 ### 🐳 Docker Hub
 
@@ -93,8 +95,9 @@ startServer({
 })
 ```
 
-You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) together with (or instead of) passing an options object. 
-Refer to the Docker Compose example below to see an exhaustive list of available environment variables and what they do.
+You can rely on environment variables (BEAVUCK_TIME_HOST_URL, etc.) together with (or instead of) passing an options
+object. Refer to the Docker Compose example below to see an exhaustive list of available environment variables and what
+they do.
 
 #### CLI
 
@@ -112,48 +115,50 @@ Refer to the Docker Compose example below to see an exhaustive list of available
 
 ### 🪧 Set up (docker-compose example)
 
-(The section below supposes you're using a Docker image. If using the npm package, you can set those environment variable
+(The section below supposes you're using a Docker image. If using the npm package, you can set those environment
+variable
 on the host directly, instead of doing so in the container like detailed below)
 
-> **Note:** The Docker image does not include a `.env` file. All configuration must be passed via environment variables at runtime.
+> **Note:** The Docker image does not include a `.env` file. All configuration must be passed via environment variables
+> at runtime.
 
 To run the service in a docker-compose environment, add this in your `docker-compose.yml`'s services section:
 
 ```yaml
 time:
-    image: beavuck/time:latest
-    ports:
-        - 'SOME_PORT_NUMBER:3000'
-        # HOST_PORT:CONTAINER_PORT (Since we are in a container, CONTAINER_PORT corresponds to the API_PORT variable below)
-    environment:
-        - BEAVUCK_TIME_HOST_URL: https://time-api.example.com
-        # BEAVUCK_TIME_HOST_URL: That API's URL. Essential for CORS config.
-        - BEAVUCK_TIME_TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
-        # BEAVUCK_TIME_TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
-        - BEAVUCK_TIME_API_PORT: 3000
-        # BEAVUCK_TIME_API_PORT: Optional. Internal port when in a container. Defaults to 3000
-        - BEAVUCK_TIME_RATE_LIMIT: -1
-        # BEAVUCK_TIME_RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
-        - BEAVUCK_TIME_LOG_LEVEL: info
-        # BEAVUCK_TIME_LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
-        - BEAVUCK_TIME_MAX_LOG_FILES: 64
-        # BEAVUCK_TIME_MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 64
-        - BEAVUCK_TIME_MAX_SIZE_LOG_FILES: 1m
-        # BEAVUCK_TIME_MAX_SIZE_LOG_FILES: Optional. Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is 1m
+  image: beavuck/time:latest
+  ports:
+    - 'SOME_PORT_NUMBER:3000'
+    # HOST_PORT:CONTAINER_PORT (Since we are in a container, CONTAINER_PORT corresponds to the API_PORT variable below)
+  environment:
+    - BEAVUCK_TIME_HOST_URL: https://time-api.example.com
+    # BEAVUCK_TIME_HOST_URL: That API's URL. Essential for CORS config.
+    - BEAVUCK_TIME_TRUSTED_ORIGINS: https://my.app.com,https://my-other.app.com
+    # BEAVUCK_TIME_TRUSTED_ORIGINS: To allow requests from any origin, include * (not recommended). If empty, will only allow requests from the HOST_URL's origin. Defaults to the HOST_URL's origin
+    - BEAVUCK_TIME_API_PORT: 3000
+    # BEAVUCK_TIME_API_PORT: Optional. Internal port when in a container. Defaults to 3000
+    - BEAVUCK_TIME_RATE_LIMIT: -1
+    # BEAVUCK_TIME_RATE_LIMIT: Optional. Max allowed number of requests per minute for each IP address. If negative or 0, no limit. Defaults to no limit
+    - BEAVUCK_TIME_LOG_LEVEL: info
+    # BEAVUCK_TIME_LOG_LEVEL: Optional. Logging levels include error, warn, info, http, verbose, debug, silly. Defaults to info
+    - BEAVUCK_TIME_MAX_LOG_FILES: 64
+    # BEAVUCK_TIME_MAX_LOG_FILES: Optional. Maximum number of logs to keep. This can be a number of files or number of days. If using days, add 'd' as the suffix. Default is 64
+    - BEAVUCK_TIME_MAX_SIZE_LOG_FILES: 1m
+    # BEAVUCK_TIME_MAX_SIZE_LOG_FILES: Optional. Maximum size of the file after which it will rotate. This can be a number of bytes, or units of kb, mb, and gb. If using the units, add 'k', 'm', or 'g' as the suffix. The units need to directly follow the number. Default is 1m
 ```
 
 Here's the simple docker compose file I used to test this service locally:
 
 ```yaml
 services:
-    time:
-        image: beavuck/time:latest
-        ports:
-            - '3000:3000'
-        environment:
-            BEAVUCK_TIME_HOST_URL: http://127.0.0.1:3000
-            BEAVUCK_TIME_TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
-            BEAVUCK_TIME_LOG_LEVEL: debug
+  time:
+    image: beavuck/time:latest
+    ports:
+      - '3000:3000'
+    environment:
+      BEAVUCK_TIME_HOST_URL: http://127.0.0.1:3000
+      BEAVUCK_TIME_TRUSTED_ORIGINS: http://127.0.0.1:8000,http://localhost:8000
+      BEAVUCK_TIME_LOG_LEVEL: debug
 ```
 
 When you're ready, just run your services with:
@@ -175,7 +180,7 @@ you should expect an answer such as:
 
 ```json
 {
-    "now": "2024-06-15T12:35:48.022Z"
+  "now": "2024-06-15T12:35:48.022Z"
 }
 ```
 
@@ -189,11 +194,11 @@ variable.
 When you use the API, keep in mind what roles these headers play:
 
 | `"Origin:"`                                               | `"Referrer:"`*                 | Result |
-| --------------------------------------------------------- | ------------------------------ | ------ |
-| Defined and API `BEAVUCK_TIME_TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅     |
-| Trusted                                                   | Whatever                       | ✅     |
-| Same as this API's host                                   | Whatever                       | ✅     |
-| Not defined                                               | Same as this API's host        | ✅     |
+|-----------------------------------------------------------|--------------------------------|--------|
+| Defined and API `BEAVUCK_TIME_TRUSTED_ORIGINS` set to `*` | Whatever                       | ✅      |
+| Trusted                                                   | Whatever                       | ✅      |
+| Same as this API's host                                   | Whatever                       | ✅      |
+| Not defined                                               | Same as this API's host        | ✅      |
 | Defined and not trusted                                   | Whatever                       | 🛑     |
 | Not defined                                               | Not defined                    | 🛑     |
 | Not defined or not trusted                                | Different from this API's host | 🛑     |
@@ -213,7 +218,7 @@ knows the current time when it gets the request, but not the creation time of ea
 sequenceDiagram
     participant 📱 Client
     participant 🖥 Core API
-    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
+    📱 Client ->> 🖥 Core API: POST /entities [{...}, {...}, {...}]
 ```
 
 And querying your core API for the current time for each entity is a waste of resources -- that's why you're batching
@@ -223,13 +228,13 @@ the operation in the first place.
 sequenceDiagram
     participant 📱 Client
     participant 🖥 Core API
-    📱 Client->>🖥 Core API: GET /now
-    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
-    📱 Client->>🖥 Core API: GET /now
-    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
-    📱 Client->>🖥 Core API: GET /now
-    🖥 Core API->>📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
-    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
+    📱 Client ->> 🖥 Core API: GET /now
+    🖥 Core API ->> 📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
+    📱 Client ->> 🖥 Core API: GET /now
+    🖥 Core API ->> 📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
+    📱 Client ->> 🖥 Core API: GET /now
+    🖥 Core API ->> 📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
+    📱 Client ->> 🖥 Core API: POST /entities [{...}, {...}, {...}]
 ```
 
 So you can use this service to get the current time whenever you need it, and use that as the creation time for each
@@ -240,13 +245,13 @@ sequenceDiagram
     participant 📱 Client
     participant 🕒 Time
     participant 🖥 Core API
-    📱 Client->>🕒 Time: GET /now
-    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
-    📱 Client->>🕒 Time: GET /now
-    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
-    📱 Client->>🕒 Time: GET /now
-    🕒 Time->>📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
-    📱 Client->>🖥 Core API: POST /entities [{...}, {...}, {...}]
+    📱 Client ->> 🕒 Time: GET /now
+    🕒 Time ->> 📱 Client: {"now": "2024-06-15T12:35:48.022Z"}
+    📱 Client ->> 🕒 Time: GET /now
+    🕒 Time ->> 📱 Client: {"now": "2024-06-15T12:35:49.071Z"}
+    📱 Client ->> 🕒 Time: GET /now
+    🕒 Time ->> 📱 Client: {"now": "2024-06-15T12:35:49.243Z"}
+    📱 Client ->> 🖥 Core API: POST /entities [{...}, {...}, {...}]
 ```
 
 ---
@@ -255,4 +260,5 @@ sequenceDiagram
 
 Have at it.
 
-This project uses the Unlicense. See the [UNLICENSE](https://gitlab.com/beavuck-services/time/-/blob/main/UNLICENSE?ref_type=heads) file for details.
+This project uses the Unlicense. See
+the [UNLICENSE](https://gitlab.com/beavuck-services/time/-/blob/main/UNLICENSE?ref_type=heads) file for details.

@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -33,7 +33,7 @@
     "beavuck-time": "build/server.js"
   },
   "scripts": {
-    "run-integration-tests": "cd api-tests/bruno && npx --yes @usebruno/cli run --env local --bail",
+    "run-integration-tests": "cd api_tests/time_api_tests && npx --yes @usebruno/cli run --env local --bail",
     "up-patch": "npm version patch --no-git-tag-version",
     "up-minor": "npm version minor --no-git-tag-version",
     "up-major": "npm version major --no-git-tag-version",
@@ -54,7 +54,7 @@
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.1",
     "http-status-codes": "^2.3.0",
-    "joi": "^18.0.2",
+    "joi": "^18.1.1",
     "tsoa": "^6.6.0",
     "winston": "^3.19.0",
     "winston-daily-rotate-file": "^5.0.0"
@@ -70,13 +70,13 @@
     "globals": "^17.4.0",
     "jest": "^30.3.0",
     "jest-util": "^30.3.0",
-    "knip": "^6.0.1",
+    "knip": "^6.0.5",
     "npm-check-updates": "^19.6.5",
     "prettier": "3.8.1",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.1"
+    "typescript-eslint": "^8.57.2"
   },
   "engines": {
     "node": ">=20.12.0"

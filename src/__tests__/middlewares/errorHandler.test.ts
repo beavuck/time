@@ -46,7 +46,7 @@ describe('errorHandler', () => {
     errorHandler(err, req, res, next)
     expect(logger.error).toHaveBeenCalledWith(err)
     expect(res.status).toHaveBeenCalledWith(err.code)
-    expect(res.json).toHaveBeenCalledWith({message: `${err.message}`})
+    expect(res.json).toHaveBeenCalledWith({message: BeavuckTimeServerError.baseMessage})
   })
 
   it('should handle non-specific error', () => {
@@ -55,9 +55,7 @@ describe('errorHandler', () => {
     const beavuckError = BeavuckTimeServerError.fromError(err)
     expect(logger.error).toHaveBeenCalledWith(beavuckError)
     expect(res.status).toHaveBeenCalledWith(StatusCodes.INTERNAL_SERVER_ERROR)
-    expect(res.json).toHaveBeenCalledWith({
-      message: `${beavuckError.message}`,
-    })
+    expect(res.json).toHaveBeenCalledWith({message: BeavuckTimeServerError.baseMessage})
   })
 
   it('should call next if no error', () => {

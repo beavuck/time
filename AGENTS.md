@@ -83,3 +83,6 @@ Let the user test each small unit before moving to the next. This allows:
 - Favor composition over inheritance.
 - Follow TypeScript coding conventions and Node.js best practices.
 - Never use 'null' in TypeScript: undefined is much better suited for modern uses.
+- Use contract functions. A contract function only invokes other functions, to execute some important, high level
+  capability. This means the code must be broken out into enough functions that the contract function can be easily read
+  by someone wanting to understand the main steps in executing this functionality.

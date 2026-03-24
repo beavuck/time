@@ -1,0 +1,31 @@
+info:
+  name: nok_no_origin
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{BASE_URL}}/now"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "403"
+    - expression: res.body
+      operator: isDefined
+    - expression: res.body.message
+      operator: isDefined
+    - expression: res.body.message
+      operator: matches
+      value: "{{CORS_REGEX}}"
+    - expression: res.responseTime
+      operator: lt
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

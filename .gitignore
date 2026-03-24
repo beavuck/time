@@ -100,3 +100,4 @@ Thumbs.db
 /refs
 /.claude/settings.json
 /.claude/skills
+/tmp/

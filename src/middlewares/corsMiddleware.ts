@@ -7,20 +7,22 @@ import express from 'express'
 import {logger} from '../config/logger'
 import {BeavuckTimeServerError} from '../errors/beavuckTimeServerError'
 import {corsOptions} from '../config/corsOptions'
+import {sanitizeForLog} from '../utils/stringUtil'
 
 export const corsMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const HOST_URL = tryParseUrl(process.env.BEAVUCK_TIME_HOST_URL ?? '')
+  const origin: string | undefined = req.headers.origin
   // 'referer' is a misspelling that was kept for compatibility: https://en.wikipedia.org/wiki/HTTP_referer
   const referrerHeader: string | undefined = (req.headers.referrer as string) || req.headers.referer
-  if (req.headers.origin) {
-    logger.debug(`CORS request from ${req.headers.origin}`)
+  if (origin) {
+    logger.debug(`CORS request from ${sanitizeForLog(origin)}`)
     cors(corsOptions)(req, res, next)
   } else if (!HOST_URL) {
     next(new BeavuckTimeServerError('Host URL not set'))
   } else if (isSameOrigin(HOST_URL, tryParseUrl(referrerHeader ?? ''))) {
     next()
   } else {
-    const badOriginAndOrReferrer = `origin: ${req.headers.origin}, referrer: ${referrerHeader}`
-    next(new CorsError(badOriginAndOrReferrer))
+    const sanitizedReferrer = referrerHeader === undefined ? undefined : sanitizeForLog(referrerHeader)
+    next(new CorsError(`origin: ${origin}, referrer: ${sanitizedReferrer}`))
   }
 }

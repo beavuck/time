@@ -1,0 +1,34 @@
+info:
+  name: nok_non_recognized_referrer
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{BASE_URL}}/now"
+  headers:
+    - name: Referrer
+      value: "{{NON_RECOGNIZED_REFERRER}}"
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "403"
+    - expression: res.body
+      operator: isDefined
+    - expression: res.body.message
+      operator: isDefined
+    - expression: res.body.message
+      operator: matches
+      value: "{{CORS_REGEX}}"
+    - expression: res.responseTime
+      operator: lt
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

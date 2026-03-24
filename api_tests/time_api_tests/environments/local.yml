@@ -1,0 +1,14 @@
+name: local
+variables:
+  - name: BASE_URL
+    value: "http://localhost:3000"
+  - name: TRUSTED_ORIGIN
+    value: "http://localhost:8477"
+  - name: NON_TRUSTED_ORIGIN
+    value: "http://localhost:9632"
+  - name: NON_RECOGNIZED_REFERRER
+    value: "http://localhost:9236"
+  - name: RFC_3339_REGEX
+    value: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$"
+  - name: CORS_REGEX
+    value: "[cC][oO][rR][sS]"

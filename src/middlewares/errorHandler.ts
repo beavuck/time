@@ -37,7 +37,7 @@ function handleBeavuckClientError(res: express.Response, err: BeavuckTimeClientE
 
 function handleBeavuckServerError(res: express.Response, err: BeavuckTimeServerError) {
   logger.error(err)
-  sendErrorResponse(res, err)
+  res.status(err.code).json({message: BeavuckTimeServerError.baseMessage})
 }
 
 function handleOtherError(
@@ -46,6 +46,10 @@ function handleOtherError(
   resStatus: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR,
   resMsg: ErrorResponse = new ErrorResponse(),
 ) {
-  logger.error(`${logMsg}: ${JSON.stringify(resMsg)}`)
-  res.status(resStatus).json(resMsg)
+  if (resStatus === StatusCodes.INTERNAL_SERVER_ERROR) {
+    handleBeavuckServerError(res, new BeavuckTimeServerError(logMsg))
+  } else {
+    logger.error(`${logMsg}: ${JSON.stringify(resMsg)}`)
+    res.status(resStatus).json(resMsg)
+  }
 }
