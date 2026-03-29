@@ -14,6 +14,7 @@ export default [
     rules: {
       curly: ['error', 'all'],
       '@typescript-eslint/no-explicit-any': 'off',
+      'no-void': 'error',
       'no-restricted-syntax': [
         'error',
         {
