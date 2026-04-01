@@ -13,7 +13,7 @@ module.exports = {
     'src/middlewares/corsMiddleware.ts',
     'src/middlewares/errorHandler.ts',
     'src/middlewares/notFoundHandler.ts',
-    'scr/models/**/*.ts',
+    'src/models/**/*.ts',
     'src/services/**/*.ts',
     'src/types/**/*.ts',
     'src/api.ts',
