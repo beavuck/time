@@ -11,7 +11,7 @@ stages:
 
 variables:
   IMAGE: "dhi.io/node:24-alpine3.23-dev"
-  SCRIPT_TO_INSTALL_DEPS: "apk add --no-cache git bash curl jq && npm ci"
+  SCRIPT_TO_INSTALL_DEPS: "apk add --no-cache git bash curl jq && npm run safe-install:ci"
 
 default:
   image: $IMAGE
@@ -42,7 +42,7 @@ include:
       job_name: "format"
       stage_config: ".pre"
       branch_name: "$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME"
-      command: "npm ci && npm run clean"
+      command: "npm run clean"
       commit_message: "🎨 Format code automatically"
       image: "$IMAGE"
       script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
@@ -53,7 +53,7 @@ include:
       job_name: "upgrade"
       stage_config: "upgrade"
       branch_name: "chore/upgrade-dependencies"
-      command: "npm run upgrade-dependencies && npm run up-patch"
+      command: "npm run upgrade-dependencies:ci && npm run up-patch"
       commit_message: "⚙️ Upgrade dependencies automatically"
       image: "$IMAGE"
       script_to_install_deps: "$SCRIPT_TO_INSTALL_DEPS"
@@ -94,7 +94,7 @@ run_integration_tests:
     BEAVUCK_TIME_TRUSTED_ORIGINS: http://localhost:8477
   before_script:
     - npm install -g npm@latest
-    - npm ci
+    - npm run safe-install:ci
     - npm run build
     - npm start & sleep 10
   script: npm run run-integration-tests
@@ -112,7 +112,9 @@ coverage:
       coverage_report:
         coverage_format: cobertura
         path: coverage/cobertura-coverage.xml
-  before_script: npm install -g npm@latest && npm ci
+  before_script:
+    - npm install -g npm@latest
+    - npm run safe-install:ci
   script: npm run test
   rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != 'schedule'"
@@ -153,7 +155,9 @@ publish_to_npm:
       aud: "npm:registry.npmjs.org"
     SIGSTORE_ID_TOKEN:
       aud: sigstore
-  script: npm install -g npm@latest && npm publish --access public
+  script:
+    - npm install -g npm@latest
+    - npm publish --access public
   rules:
     - if: "$CI_COMMIT_TAG"
       when: manual
