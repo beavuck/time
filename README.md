@@ -2,6 +2,8 @@
 
 [![npm](https://img.shields.io/npm/v/beavuck-time.svg) ![npm](https://img.shields.io/npm/dm/beavuck-time.svg)](https://www.npmjs.com/package/beavuck-time)
 
+[![docker](https://badgen.net/docker/pulls/beavuck/time) ![docker](https://badgen.net/docker/size/beavuck/time)](https://hub.docker.com/repository/docker/beavuck/time)
+
 ## 📊 Status
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=beavuck-services_time)](https://sonarcloud.io/summary/new_code?id=beavuck-services_time)
