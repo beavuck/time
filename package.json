@@ -46,7 +46,7 @@
     "lint": "eslint --fix --cache --cache-location node_modules/.cache/.eslint_cache --report-unused-disable-directives --ignore-pattern .gitignore src/",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write --log-level warn --cache --cache-location node_modules/.cache/.prettier_cache src/",
-    "clean": "npm run lint && npm run typecheck && npm run format",
+    "clean": "node scripts/check-stable-deps.mjs && npm run lint && npm run typecheck && npm run format",
     "test": "node --env-file=.env.test node_modules/.bin/jest --coverage",
     "build": "tsoa spec-and-routes && tsc",
     "start": "node build/server.js",
