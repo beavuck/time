@@ -84,6 +84,18 @@ publish_to_docker:
     - if: "$CI_COMMIT_TAG"
       when: manual
 
+########~~~~-- Job Templates --~~~~########
+
+.install_glab:
+  before_script:
+    - |
+      GLAB_VERSION=$(curl -fsSL "https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases?per_page=1" \
+        | grep -o '"tag_name":"[^"]*"' | head -1 | sed 's/.*:"\(.*\)"/\1/')
+      curl -fsSL "https://gitlab.com/gitlab-org/cli/-/releases/${GLAB_VERSION}/downloads/glab_${GLAB_VERSION#v}_linux_amd64.tar.gz" \
+        -o /tmp/glab.tar.gz
+      tar xzf /tmp/glab.tar.gz -C /tmp/
+      install -m755 /tmp/bin/glab /usr/local/bin/glab
+
 ########~~~~-- Jobs --~~~~########
 
 run_integration_tests:
@@ -164,25 +176,19 @@ publish_to_npm:
 
 release_time:
   stage: deploy
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  image: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/debian:stable-slim"
   before_script:
-    - apk add --no-cache curl git bash
+    - apt update -y && apt install -y curl git
+    - !reference [.install_glab, before_script]
   script:
-    - echo "Creating release for tag $CI_COMMIT_TAG"
     - PREV_TAG=$(git describe --tags --abbrev=0 "${CI_COMMIT_TAG}^")
     - RELEASE_DESCRIPTION=$(bash scripts/list_changes.sh "$PREV_TAG" "$CI_COMMIT_TAG")
-  release:
-    name: "$CI_COMMIT_TAG"
-    tag_name: "$CI_COMMIT_TAG"
-    description: "$RELEASE_DESCRIPTION"
-    assets:
-      links:
-        - name: "docker-image"
-          url: "https://hub.docker.com/repository/docker/beavuck/time/tags?name=${CI_COMMIT_TAG}"
-          link_type: image
-        - name: "npm-package"
-          url: "https://www.npmjs.com/package/beavuck-time/v/${CI_COMMIT_TAG}"
-          link_type: package
+    - |
+      ASSET_LINKS=$(printf '[
+        {"name":"docker-image","url":"https://hub.docker.com/repository/docker/beavuck/time/tags?name=%s","link_type":"image"},
+        {"name":"npm-package","url":"https://www.npmjs.com/package/beavuck-time/v/%s","link_type":"package"}
+      ]' "$CI_COMMIT_TAG" "$CI_COMMIT_TAG")
+    - glab release create "$CI_COMMIT_TAG" --name "$CI_COMMIT_TAG" --notes "$RELEASE_DESCRIPTION" --assets-links "$ASSET_LINKS"
   rules:
     - if: "$CI_COMMIT_TAG"
       needs: [ publish_to_docker, publish_to_npm ]
