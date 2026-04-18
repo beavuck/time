@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -38,7 +38,6 @@
     "up-minor": "npm version minor --no-git-tag-version",
     "up-major": "npm version major --no-git-tag-version",
     "upgrade-dependencies": "ncu --cooldown=7d --format group && ncu -u --cooldown=7d && npm run safe-install && npm prune --verbose && npm run audit",
-    "upgrade-dependencies:ci": "ncu --cooldown=7d --format group && ncu -u --cooldown=7d && npm run safe-install:ci && npm prune --verbose && npm run audit",
     "audit": "npm audit fix --verbose",
     "prepublishOnly": "npm run safe-install && npm run build",
     "safe-install": "npm install --ignore-scripts --allow-git=none --min-release-age=7",
@@ -68,7 +67,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.5.2",
+    "@types/node": "^25.6.0",
     "@types/supertest": "^7.2.0",
     "eslint": "^10.2.0",
     "globals": "^17.4.0",
