@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -55,7 +55,7 @@
     "@tsoa/runtime": "^6.6.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.3.2",
+    "express-rate-limit": "^8.4.1",
     "http-status-codes": "^2.3.0",
     "joi": "^18.1.2",
     "tsoa": "^7.0.0-alpha.0",
