@@ -7,15 +7,10 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"IsoTimestamp": {
-				"type": "string",
-				"format": "date-time",
-				"description": "Stringified date-time in RFC 3339 format (often referred to as ISO 8601 format)\nSee [RFC 3339 section 5.6](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6)"
-			},
 			"Now": {
 				"properties": {
 					"now": {
-						"$ref": "#/components/schemas/IsoTimestamp"
+						"type": "string"
 					}
 				},
 				"required": [
@@ -32,7 +27,7 @@
 	},
 	"info": {
 		"title": "beavuck-time",
-		"version": "3.2.5",
+		"version": "3.2.8",
 		"description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
 		"license": {
 			"name": "Unlicense"

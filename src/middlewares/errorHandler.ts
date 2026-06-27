@@ -8,10 +8,11 @@ import {StatusCodes} from 'http-status-codes'
 import {ValidateError} from 'tsoa'
 import {BeavuckTimeError} from '../errors/base/beavuckTimeError'
 import {ErrorResponse} from '../errors/errorResponse'
+import {sanitizeForLog} from '../utils/stringUtil'
 
 export const errorHandler = (err: unknown, req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (err instanceof ValidateError) {
-    const logMsg = `Validation error on ${req.path}: ${err.fields}`
+    const logMsg = `Validation error on ${req.path}: ${JSON.stringify(err.fields)}`
     const resStatus = StatusCodes.UNPROCESSABLE_ENTITY
     const resMsgObj = {message: 'Validation Error', details: err.fields}
     handleOtherError(res, logMsg, resStatus, resMsgObj)
@@ -49,7 +50,7 @@ function handleOtherError(
   if (resStatus === StatusCodes.INTERNAL_SERVER_ERROR) {
     handleBeavuckServerError(res, new BeavuckTimeServerError(logMsg))
   } else {
-    logger.error(`${logMsg}: ${JSON.stringify(resMsg)}`)
+    logger.error(`${sanitizeForLog(logMsg)}: ${JSON.stringify(resMsg)}`)
     res.status(resStatus).json(resMsg)
   }
 }

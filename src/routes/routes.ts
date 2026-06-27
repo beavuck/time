@@ -10,15 +10,10 @@ import type {Request as ExRequest, Response as ExResponse, RequestHandler, Route
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-  IsoTimestamp: {
-    dataType: 'refAlias',
-    type: {dataType: 'string', validators: {}},
-  },
-  // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
   Now: {
     dataType: 'refObject',
     properties: {
-      now: {ref: 'IsoTimestamp', required: true},
+      now: {dataType: 'string', required: true},
     },
     additionalProperties: false,
   },

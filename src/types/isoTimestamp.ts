@@ -4,5 +4,4 @@
  * @example 2019-08-24T14:15:22Z
  * @format date-time
  */
-export type IsoTimestamp = string
 export const RFC_3339_FORMAT = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/
