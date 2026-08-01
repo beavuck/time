@@ -2,7 +2,9 @@
 
 [![npm](https://img.shields.io/npm/v/beavuck-time.svg) ![npm](https://img.shields.io/npm/dm/beavuck-time.svg)](https://www.npmjs.com/package/beavuck-time)
 
-[![docker](https://badgen.net/docker/pulls/beavuck/time) ![docker](https://badgen.net/docker/size/beavuck/time)](https://hub.docker.com/repository/docker/beavuck/time)
+[![Socket Badge](https://badge.socket.dev/npm/package/beavuck-time)](https://socket.dev/npm/package/beavuck-time)
+
+[![docker](https://badgen.net/docker/pulls/beavuck/time)](https://hub.docker.com/repository/docker/beavuck/time)
 
 ## 📊 Status
 
