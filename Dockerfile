@@ -1,4 +1,4 @@
-FROM dhi.io/node:24-alpine3.23-dev AS builder
+FROM dhi.io/node:24-alpine3.24-dev AS builder
 
 WORKDIR /usr/src/app
 
@@ -7,7 +7,7 @@ COPY src ./src
 
 RUN npm run safe-install:ci && npm run build
 
-FROM dhi.io/node:24-alpine3.23
+FROM dhi.io/node:24-alpine3.24
 
 WORKDIR /usr/src/app
 
