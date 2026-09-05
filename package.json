@@ -1,6 +1,6 @@
 {
   "name": "beavuck-time",
-  "version": "3.2.13",
+  "version": "3.3.0",
   "description": "Get time in ISO format, in UTC timezone, from a simple, lightweight node server",
   "keywords": [
     "time",
@@ -81,7 +81,7 @@
     "typescript-eslint": "^8.68.0"
   },
   "engines": {
-    "node": ">=20.12.0"
+    "node": ">=22"
   },
   "prettier": {
     "experimentalTernaries": true,
