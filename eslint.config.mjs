@@ -3,6 +3,7 @@
 import globals from 'globals'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import pluginImportX from 'eslint-plugin-import-x'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -10,6 +11,13 @@ export default [
   {languageOptions: {globals: globals.node}},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    files: ['src/**/*.{ts,vue}'],
+    plugins: {'import-x': pluginImportX},
+    rules: {
+      'import-x/no-duplicates': 'error',
+    },
+  },
   {
     rules: {
       curly: ['error', 'all'],
@@ -23,10 +31,8 @@ export default [
         },
         'error',
         {
-          selector:
-            ':not(BinaryExpression:matches([operator="!=="], [operator="==="])) > Literal[value="null"]',
-          message:
-            'Usage of "null" is deprecated except when received from legacy APIs. Use "undefined" instead',
+          selector: ':not(BinaryExpression:matches([operator="!=="], [operator="==="])) > Literal[value="null"]',
+          message: 'Usage of "null" is deprecated except when received from legacy APIs. Use "undefined" instead',
         },
       ],
     },
