@@ -10,7 +10,9 @@ stages:
 ########~~~~-- Variables & defaults --~~~~########
 
 variables:
-  IMAGE: "dhi.io/node:24-alpine3.24-dev"
+  NODE_LTS: "26"
+  ALPINE_VERSION: "3.24"
+  IMAGE: "dhi.io/node:${NODE_LTS}-alpine${ALPINE_VERSION}-dev"
   SCRIPT_TO_INSTALL_DEPS: "apk add --no-cache git bash curl jq && npm run safe-install:ci"
 
 default:
@@ -125,6 +127,24 @@ coverage:
     - npm install --ignore-scripts --allow-git=none --min-release-age=10 -g npm@latest
     - npm run safe-install:ci
   script: npm run test
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != 'schedule'"
+    - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
+  needs:
+    - job: find_secrets
+      optional: true
+
+node_compatibility:
+  stage: test
+  image: "dhi.io/node:${NODE_VERSION}-alpine${ALPINE_VERSION}-dev"
+  parallel:
+    matrix:
+      - NODE_VERSION: ["22", "24"]
+  before_script:
+    - npm run safe-install:ci
+  script:
+    - npm run build
+    - npm run test
   rules:
     - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE != 'schedule'"
     - if: "$CI_PIPELINE_SOURCE == 'merge_request_event'"
