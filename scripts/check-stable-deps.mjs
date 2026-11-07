@@ -5,6 +5,7 @@ const { dependencies } = JSON.parse(readFileSync('package.json', 'utf-8'))
 const ALLOWED_UNSTABLE = new Set([
   // 'some-package', // reason why it's allowed
   'tsoa', // v6 has vulns that v7-alpha addresses
+  '@tsoa/runtime', // v6 has vulns that v7-alpha addresses
 ])
 
 const unstable = Object.entries(dependencies)
