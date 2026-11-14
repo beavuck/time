@@ -13,7 +13,7 @@ export class NowController extends Controller {
   @Tags('now')
   @Get()
   @OperationId('getNow')
-  public async getNow(): Promise<Now> {
+  public getNow(): Now {
     return new NowService().get()
   }
 }
