@@ -193,6 +193,8 @@ publish_to_npm:
 release_time:
   stage: deploy
   image: "${CI_DEPENDENCY_PROXY_DIRECT_GROUP_IMAGE_PREFIX}/debian:stable-slim"
+  variables:
+    GLAB_ENABLE_CI_AUTOLOGIN: "true"
   before_script:
     - apt update -y && apt install -y curl git
     - !reference [.install_glab, before_script]
